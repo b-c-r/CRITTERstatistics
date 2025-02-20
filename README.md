@@ -9,8 +9,9 @@ This repository hosts the supplemental statistics report of the upcoming
 publication of Aranbarri et al. (unpublished) investigating the effect
 of habitat complexity on the feeding functional response of two
 freshwater invertebrate predators. Find the full report
-(statisticsReport.pdf) in the main folder of this repository. Find below
-information on related works and the location of the data and code.
+[statisticsReport.pdf](https://github.com/b-c-r/CRITTERstatistics/blob/main/statisticsReport.pdf)
+in the main folder of this repository. Find below information on related
+works and the location of the data and code.
 
 **Note that the report is still under construction!**
 
