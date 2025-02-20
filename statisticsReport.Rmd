@@ -1,0 +1,292 @@
+---
+title: "Habitat complexity and interaction strength of freshwater invertebrates"
+subtitle: "Supplemental Statistics Report"
+author:
+  - Björn C. Rall^[Aquatic Ecology and Evolution Group | Limnological Institute | University of Konstanz | Mainaustraße 252, 78464 Konstanz/Egg, Germany | bjoern.rall@uni-konstanz.de | https://orcid.org/0000-0002-3191-8389]
+  - Mireia Aranbarri^[Laboratory of Stream Ecology | Department of Plant Biology and Ecology | Faculty of Science and Technology | University of the Basque Country | UPV/EHU PO Box 644; 48080 Bilbao, Spain | mireia.arambarri@ehu.eus | https://orcid.org/0009-0001-3506-0914]
+  - Lorea Flores^[INRA | UMR 1224 | Ecologie Comportementale et Biologie des Populations de Poissons | Aquapôle | quartier Ibarron, 64310 Saint-Pée sur Nivelle, France | https://orcid.org/0000-0002-0082-4072]
+  - Ioar de Guzmán^[Laboratory of Stream Ecology | Department of Plant Biology and Ecology | Faculty of Science and Technology | University of the Basque Country | UPV/EHU PO Box 644; 48080 Bilbao, Spain | mirenioar.deguzman@ehu.eus | https://orcid.org/0000-0001-8894-8477]
+  - Aitor Larrañaga^[Laboratory of Stream Ecology | Department of Plant Biology and Ecology | Faculty of Science and Technology | University of the Basque Country | UPV/EHU PO Box 644; 48080 Bilbao, Spain | aitor.larranagaa@ehu.eus | https://orcid.org/0000-0002-0185-9154]
+  - Julia Reiss^[Division of Environmental Sciences, College of Health, Medicine, and Life Sciences (CHMLS), Brunel University London, Uxbridge, UB8 3PH, UK, julia.reiss@brunel.ac.uk, https://orcid.org/0000-0002-3740-0046]
+bibliography: references/CRITTERstatistics.bib
+csl: references/methods-in-ecology-and-evolution.csl
+documentclass: article
+site: bookdown::bookdown_site
+output:
+  bookdown::pdf_document2:
+    toc: false
+    number_sections: false
+date: "`r Sys.Date()`"
+geometry: margin=2cm
+urlcolor: blue
+linkcolor: gray
+---
+
+\newpage
+\thispagestyle{plain}
+
+\mbox{}
+
+\tableofcontents
+
+\newpage
+\thispagestyle{plain}
+
+\mbox{}
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library("dplyr")
+library("foreach")
+```
+
+# Overview
+
+## Summary
+This statistics report is a supplement of the upcoming publication of Aranbarri et al. (unpublished) investigating the effect of habitat complexity on the feeding functional response of two freshwater invertebrate predators. Find below information on related works and the location of the data and code.
+
+**Note that the report is still under construction!**
+
+## License
+
+This report is published under a [**Creative Commons BY 4.0**](https://creativecommons.org/licenses/by/4.0/) license.
+
+## Related Works
+
+-   [Data on Zenodo](https://doi.org/10.5281/zenodo.14891980) [@FloresEtAl2025ComplexityReducesFeedingData]
+
+-   [Data on GitHub](https://github.com/b-c-r/CRITTERdata)
+
+-   [R-Code on Zenodo](https://doi.org/10.5281/zenodo.14894598) [@RallEtAl2025ComplexityReducesFeedingCode]
+
+-   [R-Code on GitHub](https://github.com/b-c-r/CRITTERdata)
+
+-   [Statistical Report on GitHub](https://github.com/b-c-r/CRITTERstatistics)
+
+-   Statistical Report on Zenodo (link tba)
+
+-   Scientific Preprint Paper (link tba)
+
+
+# Methods
+
+## Theoretical Background
+
+The feeding functional response describes how a consumer's feeding rate reacts to its resource density [@Holling1959CharacteristicsSimpleTypes]. The most basic shape of the feeding functional response is a hyperbolic curve, also called the **type II functional response** [@JeschkeEtAl2002PredatorFunctionalResponses]. The attack rate, $a$, controls the initial increase in the feeding rate, $F$, with increasing resource density, $N$ [@Holling1959CharacteristicsSimpleTypes], and the handling time, $T_h$ controls the satiation of the curve:
+
+\begin{equation}
+  \label{eq:hollingTypeII}
+  F = \frac{a N}{(1 + a T_h N)}.
+\end{equation}
+
+If the attack rate is a function of resource density, the functional response becomes s-shaped [@Holling1959ComponentsPredationRevealed; @KalinkatEtAl2023EmpiricalEvidenceType]. In the simplest form of this **type III functional response**, the attack rate is a linear function of resource density [@Juliano2001NonlinearCurveFitting]:
+
+\begin{equation}
+  \label{eq:attackLinear}
+  a = bN,
+\end{equation}
+
+with $b$ being the attack coefficient. The functional response becomes:
+
+\begin{equation}
+  \label{eq:hollingTypeIII}
+  F = \frac{b N^{2}}{(1 + b T_h N^{2})}.
+\end{equation}
+
+[@Real1977KineticsFunctionalResponse; @Real1979EcologicalDeterminantsFunctional] presented an alternative formulation of the functional response inspired by chemical reactions and the Michaelis-Menten kinetics @BarcroftHill1910NatureOxyhaemoglobinNote. By substituting $T_h = \frac{1}{F_{max}}$ and $a = \frac{F_{max}}{N_{half}}$ the **type II functional response** becomes:
+
+\begin{equation}
+  \label{eq:realTypeII}
+  F=\frac{F_{max}N}{N_{half}+N}.
+\end{equation}
+
+Here, the curve’s satiation is controlled by the maximum feeding rate, $F_{max}$, and the half saturation density, $N_{half}$ controls the steepness of the functional response curve. The **type III functional response** written in this style is as follows:
+
+\begin{equation}
+  \label{eq:realTypeIII}
+  F=\frac{F_{max}^{2}N}{N_{half}^{2}+N^{2}}.
+\end{equation}
+
+The above-described **type III functional response** model has a linearly increasing attack rate, but the attack rate can also be a more complex function of resource density [@Juliano2001NonlinearCurveFitting; @KalinkatEtAl2023EmpiricalEvidenceType]. A commonly used version is when the attack rate $a$ is a power law function of the resource density [@WilliamsMartinez2004StabilizationChaoticNonpermanent; @KalinkatEtAl2023EmpiricalEvidenceType]:
+
+\begin{equation}
+  \label{eq:attackPowerLaw}
+  a = b^q.
+\end{equation}
+
+The Holling-style functional response becomes [@Vucic-PesticEtAl2010AllometricFunctionalResponse]:
+
+\begin{equation}
+  \label{eq:hollingGenFR}
+  F = \frac{b N^{1+q}}{(1 + b T_h N^{1+q})},
+\end{equation}
+
+and the Real-style functional response becomes [@WilliamsMartinez2004StabilizationChaoticNonpermanent]:
+
+\begin{equation}
+  \label{eq:realGenFR}
+F=\frac{F_{max}^{1+q}N}{N_{half}^{1+q}+N^{1+q}}.
+\end{equation}
+
+We will refer to these functional response models as Holling/Real **generalized functional response** models. Note that many other functional response models exist, but the ones presented above are most practical and most often used to analyze laboratory functional response experiments [@Juliano2001NonlinearCurveFitting; @JeschkeEtAl2002PredatorFunctionalResponses; @KalinkatEtAl2023EmpiricalEvidenceType]. In our analyses, we will focus on the **generalized functional response** models and, if statistically appropriate, on the **type II or type III functional response**.
+
+## Functional Response Statistics
+
+### Independence of variables
+
+Scientific laboratory experiments are designed to manipulate one or more external variables (the **independent variables**) and record the response of the system (the **dependent variable**). In functional, the main **independent variable** is the resource density, $N$, and the **dependent variable** is the feeding rate, $F$. Commonly used statistical methods (e.g., a linear regression model) require that the **independent variable** must be free of statistical noise (a.k.a. error-free) and fixed (**CITATION NEEDED**). In the case of most laboratory functional response experiments, however, the resource density decays over time due to the process of feeding. This means the independent variable is not independent anymore. To account for the decay of resource density, we set up a differential equation, describing the temporal process:
+
+\begin{equation}
+  \label{eq:ODE}
+  \frac{dN}{dt}= -F.
+\end{equation}
+
+The **change of resource density** ($dN$) over a given **time span** ($dt$) is described by the negative of the feeding rate $F$. $F$ can be any of the functional response models introduced above (or described elsewhere). This differential equation model can not be fitted directly to data, but it needs to be solved beforehand. The solution of this differential equation model depends on the type of the functional response. For a **type II functional response**, the solution is [@Royama1971ComparativeStudyModels; @Rogers1972RandomSearchInsect; @RosenbaumRall2018FittingFunctionalResponses]:
+
+\begin{equation}
+  \label{eq:hollingRRPE}
+  N_{eaten} = N_{inital}(1-e^{a(N_{eaten} T_h - P t)}).
+\end{equation}
+
+The number of resources eaten, $N_{eaten}$ at the time $t$ (e.g., the end of the experiment) depends on the initial number of resources, $N_{initial}$. All other parameters are as described above. This equation is commonly known as **Roger's Random Predator Equation** (RRPE). By substituting $T_h = \frac{1}{F_{max}}$ and $a = \frac{F_{max}}{N_{half}}$ into Roger's Random Predator Equation, we get the version for the Real-style functional response model:
+
+\begin{equation}
+  \label{eq:realRRPE}
+  N_{eaten} = N_{inital}(1-e^{\frac{N_{eaten}}{N_{half}} - \frac{Pt}{F_{max}}}).
+\end{equation}
+
+Model parameters are as described above.
+
+These equations share the issue that $N_{eaten}$ appears on both sides of the equation. Traditionally, this problem is solved using Newton's method, an iterative numerical procedure [@Juliano2001NonlinearCurveFitting; @VoneshBolker2005CompensatoryLarvalResponses], but @Bolker2008EcologicalModelsData found that the Lambert **W** function [@CorlessEtAl1996LambertWFunction] allows for an analytical solution:
+
+\begin{equation}
+  \label{eq:hollingLambertW}
+  N_{eaten} = N_{inital} - \frac{W (a T_h N_{initial} e^{-a (Pt - T_h N_{initial})})}{a T_h}.
+\end{equation}
+
+The Real-style version is:
+
+\begin{equation}
+  \label{eq:realLambertW}
+  N_{eaten} = N_{inital} - \frac{W (\frac{1}{N_{half}} N_{initial} e^{- \frac{F_{max}}{N_{half}} (Pt - \frac{N_{initial}}{F_{max}})})}{\frac{1}{N_{half}}}.
+\end{equation}
+
+All parameters are as described above.
+
+Neither the type III nor the generalized functional response can be solved analytically and must be solved using numerical simulations [@RosenbaumRall2018FittingFunctionalResponses]. We follow the methods published by @RosenbaumRall2018FittingFunctionalResponses, but find more details in the section "Brief Code Description" below.
+
+### Data Distribution
+
+So far, we described the mathematical model describing the average number of resources eaten throughout the experimental trials. Each experimentally derived replicate, however, can deviate from this overall model mean. Our dependent data, $N_{eaten}$, has the following characteristics: integer numbers (0, 1, 2,…, n), and the number of prey eaten cannot exceed the number of initially available resource items ($N_{initial}$). Data following these characteristics are known as proportion data and well described by a binomial probability distribution; see @Crawley2012Book chapter 16 for example. We also apply this distribution to our data, as it is commonly used for functional response fitting [@Bolker2008EcologicalModelsData; @RosenbaumRall2018FittingFunctionalResponses]. Please read the "Brief Code Description" section and the code itself for further details.
+
+### Functional Response Type Selection
+
+First, we analyze which functional response type describes our data best [@Juliano2001NonlinearCurveFitting]. We used two methods: (1) the phenomenological test after Juliano, implemented in the `frair` package [@Juliano2001NonlinearCurveFitting; @PritchardEtAl2017FrairPackageFitting][^1]; and (2) by fitting the the Real-style **generalized functional response model** and test if $q$ is significantly different from zero [@WilliamsMartinez2004StabilizationChaoticNonpermanent; @Vucic-PesticEtAl2010AllometricFunctionalResponse; @RosenbaumRall2018FittingFunctionalResponses]. If the tests suggest, that at least one functional response treatment is not of type II, we will analyze our data further using the **generalized functional response** model. If the tests suggest, that **all** treatments are type II, we will analyze our data further using the **Roger's Random Predator Equation** models. We do so, as fitting simulations to data is computationally expensive, meaning it increases the time of the fitting dramatically.
+
+[^1]: see "[Phenomenological Test Rationale]" for details on this method.
+
+### Habitat Complexity as an Independent Variable
+
+The main scientific question of this project is to figure out how habitat complexity affects the interaction strength of two freshwater invertebrate predators (the consumers) on their prey (the resources). We have three different ways to address this question available in the data: (1) the absence and presence of habitat; (2) the number of habitat pieces (either 0, 2, or 3 plastic ring structures); (3) five levels of complexity (0 to 5). The complexity levels originate from different spatial arrangements of the artificial ring structures, where 0 rings are complexity level 0, 2 rings comprise complexity levels 2 and 3, and 3 rings comprise complexity levels 4 and 5. See @FloresEtAl2016HabitatComplexityAquatic for further details. Contrasting the above-described analysis of the functional response type, we use here all data at once, separated by predator species. Each functional response parameter can react to habitat independently of the other parameter(s). For example, the attack rate can be different for all five complexity levels, whereas the handling time is a function of ring number. For each parameter, we can formulate the following hypotheses:
+
+-   H~0~: Habitat has no effect on the functional response parameters.
+
+-   H~1~: The sheer presence of habitat changes the functional response parameters.
+
+-   H~2~: The amount of habitat structure (number of rings, continuous) alters the functional response parameters.
+
+-   H~3~: The spatial arrangements modify the functional response parameters in addition to the amount of habitat structure.
+
+Any functional response parameter independently can fulfill one of the above-stated hypotheses. If we want to test all possible combinations, we need 4×4 models (4 hypotheses per parameter) for each functional response style (Real-style and Holling style), in the case of a **type II functional response**, resulting in 32 statistical models per predator species. In the case of **generalized functional response**, we would have to test 64 statistical models for each functional response style, resulting in 128 models per species. Note that some of these models of how habitat affects the functional response are interchangeable, but not all. We will show for which models this is true in the results part below ([Habitat Complexity]).
+
+## Data Availability
+
+You can either download the data from our data publication on [Zenodo](https://doi.org/10.5281/zenodo.14891980) [@FloresEtAl2025ComplexityReducesFeedingData], or from our [GitHub Repository](https://github.com/b-c-r/CRITTERdata):
+
+
+```{r importData}
+fr_data <- read.csv(
+  "https://raw.githubusercontent.com/b-c-r/CRITTERdata/refs/heads/main/critter_data.csv"
+  )
+```
+
+
+## Code Availability
+
+You can either download the code from our code publication on [Zenodo](https://doi.org/10.5281/zenodo.14894598) [@RallEtAl2025ComplexityReducesFeedingCode], or from our [GitHub Repository](https://github.com/b-c-r/CRITTERcode):
+
+```{r importFunctions, message=FALSE}
+gh_path <- "https://raw.githubusercontent.com/b-c-r/CRITTERcode/refs/heads/main/"
+
+pt_files <- supportR::github_ls(
+  "https://github.com/b-c-r/CRITTERcode",
+  "functions_phen_test"
+)$name
+
+for(i in 1:length(pt_files)){
+  source(paste(gh_path, "functions_phen_test/", pt_files[i], sep = ""))
+}
+```
+
+
+# Results
+
+## Functional Response Type Selection
+
+### Using the phenomenological test
+
+The following code fits the phenomenological test [@Juliano2001NonlinearCurveFitting; @PritchardEtAl2017FrairToolsFunctional; @PritchardEtAl2017FrairPackageFitting; @RallEtAl2025ComplexityReducesFeedingCode] to all treatments (two predators with each five complexity levels):
+
+```{r phenTests, message=FALSE}
+phen_tests <- phen_type_test(
+  data = fr_data,
+  name_initial = "n_initial",
+  name_eaten = "n_eaten",
+  name_treatments = "treatment"
+)
+```
+
+```{r phenTable, echo=FALSE, message=FALSE}
+phen_type_table(
+  phen_tests,
+  caption_text = "The results applying the phenomenological functional response type test to all seperate treatments."
+  )
+```
+
+The only case in which the results suggest a hump shaped pattern in the proportion data is *I. elegans* at the complexity level of 4 as the linear term is positive and the quadratic term is negative (table \ref{tab:phenTable}). However, both estimates are not significant. The complexity levels 3 and 4 for *N. glauca* show a negative quadratic term, which could also indicate a type III functional response, but both results are not significant. All other treatments have both a negative linear and a positive quadratic term indicating in all these cases a declining proportion of eaten prey and therewith type II functional responses (table \ref{tab:phenTable}).
+
+
+
+# Funding Information
+
+-   Mireia Aranbarri was funded by the **Investigo Programm funded by the NextGenerationEU initiative**.
+-   Lorea Flores was funded by a grant by the **Spanish Ministry of Education and Culture**.
+-   Ioar de Guzmán was funded by the **Spanish Ministry of Science, Innovation and Universities (TED2021-129966B-C31)**.
+-   Julia Reiss was supported by a **Royal Society of London Starting Grant**.
+-   Björn C. Rall gratefully acknowledges the funding by the **German Science Foundation (DFG) to the Research Unit DynaSym (FOR 5064)**.
+
+
+\newpage
+
+# References
+
+::: {#refs}
+:::
+
+\newpage
+
+# Appendix
+
+## Phenomenological Test Rationale
+
+Instead of fitting the number eaten prey items as depended variable as function of the initial prey density, the ratio of prey eaten and initial prey items is used as depended variable [@Juliano2001NonlinearCurveFitting; @PritchardEtAl2017FrairToolsFunctional; @PritchardEtAl2017FrairPackageFitting]. In the case of a type II functional response, the proportion of eaten prey is constantly declining with increasing prey density, whereas in the case of a type III functional response, the proportion of prey eaten increases at low prey densities and declines after a reaching a maximum proportion rate. The main trend of any functional response if looking at the proportion data is negative. This negative trend is caused by the fact, that initial prey density linearly increases, whereas the eaten prey items are leveling of. Please see @Juliano2001NonlinearCurveFitting for a full description. @PritchardEtAl2017FrairPackageFitting implemented this test using generalized linear models with a binomial distribution, a standard method to analyze proportion data based on yes/no data (i.e. a prey item is eaten or not eaten), but see @Crawley2012Book, chapter 16, for an introduction on this topic.
+
+We use here the customized function `phen_type_test()` which is a wrapper around the `frair_test()` function from the `frair` package [@PritchardEtAl2017FrairToolsFunctional]. `phen_type_table()` creates a high quality pdf-report table based on the output of `phen_type_test()`. Both functions are located in the project's sub-folder `functions`.
+
+## Project Settings
+
+Last but not least: the system's and R installation's information:
+
+```{r echo=TRUE}
+print(sessionInfo(), locale = FALSE)
+```
