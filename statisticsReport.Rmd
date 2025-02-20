@@ -1,5 +1,5 @@
 ---
-title: "Habitat complexity and interaction strength of freshwater invertebrates"
+title: "Complexity reduces feeding strength of freshwater predators (CRITTER)"
 subtitle: "Supplemental Statistics Report"
 author:
   - Björn C. Rall^[Aquatic Ecology and Evolution Group | Limnological Institute | University of Konstanz | Mainaustraße 252, 78464 Konstanz/Egg, Germany | bjoern.rall@uni-konstanz.de | https://orcid.org/0000-0002-3191-8389]
