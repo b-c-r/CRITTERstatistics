@@ -3,11 +3,11 @@ title: "Habitat complexity and interaction strength of freshwater invertebrates"
 subtitle: "Supplemental Statistics Report"
 author:
   - Björn C. Rall^[Aquatic Ecology and Evolution Group | Limnological Institute | University of Konstanz | Mainaustraße 252, 78464 Konstanz/Egg, Germany | bjoern.rall@uni-konstanz.de | https://orcid.org/0000-0002-3191-8389]
-  - Mireia Aranbarri^[Laboratory of Stream Ecology | Department of Plant Biology and Ecology | Faculty of Science and Technology | University of the Basque Country | UPV/EHU PO Box 644; 48080 Bilbao, Spain | mireia.arambarri@ehu.eus | https://orcid.org/0009-0001-3506-0914]
-  - Lorea Flores^[INRA | UMR 1224 | Ecologie Comportementale et Biologie des Populations de Poissons | Aquapôle | quartier Ibarron, 64310 Saint-Pée sur Nivelle, France | https://orcid.org/0000-0002-0082-4072]
-  - Ioar de Guzmán^[Laboratory of Stream Ecology | Department of Plant Biology and Ecology | Faculty of Science and Technology | University of the Basque Country | UPV/EHU PO Box 644; 48080 Bilbao, Spain | mirenioar.deguzman@ehu.eus | https://orcid.org/0000-0001-8894-8477]
-  - Aitor Larrañaga^[Laboratory of Stream Ecology | Department of Plant Biology and Ecology | Faculty of Science and Technology | University of the Basque Country | UPV/EHU PO Box 644; 48080 Bilbao, Spain | aitor.larranagaa@ehu.eus | https://orcid.org/0000-0002-0185-9154]
-  - Julia Reiss^[Division of Environmental Sciences, College of Health, Medicine, and Life Sciences (CHMLS), Brunel University London, Uxbridge, UB8 3PH, UK, julia.reiss@brunel.ac.uk, https://orcid.org/0000-0002-3740-0046]
+  - Mireia Aranbarri^[Laboratory of Stream Ecology | Department of Plant Biology and Ecology | Faculty of Science and Technology | University of the Basque Country | UPV/EHU PO Box 644, 48080 Bilbao, Spain | mireia.arambarri@ehu.eus | https://orcid.org/0009-0001-3506-0914]
+  - Lorea Flores^[Laboratory of Stream Ecology | Department of Plant Biology and Ecology | Faculty of Science and Technology | University of the Basque Country | UPV/EHU PO Box 644, 48080 Bilbao, Spain | lflorescompains@gmail.com | https://orcid.org/0000-0002-0082-4072]
+  - Ioar de Guzmán^[Laboratory of Stream Ecology | Department of Plant Biology and Ecology | Faculty of Science and Technology | University of the Basque Country | UPV/EHU PO Box 644, 48080 Bilbao, Spain | mirenioar.deguzman@ehu.eus | https://orcid.org/0000-0001-8894-8477]
+  - Aitor Larrañaga^[Laboratory of Stream Ecology | Department of Plant Biology and Ecology | Faculty of Science and Technology | University of the Basque Country | UPV/EHU PO Box 644, 48080 Bilbao, Spain | aitor.larranagaa@ehu.eus | https://orcid.org/0000-0002-0185-9154]
+  - Julia Reiss^[Division of Environmental Sciences, College of Health, Medicine, and Life Sciences (CHMLS), Brunel University London | Uxbridge, UB8 3PH, UK | julia.reiss@brunel.ac.uk | https://orcid.org/0000-0002-3740-0046]
 bibliography: references/CRITTERstatistics.bib
 csl: references/methods-in-ecology-and-evolution.csl
 documentclass: article
