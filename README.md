@@ -1,7 +1,7 @@
 *C*omplexity *r*educes feed*i*ng s*t*reng*t*h of fr*e*shwater
 p*r*edators (CRITTER, Supplemental Statistics Report)
 ================
-2025-02-20
+2025-02-21
 
 ## Summary
 
@@ -66,27 +66,29 @@ This report is published under a [**Creative Commons BY
 - [Data on GitHub](https://github.com/b-c-r/CRITTERdata)
 
 - [R-Code on Zenodo](https://doi.org/10.5281/zenodo.14894598) (Rall et
-  al., 2025)
+  al., 2025b)
 
 - [R-Code on GitHub](https://github.com/b-c-r/CRITTERdata)
 
 - [Statistical Report on
   GitHub](https://github.com/b-c-r/CRITTERstatistics)
 
-- Statistical Report on Zenodo (link tba)
+- [Statistical Report on
+  Zenodo](https://doi.org/10.5281/zenodo.14898819) (Rall et al., 2025a)
 
 - Scientific Preprint Paper (link tba)
 
 ## Code and Data
 
-We wrote our report in RMarkdown. The Rmarkdown script imports the data
-and the required functions directly from our GitHub repositories
+We wrote our report in R Markdown. The R Markdown script imports the
+data and the required functions directly from our GitHub repositories
 [CRITTERdata](https://github.com/b-c-r/CRITTERdata) and
 [CRITTERcode](https://github.com/b-c-r/CRITTERcode), respectively
-(Flores et al., 2025; Rall et al., 2025). You will find also an in-depth
-code description [CRITTERcode](https://github.com/b-c-r/CRITTERcode).
-You find laboratory methods in the upcoming journal article (Aranbarri
-et al. unpublished); we link to it when it is published on a preprint
+(Flores et al., 2025; Rall et al., 2025b). You will find also an
+in-depth code description
+[CRITTERcode](https://github.com/b-c-r/CRITTERcode). You will find
+laboratory methods in the upcoming journal article (Aranbarri et
+al. unpublished); we link to it when it is published on a preprint
 server.
 
 ## Funding Information
@@ -117,11 +119,21 @@ freshwater predators (CRITTER) - Data*. Zenodo.
 
 </div>
 
+<div id="ref-RallEtAl2025ComplexityReducesFeedingStatistics"
+class="csl-entry">
+
+Rall, B. C., Aranbarri, M., Flores, L., Guzmán, I. de, Larrañaga, A., &
+Reiss, J. (2025a). *Complexity reduces feeding strength of freshwater
+predators (CRITTER) - Supplemental Statistics Report*. Zenodo.
+<https://doi.org/10.5281/zenodo.14898820>
+
+</div>
+
 <div id="ref-RallEtAl2025ComplexityReducesFeedingCode"
 class="csl-entry">
 
 Rall, B. C., Aranbarri, M., Flores, L., Guzmán, I. de, Larrañaga, A., &
-Reiss, J. (2025). *Complexity reduces feeding strength of freshwater
+Reiss, J. (2025b). *Complexity reduces feeding strength of freshwater
 predators (CRITTER) - Code*. Zenodo.
 <https://doi.org/10.5281/zenodo.14894598>
 

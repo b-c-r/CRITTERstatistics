@@ -53,13 +53,13 @@ This report is published under a [**Creative Commons BY 4.0**](https://creativec
 
 -   [Statistical Report on GitHub](https://github.com/b-c-r/CRITTERstatistics)
 
--   Statistical Report on Zenodo (link tba)
+-   [Statistical Report on Zenodo](https://doi.org/10.5281/zenodo.14898819) [@RallEtAl2025ComplexityReducesFeedingStatistics]
 
 -   Scientific Preprint Paper (link tba)
 
 ## Code and Data
 
-We wrote our report in RMarkdown. The Rmarkdown script imports the data and the required functions directly from our GitHub repositories [CRITTERdata](https://github.com/b-c-r/CRITTERdata) and [CRITTERcode](https://github.com/b-c-r/CRITTERcode), respectively [@FloresEtAl2025ComplexityReducesFeedingData;@RallEtAl2025ComplexityReducesFeedingCode]. You will find also an in-depth code description [CRITTERcode](https://github.com/b-c-r/CRITTERcode). You find laboratory methods in the upcoming journal article (Aranbarri et al. unpublished); we link to it when it is published on a preprint server.
+We wrote our report in R Markdown. The R Markdown script imports the data and the required functions directly from our GitHub repositories [CRITTERdata](https://github.com/b-c-r/CRITTERdata) and [CRITTERcode](https://github.com/b-c-r/CRITTERcode), respectively [@FloresEtAl2025ComplexityReducesFeedingData;@RallEtAl2025ComplexityReducesFeedingCode]. You will find also an in-depth code description [CRITTERcode](https://github.com/b-c-r/CRITTERcode). You will find laboratory methods in the upcoming journal article (Aranbarri et al. unpublished); we link to it when it is published on a preprint server.
 
 ## Funding Information
 

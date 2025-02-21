@@ -63,7 +63,7 @@ This report is published under a [**Creative Commons BY 4.0**](https://creativec
 
 -   [Statistical Report on GitHub](https://github.com/b-c-r/CRITTERstatistics)
 
--   Statistical Report on Zenodo (link tba)
+-   [Statistical Report on Zenodo](https://doi.org/10.5281/zenodo.14898819) [@RallEtAl2025ComplexityReducesFeedingStatistics]
 
 -   Scientific Preprint Paper (link tba)
 
@@ -218,6 +218,7 @@ You can either download the code from our code publication on [Zenodo](https://d
 ```{r importFunctions, message=FALSE}
 gh_path <- "https://raw.githubusercontent.com/b-c-r/CRITTERcode/refs/heads/main/"
 
+## importing functions for the phenomenological test
 pt_files <- supportR::github_ls(
   "https://github.com/b-c-r/CRITTERcode",
   "functions_phen_test"
@@ -225,6 +226,16 @@ pt_files <- supportR::github_ls(
 
 for(i in 1:length(pt_files)){
   source(paste(gh_path, "functions_phen_test/", pt_files[i], sep = ""))
+}
+
+## importing functions for the generalized functional response model
+gfr_files <- supportR::github_ls(
+  "https://github.com/b-c-r/CRITTERcode",
+  "functions_gen_fr"
+)$name
+
+for(i in 1:length(gfr_files)){
+  source(paste(gh_path, "functions_gen_fr/", gfr_files[i], sep = ""))
 }
 ```
 
@@ -255,6 +266,28 @@ phen_type_table(
 
 The only case in which the results suggest a hump shaped pattern in the proportion data is *I. elegans* at the complexity level of 4 as the linear term is positive and the quadratic term is negative (table \ref{tab:phenTable}). However, both estimates are not significant. The complexity levels 3 and 4 for *N. glauca* show a negative quadratic term, which could also indicate a type III functional response, but both results are not significant. All other treatments have both a negative linear and a positive quadratic term indicating in all these cases a declining proportion of eaten prey and therewith type II functional responses (table \ref{tab:phenTable}).
 
+### Direct shape estimation using the generalized functional response model
+
+The following code fits the generalized functional response model [@WilliamsMartinez2004StabilizationChaoticNonpermanent; @Vucic-PesticEtAl2010AllometricFunctionalResponse; @RosenbaumRall2018FittingFunctionalResponses] to all treatments (two predators with each five complexity levels):
+
+```{r genFRfits, cache=TRUE}
+gen_fr_results <- gen_fr_fit_all(
+ data = fr_data,
+ name_initial = "n_initial",
+ name_eaten = "n_eaten",
+ name_treatments = "treatment"
+)
+```
+
+```{r genFRtable, echo=FALSE}
+gen_fr_table(
+  gen_fr_results = gen_fr_results,
+  caption_text = "The significance of the shape parameter $q$ of all ten separately fitted generalized functional response models.",
+  output_style = "pdf"
+)
+```
+
+The shape parameter $q$ of the generalized functional response model is not significantly different from zero (see table \ref{tab:genFRtable}). This means that in all cases, a simpler type II functional response can be used to describe the data properly. We will subsequently use Roger's Random Predator Equation.
 
 
 # Funding Information
