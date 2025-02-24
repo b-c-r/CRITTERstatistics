@@ -1,5 +1,5 @@
 ---
-title: "Complexity reduces feeding strength of freshwater predators (CRITTER)"
+title: "Habitat complexity reduces feeding strength of freshwater predators (CRITTER)"
 subtitle: "Supplemental Statistics Report"
 author:
   - Björn C. Rall^[Aquatic Ecology and Evolution Group | Limnological Institute | University of Konstanz | Mainaustraße 252, 78464 Konstanz/Egg, Germany | bjoern.rall@uni-konstanz.de | https://orcid.org/0000-0002-3191-8389]
@@ -7,7 +7,7 @@ author:
   - Lorea Flores^[Laboratory of Stream Ecology | Department of Plant Biology and Ecology | Faculty of Science and Technology | University of the Basque Country | UPV/EHU PO Box 644, 48080 Bilbao, Spain | lflorescompains@gmail.com | https://orcid.org/0000-0002-0082-4072]
   - Ioar de Guzmán^[Laboratory of Stream Ecology | Department of Plant Biology and Ecology | Faculty of Science and Technology | University of the Basque Country | UPV/EHU PO Box 644, 48080 Bilbao, Spain | mirenioar.deguzman@ehu.eus | https://orcid.org/0000-0001-8894-8477]
   - Aitor Larrañaga^[Laboratory of Stream Ecology | Department of Plant Biology and Ecology | Faculty of Science and Technology | University of the Basque Country | UPV/EHU PO Box 644, 48080 Bilbao, Spain | aitor.larranagaa@ehu.eus | https://orcid.org/0000-0002-0185-9154]
-  - Julia Reiss^[Division of Environmental Sciences, College of Health, Medicine, and Life Sciences (CHMLS), Brunel University London | Uxbridge, UB8 3PH, UK | julia.reiss@brunel.ac.uk | https://orcid.org/0000-0002-3740-0046]
+  - Julia Reiss^[Centre for Pollution Research and Policy, Brunel University of London | Uxbridge, UB8 3PH, UK | julia.reiss@roehampton.ac.uk | https://orcid.org/0000-0002-3740-0046]
 bibliography: references/CRITTERstatistics.bib
 csl: references/methods-in-ecology-and-evolution.csl
 documentclass: article
