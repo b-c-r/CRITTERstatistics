@@ -1,5 +1,5 @@
 ---
-title: "Habitat complexity reduces feeding strength of freshwater predators (CRITTER)"
+title: "Habitat **c**omplexity **r**educes the feed**i**ng s**t**reng**t**h of fr**e**shwater p**r**edators (CRITTER)"
 subtitle: "Supplemental Statistics Report"
 author:
   - Björn C. Rall^[Aquatic Ecology and Evolution Group | Limnological Institute | University of Konstanz | Mainaustraße 252, 78464 Konstanz/Egg, Germany | bjoern.rall@uni-konstanz.de | https://orcid.org/0000-0002-3191-8389]
@@ -20,6 +20,7 @@ date: "`r Sys.Date()`"
 geometry: margin=2cm
 urlcolor: blue
 linkcolor: gray
+classoption: a4paper
 ---
 
 \newpage
@@ -35,21 +36,37 @@ linkcolor: gray
 \mbox{}
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(
+	eval = TRUE,
+	echo = FALSE,
+	include = TRUE,
+	message = FALSE,
+	warning = FALSE
+)
+
 library("dplyr")
 library("foreach")
+
+evaluate_selected_chunks <- TRUE
+ci_runs <- 10000 # choose 10000 for publication output
 ```
 
 # Overview
 
 ## Summary
-This statistics report is a supplement of the upcoming publication of Aranbarri et al. (unpublished) investigating the effect of habitat complexity on the feeding functional response of two freshwater invertebrate predators. Find below information on related works and the location of the data and code.
 
-**Note that the report is still under construction!**
+This statistics report is a supplement of our preprint article by @AranbarriEtAl2025ComplexityReducesFeeding in which we investigate how habitat affects the strength of the feeding functional response of two freshwater invertebrate predators. Find below information on related works and the location of the data and code.
 
 ## License
 
-This report is published under a [**Creative Commons BY 4.0**](https://creativecommons.org/licenses/by/4.0/) license.
+This report is published under the [**Creative Commons BY 4.0**](https://creativecommons.org/licenses/by/4.0/) license. The underlying code is licensed under the [**GNU General Public License 3**](https://www.gnu.org/licenses/gpl-3.0.html).
+
+## How to cite this report
+
+If you want to refer to our report, please cite:
+
+Rall, B.C., Aranbarri, M., Flores, L., Guzmán, I. de, Larrañaga, A., & Reiss, J.(2025): Habitat complexity reduces the feeding strength of freshwater predators (CRITTER)- Supplemental Statistics Report. Zenodo. https://doi.org/10.5281/zenodo.14894598.
+
 
 ## Related Works
 
@@ -61,18 +78,17 @@ This report is published under a [**Creative Commons BY 4.0**](https://creativec
 
 -   [R-Code on GitHub](https://github.com/b-c-r/CRITTERdata)
 
--   [Statistical Report on GitHub](https://github.com/b-c-r/CRITTERstatistics)
-
 -   [Statistical Report on Zenodo](https://doi.org/10.5281/zenodo.14898819) [@RallEtAl2025ComplexityReducesFeedingStatistics]
 
--   Scientific Preprint Paper (link tba)
+-   [Statistical Report on GitHub](https://github.com/b-c-r/CRITTERstatistics)
 
+-   [Scientific Preprint Article](https://doi.org/10.1101/2025.02.22.639633) [@AranbarriEtAl2025ComplexityReducesFeeding]
 
 # Methods
 
 ## Theoretical Background
 
-The feeding functional response describes how a consumer's feeding rate reacts to its resource density [@Holling1959CharacteristicsSimpleTypes]. The most basic shape of the feeding functional response is a hyperbolic curve, also called the **type II functional response** [@JeschkeEtAl2002PredatorFunctionalResponses]. The attack rate, $a$, controls the initial increase in the feeding rate, $F$, with increasing resource density, $N$ [@Holling1959CharacteristicsSimpleTypes], and the handling time, $T_h$ controls the satiation of the curve:
+The feeding functional response describes how a consumer's feeding rate reacts to its resource density [@Holling1959CharacteristicsSimpleTypes]. The most basic shape of the feeding functional response is a hyperbolic curve, also called the type II functional response [@JeschkeEtAl2002PredatorFunctionalResponses]. The attack rate, $a$, controls the initial increase in the feeding rate, $F$, with increasing resource density, $N$ [@Holling1959CharacteristicsSimpleTypes], and the handling time, $T_h$ controls the satiation of the curve:
 
 \begin{equation}
   \label{eq:hollingTypeII}
@@ -86,14 +102,28 @@ If the attack rate is a function of resource density, the functional response be
   a = bN,
 \end{equation}
 
-with $b$ being the attack coefficient. The functional response becomes:
+in which $b$ is the attack coefficient. The functional response becomes
 
 \begin{equation}
   \label{eq:hollingTypeIII}
   F = \frac{b N^{2}}{(1 + b T_h N^{2})}.
 \end{equation}
 
-[@Real1977KineticsFunctionalResponse; @Real1979EcologicalDeterminantsFunctional] presented an alternative formulation of the functional response inspired by chemical reactions and the Michaelis-Menten kinetics @BarcroftHill1910NatureOxyhaemoglobinNote. By substituting $T_h = \frac{1}{F_{max}}$ and $a = \frac{F_{max}}{N_{half}}$ the **type II functional response** becomes:
+[@Real1977KineticsFunctionalResponse; @Real1979EcologicalDeterminantsFunctional] presented an alternative formulation of the functional response inspired by chemical reactions and the Michaelis-Menten kinetics [@BarcroftHill1910NatureOxyhaemoglobinNote]. By substituting
+
+\begin{equation}
+  \label{eq:ThFmax}
+  T_h = \frac{1}{F_{max}}
+\end{equation}
+
+and
+
+\begin{equation}
+  \label{eq:aNhalfFmax}
+  a = \frac{F_{max}}{N_{half}},
+\end{equation}
+
+the **type II functional response** becomes
 
 \begin{equation}
   \label{eq:realTypeII}
@@ -107,7 +137,7 @@ Here, the curve’s satiation is controlled by the maximum feeding rate, $F_{max
   F=\frac{F_{max}^{2}N}{N_{half}^{2}+N^{2}}.
 \end{equation}
 
-The above-described **type III functional response** model has a linearly increasing attack rate, but the attack rate can also be a more complex function of resource density [@Juliano2001NonlinearCurveFitting; @KalinkatEtAl2023EmpiricalEvidenceType]. A commonly used version is when the attack rate $a$ is a power law function of the resource density [@WilliamsMartinez2004StabilizationChaoticNonpermanent; @KalinkatEtAl2023EmpiricalEvidenceType]:
+The above-described **type III functional response** model has a linearly increasing attack rate, but the attack rate can also be a more complex function of resource density [@Juliano2001NonlinearCurveFitting; @KalinkatEtAl2023EmpiricalEvidenceType]. A commonly used version is a power law function of the resource density [@WilliamsMartinez2004StabilizationChaoticNonpermanent; @RallEtAl2008FoodwebConnectancePredator; @KalinkatEtAl2023EmpiricalEvidenceType]:
 
 \begin{equation}
   \label{eq:attackPowerLaw}
@@ -121,27 +151,27 @@ The Holling-style functional response becomes [@Vucic-PesticEtAl2010AllometricFu
   F = \frac{b N^{1+q}}{(1 + b T_h N^{1+q})},
 \end{equation}
 
-and the Real-style functional response becomes [@WilliamsMartinez2004StabilizationChaoticNonpermanent]:
+and the Real-style functional response becomes [@WilliamsMartinez2004StabilizationChaoticNonpermanent; @RallEtAl2008FoodwebConnectancePredator]:
 
 \begin{equation}
   \label{eq:realGenFR}
 F=\frac{F_{max}^{1+q}N}{N_{half}^{1+q}+N^{1+q}}.
 \end{equation}
 
-We will refer to these functional response models as Holling/Real **generalized functional response** models. Note that many other functional response models exist, but the ones presented above are most practical and most often used to analyze laboratory functional response experiments [@Juliano2001NonlinearCurveFitting; @JeschkeEtAl2002PredatorFunctionalResponses; @KalinkatEtAl2023EmpiricalEvidenceType]. In our analyses, we will focus on the **generalized functional response** models and, if statistically appropriate, on the **type II or type III functional response**.
+We will refer to the above-mentioned functional response models as either the Holling-style or the Real-style **generalized functional response**model. Note that many other functional response models exist, but the ones presented above are most practical and most often used to analyze laboratory functional response experiments [@Juliano2001NonlinearCurveFitting; @JeschkeEtAl2002PredatorFunctionalResponses; @KalinkatEtAl2023EmpiricalEvidenceType]. In our analyses, we will focus on the **generalized functional response** models and, if statistically appropriate, on the **type II or type III functional response** models.
 
-## Functional Response Statistics
+## Functional response statistics
 
 ### Independence of variables
 
-Scientific laboratory experiments are designed to manipulate one or more external variables (the **independent variables**) and record the response of the system (the **dependent variable**). In functional, the main **independent variable** is the resource density, $N$, and the **dependent variable** is the feeding rate, $F$. Commonly used statistical methods (e.g., a linear regression model) require that the **independent variable** must be free of statistical noise (a.k.a. error-free) and fixed (**CITATION NEEDED**). In the case of most laboratory functional response experiments, however, the resource density decays over time due to the process of feeding. This means the independent variable is not independent anymore. To account for the decay of resource density, we set up a differential equation, describing the temporal process:
+Scientific laboratory experiments are designed to manipulate one or more external variables that are typically called the **independent** or **explanatory variables**. We measure a response of our experimental system, and this measure is normally called the **dependent**, or **response variable**. See, e.g., @Zar2010BiostatisticalAnalyses, chapter 17, or @Crawley2012Book chapter 10, for details. In functional response experiments, we manipulate the resource density, $N$, and measure the number of prey eaten, $N_{eaten}$, at the end of the experiment. This means that during the experiment, the prey density decreases over time. In contrast, in all the above-mentioned functional response models, the feeding rate, $F$, depends on a constant prey density, $N$. To account for the decay of resource density over time, we set up a differential equation, describing the temporal process: 
 
 \begin{equation}
   \label{eq:ODE}
   \frac{dN}{dt}= -F.
 \end{equation}
 
-The **change of resource density** ($dN$) over a given **time span** ($dt$) is described by the negative of the feeding rate $F$. $F$ can be any of the functional response models introduced above (or described elsewhere). This differential equation model can not be fitted directly to data, but it needs to be solved beforehand. The solution of this differential equation model depends on the type of the functional response. For a **type II functional response**, the solution is [@Royama1971ComparativeStudyModels; @Rogers1972RandomSearchInsect; @RosenbaumRall2018FittingFunctionalResponses]:
+The **change of resource density**, $dN$, over a given **time span**, $dt$, is described by the negative of the feeding rate $F$. $F$ can be any of the functional response models introduced above (or described elsewhere). This differential equation model can not be fitted directly to data, but it needs to be solved beforehand. The solution depends on the type of functional response. For a **type II functional response**, the solution is [@Royama1971ComparativeStudyModels; @Rogers1972RandomSearchInsect; @RosenbaumRall2018FittingFunctionalResponses]:
 
 \begin{equation}
   \label{eq:hollingRRPE}
@@ -175,19 +205,17 @@ All parameters are as described above.
 
 Neither the type III nor the generalized functional response can be solved analytically and must be solved using numerical simulations [@RosenbaumRall2018FittingFunctionalResponses]. We follow the methods published by @RosenbaumRall2018FittingFunctionalResponses, but find more details in the section "Brief Code Description" below.
 
-### Data Distribution
+### Data distribution
 
-So far, we described the mathematical model describing the average number of resources eaten throughout the experimental trials. Each experimentally derived replicate, however, can deviate from this overall model mean. Our dependent data, $N_{eaten}$, has the following characteristics: integer numbers (0, 1, 2,…, n), and the number of prey eaten cannot exceed the number of initially available resource items ($N_{initial}$). Data following these characteristics are known as proportion data and well described by a binomial probability distribution; see @Crawley2012Book chapter 16 for example. We also apply this distribution to our data, as it is commonly used for functional response fitting [@Bolker2008EcologicalModelsData; @RosenbaumRall2018FittingFunctionalResponses]. Please read the "Brief Code Description" section and the code itself for further details.
+So far, we described the mathematical model describing the average number of resources eaten throughout the experimental trials. Each experimentally derived replicate, however, must deviate from this overall model mean (see, e.g., @Zar2010BiostatisticalAnalyses, chapter 17, or @Crawley2012Book chapter 10, for assumptions of regression statistics). Our dependent data, $N_{eaten}$, has the following characteristics: integer numbers (0, 1, 2,…, n), and the number of prey eaten cannot exceed the number of initially available resource items ($N_{initial}$). Data following these characteristics are known as proportion data and well described by a binomial probability distribution; see @Crawley2012Book chapter 16 for further explanations. We also apply this distribution to our data, as it is commonly used for functional response fitting [@Bolker2008EcologicalModelsData; @RosenbaumRall2018FittingFunctionalResponses]. Please also read the description of our code in the corresponding README file, either directly in our [repository](https://github.com/b-c-r/CRITTERdata) or download it from Zenodo [@RallEtAl2025ComplexityReducesFeedingCode].
 
-### Functional Response Type Selection
+### Functional response type selection
 
-First, we analyze which functional response type describes our data best [@Juliano2001NonlinearCurveFitting]. We used two methods: (1) the phenomenological test after Juliano, implemented in the `frair` package [@Juliano2001NonlinearCurveFitting; @PritchardEtAl2017FrairPackageFitting][^1]; and (2) by fitting the the Real-style **generalized functional response model** and test if $q$ is significantly different from zero [@WilliamsMartinez2004StabilizationChaoticNonpermanent; @Vucic-PesticEtAl2010AllometricFunctionalResponse; @RosenbaumRall2018FittingFunctionalResponses]. If the tests suggest, that at least one functional response treatment is not of type II, we will analyze our data further using the **generalized functional response** model. If the tests suggest, that **all** treatments are type II, we will analyze our data further using the **Roger's Random Predator Equation** models. We do so, as fitting simulations to data is computationally expensive, meaning it increases the time of the fitting dramatically.
+As the initial step, we analyzed which functional response type describes our data best [@Juliano2001NonlinearCurveFitting]. We used two methods: (1) the phenomenological test after Juliano, implemented in the `frair` package [@Juliano2001NonlinearCurveFitting; @PritchardEtAl2017FrairPackageFitting][^1]; and (2) by fitting the Real-style **generalized functional response model** and test if $q$ is significantly different from zero [@WilliamsMartinez2004StabilizationChaoticNonpermanent; @RallEtAl2008FoodwebConnectancePredator; @Vucic-PesticEtAl2010AllometricFunctionalResponse; @RosenbaumRall2018FittingFunctionalResponses]. If the tests suggest, that at least one functional response treatment is not of type II, we will analyze our data further using the **generalized functional response** model. If the tests suggest that **all** treatments are type II, we will analyze our data further using the **Roger's Random Predator Equation** models.
 
-[^1]: see "[Phenomenological Test Rationale]" for details on this method.
+### Habitat complexity as an independent variable
 
-### Habitat Complexity as an Independent Variable
-
-The main scientific question of this project is to figure out how habitat complexity affects the interaction strength of two freshwater invertebrate predators (the consumers) on their prey (the resources). We have three different ways to address this question available in the data: (1) the absence and presence of habitat; (2) the number of habitat pieces (either 0, 2, or 3 plastic ring structures); (3) five levels of complexity (0 to 5). The complexity levels originate from different spatial arrangements of the artificial ring structures, where 0 rings are complexity level 0, 2 rings comprise complexity levels 2 and 3, and 3 rings comprise complexity levels 4 and 5. See @FloresEtAl2016HabitatComplexityAquatic for further details. Contrasting the above-described analysis of the functional response type, we use here all data at once, separated by predator species. Each functional response parameter can react to habitat independently of the other parameter(s). For example, the attack rate can be different for all five complexity levels, whereas the handling time is a function of ring number. For each parameter, we can formulate the following hypotheses:
+The main scientific question of this project is to figure out how habitat complexity affects the interaction strength of two freshwater invertebrate predators (the consumers) on their prey (the resources). We have three different ways to address this question given the data: (1) the absence and presence of habitat; (2) the amount of habitat (either 0, 2, or 3 plastic ring structures); (3) five levels of complexity (0 to 5). The complexity levels originate from different spatial arrangements of the artificial ring structures, where 0 rings are complexity level 0, 2 rings comprise complexity levels 2 and 3, and 3 rings comprise complexity levels 4 and 5. See @FloresEtAl2016HabitatComplexityAquatic and @AranbarriEtAl2025ComplexityReducesFeeding for further details. Contrasting the above-described analysis of the functional response type, we use here all data at once, separated by predator species. Each functional response parameter can react to habitat independently of the other parameters. For example, the attack rate can be different for all five complexity levels, whereas the handling time is a function of ring number. For each parameter, we can formulate the following hypotheses:
 
 -   H~0~: Habitat has no effect on the functional response parameters.
 
@@ -197,12 +225,11 @@ The main scientific question of this project is to figure out how habitat comple
 
 -   H~3~: The spatial arrangements modify the functional response parameters in addition to the amount of habitat structure.
 
-Any functional response parameter independently can fulfill one of the above-stated hypotheses. If we want to test all possible combinations, we need 4×4 models (4 hypotheses per parameter) for each functional response style (Real-style and Holling style), in the case of a **type II functional response**, resulting in 32 statistical models per predator species. In the case of **generalized functional response**, we would have to test 64 statistical models for each functional response style, resulting in 128 models per species. Note that some of these models of how habitat affects the functional response are interchangeable, but not all. We will show for which models this is true in the results part below ([Habitat Complexity]).
+Any functional response parameter independently can fulfill one of the above-stated hypotheses. If we want to test all possible combinations, we need 4×4 models (4 hypotheses per parameter) for each functional response style (Real-style and Holling style), in the case of a **type II functional response**, resulting in 32 statistical models per predator species. In the case of **generalized functional response**, we would have to test 64 statistical models for each functional response style, resulting in 128 models per species. Note that some of these models of how habitat affects the functional response are interchangeable, but not all. We will show for which models this is true in the results part below ([Habitat presence, amount, and complexity statistics]).
 
 ## Data Availability
 
-You can either download the data from our data publication on [Zenodo](https://doi.org/10.5281/zenodo.14891980) [@FloresEtAl2025ComplexityReducesFeedingData], or from our [GitHub Repository](https://github.com/b-c-r/CRITTERdata):
-
+You can either download the data from our data publication on [Zenodo](https://doi.org/10.5281/zenodo.14891980) [@FloresEtAl2025ComplexityReducesFeedingData], or from our [GitHub repository](https://github.com/b-c-r/CRITTERdata).
 
 ```{r importData}
 fr_data <- read.csv(
@@ -210,85 +237,496 @@ fr_data <- read.csv(
   )
 ```
 
+## Code availability
 
-## Code Availability
+You can either download the code from our code publication on [Zenodo](https://doi.org/10.5281/zenodo.14894598) [@RallEtAl2025ComplexityReducesFeedingCode], or from our [GitHub repository](https://github.com/b-c-r/CRITTERcode).
 
-You can either download the code from our code publication on [Zenodo](https://doi.org/10.5281/zenodo.14894598) [@RallEtAl2025ComplexityReducesFeedingCode], or from our [GitHub Repository](https://github.com/b-c-r/CRITTERcode):
-
-```{r importFunctions, message=FALSE}
+```{r importFunctions}
 gh_path <- "https://raw.githubusercontent.com/b-c-r/CRITTERcode/refs/heads/main/"
 
-## importing functions for the phenomenological test
-pt_files <- supportR::github_ls(
+## importing functions for the functional response type test
+fr_type_files <- supportR::github_ls(
   "https://github.com/b-c-r/CRITTERcode",
-  "functions_phen_test"
+  "functions_type_statistics"
 )$name
 
-for(i in 1:length(pt_files)){
-  source(paste(gh_path, "functions_phen_test/", pt_files[i], sep = ""))
+for(i in 1:length(fr_type_files)){
+  source(paste(gh_path, "functions_type_statistics/", fr_type_files[i], sep = ""))
 }
 
-## importing functions for the generalized functional response model
-gfr_files <- supportR::github_ls(
+## importing functions for the habitat statistics
+hab_stats_files <- supportR::github_ls(
   "https://github.com/b-c-r/CRITTERcode",
-  "functions_gen_fr"
+  "functions_habitat_statistics"
 )$name
 
-for(i in 1:length(gfr_files)){
-  source(paste(gh_path, "functions_gen_fr/", gfr_files[i], sep = ""))
+for(i in 1:length(hab_stats_files)){
+  source(paste(gh_path, "functions_habitat_statistics/", hab_stats_files[i], sep = ""))
+}
+
+## importing functions for the report output (e.g. tables and figures)
+report_output_files <- supportR::github_ls(
+  "https://github.com/b-c-r/CRITTERcode",
+  "functions_report"
+)$name
+
+for(i in 1:length(report_output_files)){
+  source(paste(gh_path, "functions_report/", report_output_files[i], sep = ""))
 }
 ```
 
-
 # Results
 
-## Functional Response Type Selection
+## The functional response type
 
 ### Using the phenomenological test
 
-The following code fits the phenomenological test [@Juliano2001NonlinearCurveFitting; @PritchardEtAl2017FrairToolsFunctional; @PritchardEtAl2017FrairPackageFitting; @RallEtAl2025ComplexityReducesFeedingCode] to all treatments (two predators with each five complexity levels):
-
-```{r phenTests, message=FALSE}
+```{r phenTests, eval=evaluate_selected_chunks}
 phen_tests <- phen_type_test(
   data = fr_data,
   name_initial = "n_initial",
   name_eaten = "n_eaten",
   name_treatments = "treatment"
 )
+saveRDS(phen_tests, file = "results_type/phen_tests.rds")
 ```
 
-```{r phenTable, echo=FALSE, message=FALSE}
+```{r phenTable}
 phen_type_table(
-  phen_tests,
-  caption_text = "The results applying the phenomenological functional response type test to all seperate treatments."
+  phen_test_results = readRDS(here::here("results_type", "phen_tests.rds")),
+  caption_text = "The results of testing for the functional response type by using the phenomenological test (Juliano 2001, Pritchard et al. 2017). We found for all unique treatments (complexity times predator identity) that a type II functional response explains the data best."
   )
 ```
 
-The only case in which the results suggest a hump shaped pattern in the proportion data is *I. elegans* at the complexity level of 4 as the linear term is positive and the quadratic term is negative (table \ref{tab:phenTable}). However, both estimates are not significant. The complexity levels 3 and 4 for *N. glauca* show a negative quadratic term, which could also indicate a type III functional response, but both results are not significant. All other treatments have both a negative linear and a positive quadratic term indicating in all these cases a declining proportion of eaten prey and therewith type II functional responses (table \ref{tab:phenTable}).
+We analyzed our data using the so-called the phenomenological test by fitting this test to all ten treatments separately, i.e., two predators with five complexity levels each [@Juliano2001NonlinearCurveFitting; @PritchardEtAl2017FrairToolsFunctional; @PritchardEtAl2017FrairPackageFitting; @RallEtAl2025ComplexityReducesFeedingCode]. The only case in which the results suggest a hump-shaped pattern in the proportion data is *Ischnura elegans* at the complexity level of 4, as the linear term is positive, and the quadratic term is negative (table \ref{tab:phenTable}). However, both estimates are not significant. The complexity levels 3 and 4 for *Notonecta glauca* show a negative quadratic term, which could also indicate a type III functional response, but both results are not significant. All other treatments have both a negative linear and a positive quadratic term, indicating in all these cases a declining proportion of eaten prey and therewith type II functional responses (table \ref{tab:phenTable}).
 
 ### Direct shape estimation using the generalized functional response model
 
-The following code fits the generalized functional response model [@WilliamsMartinez2004StabilizationChaoticNonpermanent; @Vucic-PesticEtAl2010AllometricFunctionalResponse; @RosenbaumRall2018FittingFunctionalResponses] to all treatments (two predators with each five complexity levels):
-
-```{r genFRfits, cache=TRUE}
+```{r genFRfits, eval=evaluate_selected_chunks}
 gen_fr_results <- gen_fr_fit_all(
  data = fr_data,
  name_initial = "n_initial",
  name_eaten = "n_eaten",
  name_treatments = "treatment"
 )
+saveRDS(gen_fr_results, file = "results_type/gen_fr_results.rds")
 ```
 
-```{r genFRtable, echo=FALSE}
+```{r genFRtable}
 gen_fr_table(
-  gen_fr_results = gen_fr_results,
+  gen_fr_results = readRDS(here::here("results_type", "gen_fr_results.rds")),
   caption_text = "The significance of the shape parameter $q$ of all ten separately fitted generalized functional response models.",
   output_style = "pdf"
 )
 ```
 
-The shape parameter $q$ of the generalized functional response model is not significantly different from zero (see table \ref{tab:genFRtable}). This means that in all cases, a simpler type II functional response can be used to describe the data properly. We will subsequently use Roger's Random Predator Equation.
+We analyzed our data using the generalized functional response model by fitting this model to all ten treatments separately, i.e., two predators with five complexity levels each [@WilliamsMartinez2004StabilizationChaoticNonpermanent; @RallEtAl2008FoodwebConnectancePredator; @Vucic-PesticEtAl2010AllometricFunctionalResponse; @RosenbaumRall2018FittingFunctionalResponses]. The shape parameter $q$ is not significantly different from zero (see table \ref{tab:genFRtable}). This means that in all cases, a simpler type II functional response can be used to describe the data properly. This is in line with the phenomenological test shown above, and we will subsequently use the Roger's Random Predator Equation.
 
+## Habitat presence, amount, and complexity results
+
+As the type II functional response model is the most appropriate model to describe our data across all treatments (see section "[The functional response type]" above), we continue our analyses using this functional response model. Based on our hypotheses (see section "[Habitat complexity as an independent variable]" above), we need to test in total 64 statistical functional response models: 16 models for the Holling-style and 16 models for the Real-style RRPE, resulting in 32 models, and we repeated these 32 models for the two predator species. In the following, we present the description of the 32 models and how habitat affects the functional response parameters:
+
+- Model 01h \| 01r: Habitat has no effect on $F_{max}$ \| $T_h$, (H~0~), and $N_{half}$ \| $a$ is also not affected by habitat presence (H~0~).
+
+- Model 02h \| 02r: Habitat has no effect on $F_{max}$ \| $T_h$, (H~0~), and $N_{half}$ \| $a$ is affected by habitat presence (H~1~).
+
+- Model 03h \| 03r: Habitat has no effect on $F_{max}$ \| $T_h$, (H~0~), and $N_{half}$ \| $a$ is affected by the amount of habitat structure (H~2~).
+
+- Model 04h \| 04r: Habitat has no effect on $F_{max}$ \| $T_h$, (H~0~), and $N_{half}$ \| $a$ is affected by complexity (H~3~).
+
+- Model 05h \| 05r: Habitat presence affects $F_{max}$ \| $T_h$, (H~0~), and $N_{half}$ \| $a$ is not affected by habitat presence (H~0~).
+
+- Model 06h \| 06r: Habitat presence affects $F_{max}$ \| $T_h$, (H~0~), and $N_{half}$ \| $a$ is affected by habitat presence (H~1~).
+
+- Model 07h \| 07r: Habitat presence affects $F_{max}$ \| $T_h$, (H~0~), and $N_{half}$ \| $a$ is affected by the amount of habitat structure (H~2~).
+
+- Model 08h \| 08r: Habitat presence affects $F_{max}$ \| $T_h$, (H~0~), and $N_{half}$ \| $a$ is affected by complexity (H~3~).
+
+- Model 09h \| 09r: The amount of habitat affects $F_{max}$ \| $T_h$, (H~0~), and $N_{half}$ \| $a$ is not affected by habitat presence (H~0~).
+
+- Model 10h \| 10r: The amount of habitat affects $F_{max}$ \| $T_h$, (H~0~), and $N_{half}$ \| $a$ is affected by habitat presence (H~1~).
+
+- Model 11h \| 11r: The amount of habitat affects $F_{max}$ \| $T_h$, (H~0~), and $N_{half}$ \| $a$ is affected by the amount of habitat structure (H~2~).
+
+- Model 12h \| 12r: The amount of habitat affects $F_{max}$ \| $T_h$, (H~0~), and $N_{half}$ \| $a$ is affected by complexity (H~3~).
+
+- Model 13h \| 13r: Complexity affects $F_{max}$ \| $T_h$, (H~0~), and $N_{half}$ \| $a$ is not affected by habitat presence (H~0~).
+
+- Model 14h \| 14r: Complexity affects $F_{max}$ \| $T_h$, (H~0~), and $N_{half}$ \| $a$ is affected by habitat presence (H~1~).
+
+- Model 15h \| 15r: Complexity affects $F_{max}$ \| $T_h$, (H~0~), and $N_{half}$ \| $a$ is affected by the amount of habitat structure (H~2~).
+
+- Model 16h \| 16r: Complexity affects $F_{max}$ \| $T_h$, (H~0~), and $N_{half}$ \| $a$ is affected by complexity (H~3~).
+
+The maximum feeding rate, $F_{max}$, and the handling time, $T_h$ are always interchangeable as $F_{max} = \frac{1}{T_h}$. However, the attack rate, $a$, is not only a function of the half saturation density, $N_{half}$, but also a function of the maximum feeding rate: $a = \frac{F_{max}}{N_{half}}$, $N_{half} = \frac{F_{max}}{a}$. This circumstance leads to the fact that the interchangeability of these parameters is context-dependent:
+
+1. Attack rate and half saturation density are interchangeable if the maximum feeding rate is a constant across treatments (models 01 to 04).
+
+2. Attack rate and half saturation density are also interchangeable if we fit a model testing for all complexity levels (H~3~) for the half saturation density (models 04, 08, 12, and 16).
+
+3. Attack rate and half saturation density are also interchangeable if we fit a model testing for the same hypothesis (models 01, 06, 11, and 16).
+
+The remaining models (5, 7, 9, 10, 13, 14, 15) will deliver different results.
+
+We will compare all models using common information criteria, the AIC, and the BIC [@Akaike1974NewLookStatistical; @Schwarz1978EstimatingDimensionModela]. The AIC selects models with more parameters, whereas the BIC tends to select models with a lower number of parameters [@Schwarz1978EstimatingDimensionModela]. Please find the results of all fits saved as `*.rds` files in the folders `results_hab_ie` and `results_hab_ng` online (<https://github.com/b-c-r/CRITTERstatistics>).
+
+```{r run_h_tests, eval=evaluate_selected_chunks}
+## receiving source file names
+source_files <- list.files(here::here("scripts"))
+
+## setup the cluster for parallel computing on the local machine
+cl <- parallel::makeCluster(8)
+doParallel::registerDoParallel(cl)
+
+## run all the different model fits in parallel 
+foreach::foreach(
+  i = 1:length(source_files)
+) %dopar% {
+  source(here::here("scripts", source_files[i]))
+}
+
+## stop the cluster
+parallel::stopCluster(cl)
+```
+
+### *Ischnura elegans* results
+
+```{r IeAicBicTable}
+result_ie_files <- list.files(here::here("results_hab_ie"))
+results_hab_ie <- foreach::foreach(i = 1:length(result_ie_files)) %do%{
+  readRDS(here::here("results_hab_ie", result_ie_files[i]))
+}
+
+create_h_table(
+  h_test_results = results_hab_ie,
+  cut_after = 6,
+  caption_text = "AIC / BIC table of the six most parsimonious out of 32 possible models for \\textit{Ischnura elegans}. Find all results below in table  ."
+  ) %>%
+  kableExtra::kable_styling(latex_options = "HOLD_position")
+```
+
+The most parsimonious model according to AIC and BIC is model 5r (table \ref{tab:IeAicBicTable}). The maximum feeding rate in the case of no habitat is `r round(10^results_hab_ie[[10]]@coef[[1]], 2)` [$\frac{items_{prey}}{day}$] and in the case of habitat present `r round(10^results_hab_ie[[10]]@coef[[2]], 2)` [$\frac{items_{prey}}{day}$], which is a drop of about half (table \ref{tab:SumTabIeMod05r}). Expressed as handling time, $T_h$, *I. elegans* predators need `r round(1 / 10^results_hab_ie[[10]]@coef[[1]], 2)` [$days$] if no habitat is present and `r round(1 / 10^results_hab_ie[[10]]@coef[[2]], 2)` [$\frac{days}{items_{prey}}$] if habitat is present to subdue and feed on a prey item. The half saturation density, $N_{half}$ is not affected by habitat at all ($N_{half}$ = `r round(10^results_hab_ie[[10]]@coef[[3]], 2)` $\frac{items_{prey}}{volume_{arena}}$, table \ref{tab:SumTabIeMod05r}). As the attack rate $a$ depends on both, the maximum feeding rate $F_{max}$ and the half saturation density $N_{half}$, we can calculate two attack rates for (1) no habitat ($a$ = `r round(10^results_hab_ie[[10]]@coef[[1]] / 10^results_hab_ie[[10]]@coef[[3]], 2)` [$\frac{volume_{arena}}{days}$]) and (2) for the case that habitat is present ($a$ = `r round(10^results_hab_ie[[10]]@coef[[2]] / 10^results_hab_ie[[10]]@coef[[3]], 2)` [$\frac{volume_{arena}}{days}$]). Note that the change in attack rate matches the change in maximum feeding rate, resulting in the fact that the strength of feeding is influenced equally across the whole range of prey densities (as $N_{half}$ is constant).
+
+We found four more models within a range of two delta units of both information criteria, all with three to four parameters (\ref{tab:IeAicBicTable}), and we will discuss these models below. Please find the full table \ref{tab:IeAicBicTableAll} in the [Appendix] below.
+
+```{r SumTabIeMod05r}
+create_summary_table(
+  model_fit = results_hab_ie[[10]],
+  ci_reps = ci_runs,
+  par_names = c(
+    "$F_{max}$ (habitat absent)",
+    "$F_{max}$ (habitat present)",
+    "$N_{half}$"
+  ),
+  unlog = c(TRUE, TRUE, TRUE),
+  caption_text = "Results of model 5 (Real style) fitted to the data of \\textit{Ischnura elegans}."
+) %>%
+  kableExtra::kable_styling(latex_options = "HOLD_position")
+```
+
+
+```{r figIeFuncRespCaption}
+fig_fr_ie_cap <- "The feeding functional response of \\textit{Ischnura elegans} as function of the density of \\textit{Asellus aquaticus}. We found that model 5r was the most appropriate to describe the data (table \\ref{tab:IeAicBicTable}). This model includes a unique maximum feeding rate for the cases if habitat is absent (a) or present (b) and a half saturation density that is not affected by habitat (table \\ref{tab:SumTabIeMod05r}). The regression lines of the best fit point estimates are displayed in black, and the light gray area shows the 95% confidence limits of the best fit."
+```
+
+```{r figIeFuncResp, fig.cap=fig_fr_ie_cap}
+plot_mod05r(
+  results_hab_ie[[10]],
+  ci_reps = ci_runs
+  )
+```
+
+
+**The models within 2 delta AIC/BIC units**
+
+**Model 7r** (table \ref{tab:SumTabIeMod07r}) is more complex than model 5r by one degree of freedom (i.e., one more model parameter). Not only $F_{max}$ depends on the presence of the habitat, but also $N_{half}$ is a negative function of habitat amount (the number of rings). However, the slope of this relationship (`r round(results_hab_ie[[14]]@coef[[4]], 2)`) is not significant (p = `r round(bbmle::summary(results_hab_ie[[14]])@coef[16], 3)`). In addition, a likelihood ratio test reveals, that adding this model parameter doesn't make the fit significantly better compared to model 5r (p = `r round(bbmle::anova(results_hab_ie[[10]], results_hab_ie[[14]])[10], 3)`).
+
+```{r SumTabIeMod07r}
+create_summary_table(
+  model_fit = results_hab_ie[[14]],
+  ci_reps = ci_runs,
+  par_names = c(
+    "$F_{max}$ (habitat absent)",
+    "$F_{max}$ (habitat present)",
+    "$N_{half} (intercept)$",
+    "$N_{half} (slope)$"
+  ),
+  unlog = c(TRUE, TRUE, TRUE, FALSE),
+  caption_text = "Results of model 7 (Real style) fitted to the data of \\textit{Ischnura elegans}."
+) %>%
+  kableExtra::kable_styling(latex_options = "HOLD_position")
+```
+
+**Model 6h** (table \ref{tab:SumTabIeMod06h}) is more complex than model 5r by one degree of freedom. Model 6h is interchangeable with model 6r below. Not only $T_{h}$ depends on the presence of the habitat but also $a$. If habitat is present, the attack rate is reduced from `r round(10^results_hab_ie[[11]]@coef[[3]], 2)` $\frac{items_{prey}}{volume_{arena}}$ to `r round(10^results_hab_ie[[11]]@coef[[4]], 2)`. A likelihood ratio test reveals, that adding this model parameter doesn't make the fit significantly better compared to model 5r (p = `r round(bbmle::anova(results_hab_ie[[10]], results_hab_ie[[11]])[10], 3)`).
+
+```{r SumTabIeMod06h}
+create_summary_table(
+  model_fit = results_hab_ie[[11]],
+  ci_reps = ci_runs,
+  par_names = c(
+    "$T_{h}$ (habitat absent)",
+    "$T_{h}$ (habitat present)",
+    "$a$ (habitat absent)",
+    "$a$ (habitat present)"
+  ),
+  unlog = c(TRUE, TRUE, TRUE, TRUE),
+  caption_text = "Results of model 6 (Holling style) fitted to the data of \\textit{Ischnura elegans}."
+) %>%
+  kableExtra::kable_styling(latex_options = "HOLD_position")
+```
+
+**Model 6r** (table \ref{tab:SumTabIeMod06r}) is more complex than model 5r by one degree of freedom. Model 6r is interchangeable with model 6h above. Not only $F_{max}$ depends on the presence of the habitat but also $N_{half}$. If habitat is present, the half saturation density drops from `r round(10^results_hab_ie[[12]]@coef[[3]], 2)` $\frac{items_{prey}}{volume_{arena}}$ to `r round(10^results_hab_ie[[12]]@coef[[4]], 2)`. A likelihood ratio test reveals, that adding this model parameter doesn't make the fit significantly better compared to model 5r (p = `r round(bbmle::anova(results_hab_ie[[10]], results_hab_ie[[12]])[10], 3)`).
+
+```{r SumTabIeMod06r}
+create_summary_table(
+  model_fit = results_hab_ie[[12]],
+  ci_reps = ci_runs,
+  par_names = c(
+    "$F_{max}$ (habitat absent)",
+    "$F_{max}$ (habitat present)",
+    "$N_{half}$ (habitat absent)",
+    "$N_{half}$ (habitat present)"
+  ),
+  unlog = c(TRUE, TRUE, TRUE, TRUE),
+  caption_text = "Results of model 6 (Real style) fitted to the data of \\textit{Ischnura elegans}."
+) %>%
+  kableExtra::kable_styling(latex_options = "HOLD_position")
+```
+
+**Model 5h** (table \ref{tab:SumTabIeMod05h}) is as complex as model 5r, and both have three model parameters. $T_{h}$ depends on the presence of the habitat, and $a$ is not affected by habitat at all (`r round(10^results_hab_ie[[9]]@coef[[3]], 2)` $\frac{items_{prey}}{volume_{arena}}$). The respective half saturation densities are for the case without habitat: $N_{half}$ = `r round(1 / (10^results_hab_ie[[9]]@coef[[1]] * 10^results_hab_ie[[9]]@coef[[3]]), 3)`; and with habitat: $N_{half}$ = `r round(1 / (10^results_hab_ie[[9]]@coef[[2]] * 10^results_hab_ie[[9]]@coef[[3]]), 3)`. Especially the half saturation density for the case without habitat seems highly unlikely as it is above the tested range of prey densities. We did not apply a likelihood ratio test, as both models share the same number of parameters.
+
+```{r SumTabIeMod05h}
+create_summary_table(
+  model_fit = results_hab_ie[[9]],
+  ci_reps = ci_runs,
+  par_names = c(
+    "$T_{h}$ (habitat absent)",
+    "$T_{h}$ (habitat present)",
+    "$a$"
+  ),
+  unlog = c(TRUE, TRUE, TRUE),
+  caption_text = "Results of model 5 (Holling style) fitted to the data of \\textit{Ischnura elegans}."
+) %>%
+  kableExtra::kable_styling(latex_options = "HOLD_position")
+```
+
+In summary, all models in the range of 2 delta AIC units suggest that (1) the maximum feeding rate drops dramatically by up to 50% when adding habitat structure. The half saturation density is likely to be habitat-independent, according to the most likely model 5r. Eventually, the half saturation density may also decrease by adding habitat (model 6r), or may even decrease as a function of habitat amount (model 7r), which leads to a decrease in attack rates that is less pronounced as the drop of maximum feeding rates (model 6h) or the attack rate may be constant (model 5h). This result would indicate that the effect of habitat is predominantly acting at high prey densities. However, the alternative models are not contributing significantly to the explanation of the data (see above), leaving this phenomenon open for discussion. The results, however, show, that the higher-order complexity of the habitat structure does not influence the feeding rate of *Ischnura elegans*.
+
+### *Notonecta glauca* results
+
+```{r NgAicBicTable}
+result_ng_files <- list.files(here::here("results_hab_ng"))
+results_hab_ng <- foreach::foreach(i = 1:length(result_ng_files)) %do%{
+  readRDS(here::here("results_hab_ng", result_ng_files[i]))
+}
+
+create_h_table(
+  h_test_results = results_hab_ng,
+  cut_after = 7,
+  caption_text = "AIC / BIC table of the seven most parsimonious out of 32 possible models for \\textit{Notonecta glauca}."
+  ) %>%
+  kableExtra::kable_styling(latex_options = "HOLD_position")
+```
+
+Both, AIC and BIC select for model 15h as the most parsimonious choice (table \ref{tab:NgAicBicTable}). Within two delta AIC units, models 16h, 16r, and 15r were selected. These models have 7 or more parameters, and in all cases either $F_{max}$ or $T_h$ are affected by habitat complexity. We found the models 9r, 11h, 11r, 13r, and 15r within two delta BIC units, all of them have equal or fewer parameters compared to model 15h (table \ref{tab:NgAicBicTable}, but see also the full table \ref{tab:NgAicBicTableAll} in the [Appendix]). These selections highlight the quality of model 15h, as BIC is known to rather select models with fewer parameters [@Schwarz1978EstimatingDimensionModela].
+
+```{r SumTabNgMod15h}
+create_summary_table(
+  model_fit = results_hab_ng[[29]],
+  ci_reps = ci_runs,
+  par_names = c(
+    "$T_h$ (C0)",
+    "$T_h$ (C1)",
+    "$T_h$ (C2)",
+    "$T_h$ (C3)",
+    "$T_h$ (C4)",
+    "$a (intercept)$",
+    "$a (slope)$"
+    ),
+    unlog = c(TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE),
+    caption_text = "Results of model 15 (Holling style) fitted to the data of \\textit{Notonecta glauca}."
+) %>%
+  kableExtra::kable_styling(latex_options = "HOLD_position")
+```
+
+
+```{r figNgFuncRespCaption}
+fig_fr_ng_cap <- "The feeding functional response of \\textit{Notonecta glauca} as function of the density of \\textit{Asellus aquaticus}. We found that model 15h was the most appropriate to describe the data (table \\ref{tab:NgAicBicTable}). This model includes a unique maximum feeding rate for each complexity level and a decreasing attack rate as a function of the amount of habitat (table \\ref{tab:SumTabNgMod15h}). The complexity levels (0-4) are displayed in the separate subplots: (a) = 0; (b) = 1; (c) = 3; (d) = 2; and (e) = 4. The amount of habitat structure increases from left to right, whereas the results for 0 rings are displayed in (a), 2 rings are displayed in (b, d), and 3 rings are displayed in (c, e). The regression lines of the best fit point estimates are displayed in black, and the light gray area shows the 95% confidence limits of the best fit."
+```
+
+
+```{r figNgFuncResp, fig.cap=fig_fr_ng_cap}
+plot_mod15h(
+  results_hab_ng[[29]],
+  ci_reps = ci_runs
+  )
+```
+
+In model 15h, complexity affects the handling time (one measure of handling time per complexity level, table \ref{tab:SumTabNgMod15h}). The corresponding maximum feeding rates are `r round(1/10^results_hab_ng[[29]]@coef[[1]], 2)` [$\frac{items_{prey}}{day}$] (C0), `r round(1/10^results_hab_ng[[29]]@coef[[2]], 2)` [$\frac{items_{prey}}{day}$] (C1), `r round(1/10^results_hab_ng[[29]]@coef[[3]], 2)` [$\frac{items_{prey}}{day}$] (C2), `r round(1/10^results_hab_ng[[29]]@coef[[4]], 2)` [$\frac{items_{prey}}{day}$] (C3), `r round(1/10^results_hab_ng[[29]]@coef[[5]], 2)` [$\frac{items_{prey}}{day}$] (C4). The maximum feeding rates are generally lower if habitat is present (complexity levels 1-4), but especially at level 2, the value is rather comparable to the case without habitat.
+
+The attack rate, $a$ is a decreasing function of the amount of habitat (table \ref{tab:SumTabNgMod15h}) with an intercept of ($a_{intercept}$ = `r round(10^results_hab_ng[[29]]@coef[[6]], 2)` [$\frac{volume_{arena}}{days}$]. The intercept is the attack rate when the habitat is absent. The slope of the attack rate is `r round(results_hab_ng[[29]]@coef[[7]], 2)`, indicating that the successful search and attack of prey at low densities decrease with increasing amounts of habitat.
+
+The half saturation density $N_{half}$ depends on both, the handling time $T_{h}$ and the attack rate $a$ ($N_{half} = \frac{1}{aT_{h}}$) leading to five half saturation densities, one for each complexity level: `r round(1 / (10^(results_hab_ng[[29]]@coef[[6]] + results_hab_ng[[29]]@coef[[7]] * 0) * 10^results_hab_ng[[29]]@coef[[1]]), 2)` [$\frac{items_{prey}}{volume_{arena}}$] (C0); `r round(1 / (10^(results_hab_ng[[29]]@coef[[6]] + results_hab_ng[[29]]@coef[[7]] * 2) * 10^results_hab_ng[[29]]@coef[[2]]), 2)` [$\frac{items_{prey}}{volume_{arena}}$] (C1); `r round(1 / (10^(results_hab_ng[[29]]@coef[[6]] + results_hab_ng[[29]]@coef[[7]] * 2) * 10^results_hab_ng[[29]]@coef[[3]]), 2)` [$\frac{items_{prey}}{volume_{arena}}$] (C2); `r round(1 / (10^(results_hab_ng[[29]]@coef[[6]] + results_hab_ng[[29]]@coef[[7]] * 3) * 10^results_hab_ng[[29]]@coef[[4]]), 2)` [$\frac{items_{prey}}{volume_{arena}}$ (C3); `r round(1 / (10^(results_hab_ng[[29]]@coef[[6]] + results_hab_ng[[29]]@coef[[7]] * 3) * 10^results_hab_ng[[29]]@coef[[5]]), 2)` [$\frac{items_{prey}}{volume_{arena}}$] (C4).
+
+In general, the half saturation densities are increasing with increasing amounts of habitat, highlighting the effect of a decreasing hunting success at lower prey densities.
+
+**The models within 2 delta AIC/BIC units**
+
+**Model 16h and model 16r** are interchangeable and are the most complex models we could fit to data. Both functional response parameters are affected by complexity level (see tables \ref{tab:SumTabNgMod16h} and \ref{tab:SumTabNgMod16r}). The patterns of how habitat affects the parameters are similar to model 15h, i.e., handling time increases and maximum feeding decreases with increasing complexity, but we see an up-and-down pattern around this general trend. Attack rates are much higher when habitat is absent, complexity levels 1 and 2 (2 habitat rings in model 15h) show an intermediate attack rate, and complexity levels C3 and C4 have the lowest attack rates (3 rings in model 15h). The effect on half saturation densities is rather neutral, with a slight tendency to increase, in line with the fact that the general decrease in attack rates is more pronounced than the increase in attack rates with an increase in levels of complexity.
+
+
+```{r SumTabNgMod16h}
+create_summary_table(
+  model_fit = results_hab_ng[[31]],
+  ci_reps = ci_runs,
+  par_names = c(
+    "$T_h$ (C0)",
+    "$T_h$ (C1)",
+    "$T_h$ (C2)",
+    "$T_h$ (C3)",
+    "$T_h$ (C4)",
+    "$a$ (C0)",
+    "$a$ (C1)",
+    "$a$ (C2)",
+    "$a$ (C3)",
+    "$a$ (C4)"
+    ),
+    unlog = c(TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE),
+    caption_text = "Results of model 16 (Holling style) fitted to the data of \\textit{Notonecta glauca}."
+) %>%
+  kableExtra::kable_styling(latex_options = "HOLD_position")
+```
+
+```{r SumTabNgMod16r}
+create_summary_table(
+  model_fit = results_hab_ng[[32]],
+  ci_reps = ci_runs,
+  par_names = c(
+    "$F_{max}$ (C0)",
+    "$F_{max}$ (C1)",
+    "$F_{max}$ (C2)",
+    "$F_{max}$ (C3)",
+    "$F_{max}$ (C4)",
+    "$N_{half}$ (C0)",
+    "$N_{half}$ (C1)",
+    "$N_{half}$ (C2)",
+    "$N_{half}$ (C3)",
+    "$N_{half}$ (C4)"
+    ),
+    unlog = c(TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE),
+    caption_text = "Results of model 16 (Real style) fitted to the data of \\textit{Notonecta glauca}."
+) %>%
+  kableExtra::kable_styling(latex_options = "HOLD_position")
+```
+
+
+**Model 15r** (table \ref{tab:SumTabNgMod15r}) is in line with the above-mentioned models and shows a general increase of $F_{max}$ with the up-and-down pattern with increasing complexity levels as for the models above. The half saturation increases slightly with an increasing amount of habitat. This effect is similar to the effect of complexity in model 16r above.
+
+
+```{r SumTabNgMod15r}
+create_summary_table(
+  model_fit = results_hab_ng[[30]],
+  ci_reps = ci_runs,
+  par_names = c(
+    "$F_{max}$ (C0)",
+    "$F_{max}$ (C1)",
+    "$F_{max}$ (C2)",
+    "$F_{max}$ (C3)",
+    "$F_{max}$ (C4)",
+    "$N_{half}$ (intercept)",
+    "$N_{half}$ (slope)"
+    ),
+    unlog = c(TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE),
+    caption_text = "Results of model 15 (Real style) fitted to the data of \\textit{Notonecta glauca}."
+) %>%
+  kableExtra::kable_styling(latex_options = "HOLD_position")
+```
+
+**Model 9r** (table \ref{tab:SumTabNgMod09r}) is the by far the simplest model and chosen by the AIC, and not by the BIC selection. It comprises a decreasing maximum feeding rate with an increasing amount of habitat and a constant half saturation density. The generally decreasing trend of maximum feeding rate with increasing amount of habitat is in line with the models above, only ignoring the up-and-down with complexity levels. We also already saw above (e.g., models 15r and 16r) that the effect of habitat on half saturation is rather weak.
+
+```{r SumTabNgMod09r}
+create_summary_table(
+  model_fit = results_hab_ng[[18]],
+  ci_reps = ci_runs,
+  par_names = c(
+    "$F_{max}$ (intercept)",
+    "$F_{max}$ (slope)",
+    "$N_{half}$"
+    ),
+    unlog = c(TRUE,FALSE,TRUE),
+    caption_text = "Results of model 9 (Real style) fitted to the data of \\textit{Notonecta glauca}."
+) %>%
+  kableExtra::kable_styling(latex_options = "HOLD_position")
+```
+
+**Model 11h and model 11r** are interchangeable, and the functional response parameters both depend on the amount of habitat present (tables \ref{tab:SumTabNgMod11h} and \ref{tab:SumTabNgMod11r}). Handling time increases, and, of course, maximum feeding rate increases with the same strength. Attack rates decrease, while half saturation densities increase slightly. These results are in line with the above-mentioned models, only missing the up-and-down with complexity levels as in the more complex models.
+
+```{r SumTabNgMod11h}
+create_summary_table(
+  model_fit = results_hab_ng[[21]],
+  ci_reps = ci_runs,
+  par_names = c(
+    "$T_{h}$ (intercept)",
+    "$T_{h}$ (slope)",
+    "$a$ (intercept)",
+    "$a$ (slope)"
+    ),
+    unlog = c(TRUE,FALSE,TRUE,FALSE),
+    caption_text = "Results of model 11 (Holling style) fitted to the data of \\textit{Notonecta glauca}."
+) %>%
+  kableExtra::kable_styling(latex_options = "HOLD_position")
+```
+
+
+```{r SumTabNgMod11r}
+create_summary_table(
+  model_fit = results_hab_ng[[22]],
+  ci_reps = ci_runs,
+  par_names = c(
+    "$F_{max}$ (intercept)",
+    "$F_{max}$ (slope)",
+    "$N_{half}$ (intercept)",
+    "$N_{half}$ (slope)"
+    ),
+    unlog = c(TRUE,FALSE,TRUE,FALSE),
+    caption_text = "Results of model 11 (Real style) fitted to the data of \\textit{Notonecta glauca}."
+) %>%
+  kableExtra::kable_styling(latex_options = "HOLD_position")
+```
+
+**Model 13r** (table \ref{tab:SumTabNgMod13r}) shows the well-known up-and-down pattern of maximum feeding, including a general increase with increasing complexity level. The half saturation density is constant, in line with the rather weak (but significant) positive effect of habitat amount in the models above.
+
+```{r SumTabNgMod13r}
+create_summary_table(
+  model_fit = results_hab_ng[[26]],
+  ci_reps = ci_runs,
+  par_names = c(
+    "$F_{max}$ (C0)",
+    "$F_{max}$ (C1)",
+    "$F_{max}$ (C2)",
+    "$F_{max}$ (C3)",
+    "$F_{max}$ (C4)",
+    "$N_{half}$"
+    ),
+    unlog = c(TRUE,TRUE,TRUE,TRUE,TRUE,TRUE),
+    caption_text = "Results of model 13 (Real style) fitted to the data of \\textit{Notonecta glauca}."
+) %>%
+  kableExtra::kable_styling(latex_options = "HOLD_position")
+```
+
+In summary, all models in the range of 2 delta AIC and BIC units suggest that (1) the handling times increase with increasing amount of habitat available, altered by complexity levels. This leads to a decrease in maximum feeding rates, with the mirrored up-and-down effect of habitat complexity. We compared models 15h (the most parsimonious model) with model 11h (the next simple model nested in model 15h) and found that if the amount of habitat is medium (2 rings), the results for complexity levels 2 and 3 differ from the prediction of the simpler model (figure \ref{fig:figNgMod11vsMod15}). The attack rates decrease with increasing amounts of habitat, and this effect is slightly stronger than the effect on handling time, leading to a slightly increasing half saturation density. An even more complex effect of habitat complexity is given as models 16h and 16r are also within 2 delta AIC units, but as the AIC rather selects models that overfit data, we consider this effect as rather irrelevant.
+
+```{r figNgMod11vsMod15Caption}
+fig_mod11_15_ng_cap <- "The functional feeding response parameters $F_{max}$ (a) and $T_{h}$ of \\textit{Notonecta glauca} feeding on \\textit{Asellus aquaticus}. We found that model 15h was the most appropriate to describe the data (table \\ref{tab:NgAicBicTable}). This model includes a unique maximum feeding rate for each complexity level and a decreasing attack rate as a function of the amount of habitat provided (table \\ref{tab:SumTabNgMod15h}). The next simpler model, including the decreasing attack rate with ring count, is model 11h (table \\ref{tab:SumTabNgMod11h}). We consider the complexity levels as variants of the respective ring levels."
+```
+
+```{r figNgMod11vsMod15, fig.cap=fig_mod11_15_ng_cap}
+plot_mod15h_vs_mod11h(
+  model_fit_15h = results_hab_ng[[29]],
+  model_fit_11h = results_hab_ng[[21]],
+  ci_reps = ci_runs
+)
+```
 
 # Funding Information
 
@@ -297,7 +735,6 @@ The shape parameter $q$ of the generalized functional response model is not sign
 -   Ioar de Guzmán was funded by the **Spanish Ministry of Science, Innovation and Universities (TED2021-129966B-C31)**.
 -   Julia Reiss was supported by a **Royal Society of London Starting Grant**.
 -   Björn C. Rall gratefully acknowledges the funding by the **German Science Foundation (DFG) to the Research Unit DynaSym (FOR 5064)**.
-
 
 \newpage
 
@@ -312,14 +749,273 @@ The shape parameter $q$ of the generalized functional response model is not sign
 
 ## Phenomenological Test Rationale
 
-Instead of fitting the number eaten prey items as depended variable as function of the initial prey density, the ratio of prey eaten and initial prey items is used as depended variable [@Juliano2001NonlinearCurveFitting; @PritchardEtAl2017FrairToolsFunctional; @PritchardEtAl2017FrairPackageFitting]. In the case of a type II functional response, the proportion of eaten prey is constantly declining with increasing prey density, whereas in the case of a type III functional response, the proportion of prey eaten increases at low prey densities and declines after a reaching a maximum proportion rate. The main trend of any functional response if looking at the proportion data is negative. This negative trend is caused by the fact, that initial prey density linearly increases, whereas the eaten prey items are leveling of. Please see @Juliano2001NonlinearCurveFitting for a full description. @PritchardEtAl2017FrairPackageFitting implemented this test using generalized linear models with a binomial distribution, a standard method to analyze proportion data based on yes/no data (i.e. a prey item is eaten or not eaten), but see @Crawley2012Book, chapter 16, for an introduction on this topic.
+Instead of fitting the number eaten prey items as depended variable as a function of the initial prey density, the ratio of prey eaten and initial prey items is used as depended variable [@Juliano2001NonlinearCurveFitting; @PritchardEtAl2017FrairToolsFunctional; @PritchardEtAl2017FrairPackageFitting]. In the case of a type II functional response, the proportion of eaten prey is constantly declining with increasing prey density, whereas in the case of a type III functional response, the proportion of prey eaten increases at low prey densities and declines after reaching a maximum proportion rate. The main trend of any functional response, if looking at the proportion data, is negative. This negative trend is caused by the fact, that initial prey density linearly increases, whereas the eaten prey items are leveling off. Please see @Juliano2001NonlinearCurveFitting for a full description. @PritchardEtAl2017FrairPackageFitting implemented this test using generalized linear models with a binomial distribution, a standard method to analyze proportion data based on yes/no data (i.e., whether a prey item is eaten or not eaten), but see @Crawley2012Book, chapter 16, for an introduction on this topic.
 
-We use here the customized function `phen_type_test()` which is a wrapper around the `frair_test()` function from the `frair` package [@PritchardEtAl2017FrairToolsFunctional]. `phen_type_table()` creates a high quality pdf-report table based on the output of `phen_type_test()`. Both functions are located in the project's sub-folder `functions`.
+We use here the customized function `phen_type_test()` which is a wrapper around the `frair_test()` function from the `frair` package [@PritchardEtAl2017FrairToolsFunctional]. `phen_type_table()` creates a high-quality PDF report table based on the output of `phen_type_test()`. Both functions are located in the project's sub-folder `functions`.
+
+## Full AIC / BIC tables
+
+### *Ischnura elegans*
+
+```{r IeAicBicTableAll}
+create_h_table(
+  h_test_results = results_hab_ie,
+  cut_after = 32,
+  caption_text = "AIC / BIC table of all 32 possible models for \\textit{Ischnura elegans}."
+  ) %>%
+  kableExtra::kable_styling(latex_options = "HOLD_position")
+```
+
+### *Notonecta glauca*
+
+```{r NgAicBicTableAll}
+create_h_table(
+  h_test_results = results_hab_ng,
+  cut_after = 32,
+  caption_text = "AIC / BIC table of all 32 possible models for \\textit{Notonecta glauca}."
+  ) %>%
+  kableExtra::kable_styling(latex_options = "HOLD_position")
+```
+
+
+\newpage
+
+## All summary including original `bbmle::summary` outputs
+
+The tables below are build using the function `bbmle::summary` from the `bbmle` package [@BolkerEtAl2023BbmleToolsGeneral]. This means that all values *except the slopes* are displayed on $log_{10}$ scale in the column **Orig. Est.** (original estimate). The column **Estimate.** displays the values on normal scale.  The significance values are all tested against "0", in the case of the $log_{10}$-transformed parameters they are tested against a value of 1 on normal scale. As example, the maximum feeding rate value is tested if it differs significantly from 1 $\frac{items_{prey}}{day}$ eaten, not if $F_{max}$ differs between treatments. Therefore, the significance for the $log_{10}$-transformed parameters are not relevant. Only the significance for the slopes is of interest as it tells if the model finds a significant effect of the amount of habitat in the experimental trial (0, 2, or 3 ring structures).
+
+### *Ischnura elegans*
+
+```{r AllIeSummaries}
+out <- foreach::foreach(i = 1:32, .combine = "rbind") %do% {
+  
+  ci_samples <- MASS::mvrnorm(10000, mu = results_hab_ie[[i]]@coef, Sigma = bbmle::vcov(results_hab_ie[[i]]))
+  
+  par_exp = 10^bbmle::summary(results_hab_ie[[i]])@coef[,1]
+  par_value_low <- foreach::foreach(j = 1:ncol(ci_samples), .combine = "c") %do% {10^as.numeric(quantile(ci_samples[,j], 0.025))}
+  par_value_up  <- foreach::foreach(j = 1:ncol(ci_samples), .combine = "c") %do% {10^as.numeric(quantile(ci_samples[,j], 0.975))}
+  
+  data.frame(
+    Parameter = rownames(bbmle::summary(results_hab_ie[[i]])@coef),
+    PointEstimate = round(bbmle::summary(results_hab_ie[[i]])@coef[,1],3),
+    SE = round(bbmle::summary(results_hab_ie[[i]])@coef[,2],3),
+    z = round(bbmle::summary(results_hab_ie[[i]])@coef[,3],3),
+    p = round(bbmle::summary(results_hab_ie[[i]])@coef[,4],4),
+    ParameterExp = round(par_exp,3),
+    par_value_low = round(par_value_low,3),
+    par_value_up = round(par_value_up,3),
+    row.names = NULL
+  )
+}
+
+#non_exp <- c( 8,25,34,37,41,43,45,70,88,105,114,117,121,123,125,150)
+non_exp <- c(13,16,46,50,66,69,72,76,80,82 ,84 , 86, 88, 95,133,140)
+
+for(i in 1:nrow(out)){
+  if(any(non_exp==i)){
+    out[i,6] <- round(log10(out[i,6]),3)
+    out[i,7] <- round(log10(out[i,7]),3)
+    out[i,8] <- round(log10(out[i,8]),3)
+  }
+}
+
+# https://stackoverflow.com/questions/46251023/kableextra-continued-on-next-page-for-longtable
+out %>%
+  knitr::kable(
+    escape = TRUE,
+    format = "latex",
+    caption = "All 32 summary tables from \\textit{Ischnura elegans} model fits.",
+    booktabs = TRUE,
+    longtable = TRUE,
+    col.names = c(
+      "Name",
+      "Orig. Est.",
+      "SE",
+      "z",
+      "p",
+      "Estimate",
+      "CI low",
+      "CI up"
+      ),
+    align = "c"
+    ) %>%
+  kableExtra::kable_styling() %>%
+  kableExtra::pack_rows( "Model 1h",   1,   2) %>%
+  kableExtra::pack_rows( "Model 1r",   3,   4) %>%
+  kableExtra::pack_rows( "Model 2h",   5,   7) %>%
+  kableExtra::pack_rows( "Model 2r",   8,  10) %>%
+  kableExtra::pack_rows( "Model 3h",  11,  13) %>%
+  kableExtra::pack_rows( "Model 3r",  14,  16) %>%
+  kableExtra::pack_rows( "Model 4h",  17,  22) %>%
+  kableExtra::pack_rows( "Model 4r",  23,  28) %>%
+  kableExtra::pack_rows( "Model 5h",  29,  31) %>%
+  kableExtra::pack_rows( "Model 5r",  32,  34) %>%
+  kableExtra::pack_rows( "Model 6h",  35,  38) %>%
+  kableExtra::pack_rows( "Model 6r",  39,  42) %>%
+  kableExtra::pack_rows( "Model 7h",  43,  46) %>%
+  kableExtra::pack_rows( "Model 7r",  47,  50) %>%
+  kableExtra::pack_rows( "Model 8h",  51,  57) %>%
+  kableExtra::pack_rows( "Model 8r",  58,  64) %>%
+  kableExtra::pack_rows( "Model 9h",  65,  67) %>%
+  kableExtra::pack_rows( "Model 9r",  68,  70) %>%
+  kableExtra::pack_rows("Model 10h",  71,  74) %>%
+  kableExtra::pack_rows("Model 10r",  75,  78) %>%
+  kableExtra::pack_rows("Model 11h",  79,  82) %>%
+  kableExtra::pack_rows("Model 11r",  83,  86) %>%
+  kableExtra::pack_rows("Model 12h",  87,  93) %>%
+  kableExtra::pack_rows("Model 12r",  94, 100) %>%
+  kableExtra::pack_rows("Model 13h", 101, 106) %>%
+  kableExtra::pack_rows("Model 13r", 107, 112) %>%
+  kableExtra::pack_rows("Model 14h", 113, 119) %>%
+  kableExtra::pack_rows("Model 14r", 120, 126) %>%
+  kableExtra::pack_rows("Model 15h", 127, 133) %>%
+  kableExtra::pack_rows("Model 15r", 134, 140) %>%
+  kableExtra::pack_rows("Model 16h", 141, 150) %>%
+  kableExtra::pack_rows("Model 16r", 151, 160) %>%
+  kableExtra::kable_styling(
+    latex_options = c("HOLD_position", "repeat_header"),
+    repeat_header_continued = "\\textit{(continued on next page...)}"
+  ) #%>%
+#  kableExtra::landscape()
+```
+
+\newpage
+
+### *Notonecta glauca*
+
+```{r AllNgSummaries}
+out <- foreach::foreach(i = 1:32, .combine = "rbind") %do% {
+  
+  ci_samples <- MASS::mvrnorm(10000, mu = results_hab_ng[[i]]@coef, Sigma = bbmle::vcov(results_hab_ng[[i]]))
+  
+  par_exp = 10^bbmle::summary(results_hab_ng[[i]])@coef[,1]
+  par_value_low <- foreach::foreach(j = 1:ncol(ci_samples), .combine = "c") %do% {10^as.numeric(quantile(ci_samples[,j], 0.025))}
+  par_value_up  <- foreach::foreach(j = 1:ncol(ci_samples), .combine = "c") %do% {10^as.numeric(quantile(ci_samples[,j], 0.975))}
+  
+  data.frame(
+    Parameter = rownames(bbmle::summary(results_hab_ng[[i]])@coef),
+    PointEstimate = round(bbmle::summary(results_hab_ng[[i]])@coef[,1],3),
+    SE = round(bbmle::summary(results_hab_ng[[i]])@coef[,2],3),
+    z = round(bbmle::summary(results_hab_ng[[i]])@coef[,3],3),
+    p = round(bbmle::summary(results_hab_ng[[i]])@coef[,4],4),
+    ParameterExp = round(par_exp,3),
+    par_value_low = round(par_value_low,3),
+    par_value_up = round(par_value_up,3),
+    row.names = NULL
+  )
+}
+
+#non_exp <- c( 8,25,34,37,41,43,45,70,88,105,114,117,121,123,125,150)
+non_exp <- c(13,16,46,50,66,69,72,76,80,82 ,84 , 86, 88, 95,133,140)
+
+for(i in 1:nrow(out)){
+  if(any(non_exp==i)){
+    out[i,6] <- round(log10(out[i,6]),3)
+    out[i,7] <- round(log10(out[i,7]),3)
+    out[i,8] <- round(log10(out[i,8]),3)
+  }
+}
+
+# https://stackoverflow.com/questions/46251023/kableextra-continued-on-next-page-for-longtable
+out %>%
+  knitr::kable(
+    escape = TRUE,
+    format = "latex",
+    caption = "All 32 summary tables from \\textit{Ischnura elegans} model fits.",
+    booktabs = TRUE,
+    longtable = TRUE,
+    col.names = c(
+      "Name",
+      "Orig. Est.",
+      "SE",
+      "z",
+      "p",
+      "Estimate",
+      "CI low",
+      "CI up"
+      ),
+    align = "c"
+    ) %>%
+  kableExtra::kable_styling() %>%
+  kableExtra::pack_rows( "Model 1h",   1,   2) %>%
+  kableExtra::pack_rows( "Model 1r",   3,   4) %>%
+  kableExtra::pack_rows( "Model 2h",   5,   7) %>%
+  kableExtra::pack_rows( "Model 2r",   8,  10) %>%
+  kableExtra::pack_rows( "Model 3h",  11,  13) %>%
+  kableExtra::pack_rows( "Model 3r",  14,  16) %>%
+  kableExtra::pack_rows( "Model 4h",  17,  22) %>%
+  kableExtra::pack_rows( "Model 4r",  23,  28) %>%
+  kableExtra::pack_rows( "Model 5h",  29,  31) %>%
+  kableExtra::pack_rows( "Model 5r",  32,  34) %>%
+  kableExtra::pack_rows( "Model 6h",  35,  38) %>%
+  kableExtra::pack_rows( "Model 6r",  39,  42) %>%
+  kableExtra::pack_rows( "Model 7h",  43,  46) %>%
+  kableExtra::pack_rows( "Model 7r",  47,  50) %>%
+  kableExtra::pack_rows( "Model 8h",  51,  57) %>%
+  kableExtra::pack_rows( "Model 8r",  58,  64) %>%
+  kableExtra::pack_rows( "Model 9h",  65,  67) %>%
+  kableExtra::pack_rows( "Model 9r",  68,  70) %>%
+  kableExtra::pack_rows("Model 10h",  71,  74) %>%
+  kableExtra::pack_rows("Model 10r",  75,  78) %>%
+  kableExtra::pack_rows("Model 11h",  79,  82) %>%
+  kableExtra::pack_rows("Model 11r",  83,  86) %>%
+  kableExtra::pack_rows("Model 12h",  87,  93) %>%
+  kableExtra::pack_rows("Model 12r",  94, 100) %>%
+  kableExtra::pack_rows("Model 13h", 101, 106) %>%
+  kableExtra::pack_rows("Model 13r", 107, 112) %>%
+  kableExtra::pack_rows("Model 14h", 113, 119) %>%
+  kableExtra::pack_rows("Model 14r", 120, 126) %>%
+  kableExtra::pack_rows("Model 15h", 127, 133) %>%
+  kableExtra::pack_rows("Model 15r", 134, 140) %>%
+  kableExtra::pack_rows("Model 16h", 141, 150) %>%
+  kableExtra::pack_rows("Model 16r", 151, 160) %>%
+  kableExtra::kable_styling(
+    latex_options = c("HOLD_position", "repeat_header"),
+    repeat_header_continued = "\\textit{(continued on next page...)}"
+  ) #%>%
+#  kableExtra::landscape()
+```
+
+
+\newpage
 
 ## Project Settings
 
-Last but not least: the system's and R installation's information:
+We created the statistics in this report and the report itself using `r sessionInfo()$R.version$version.string` - `r sessionInfo()$R.version$nickname` on a `r sessionInfo()$R.version$arch` computer with `r sessionInfo()$running` as operating system. Find the loaded and attached packages that we used in table \ref{tab:packageInfo}.
 
-```{r echo=TRUE}
-print(sessionInfo(), locale = FALSE)
+```{r packageInfo}
+dplyr::data_frame(
+  pname = sessioninfo::package_info(pkgs = "loaded", include_base = TRUE, dependencies = TRUE)[,1],
+  pver = sessioninfo::package_info(pkgs = "loaded", include_base = TRUE, dependencies = TRUE)[,3],
+  pattached = sessioninfo::package_info(pkgs = "loaded", include_base = TRUE, dependencies = TRUE)[,6],
+  pbase = sessioninfo::package_info(pkgs = "loaded", include_base = TRUE, dependencies = TRUE)[,7]
+) %>%
+  dplyr::arrange(
+    desc(pbase),
+    desc(pattached)
+  ) %>%
+  knitr::kable(
+    escape = FALSE,
+    format = "latex",
+    caption = "All loaded R packages that we used in this report, including base packages.",
+    booktabs = TRUE,
+    longtable = TRUE,
+    col.names = c(
+      "Package Name",
+      "Version",
+      "Is Package Attached?",
+      "Is a Base Package?"
+    ),
+    align = "c"
+  ) %>%
+  kableExtra::row_spec(
+    row = 0,
+    bold = TRUE
+  ) %>%
+  kableExtra::kable_styling(
+    latex_options = "HOLD_position",
+    repeat_header_continued = "\\textit{(continued on next page...)}"
+  )
 ```
+
+

@@ -12,13 +12,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Summary
 
-This repository hosts the supplemental statistics report of the upcoming publication of Aranbarri et al. (unpublished) investigating the effect of habitat complexity on the feeding functional response of two freshwater invertebrate predators. Find the full report [statisticsReport.pdf](https://github.com/b-c-r/CRITTERstatistics/blob/main/statisticsReport.pdf) in the main folder of this repository. Find below information on related works and the location of the data and code.
+This repository hosts the statistics report that is supplementing our preprint article by @AranbarriEtAl2025ComplexityReducesFeeding investigating the effect of habitat complexity on the feeding functional response of two freshwater invertebrate predators. Find the full report as PDF [here](https://github.com/b-c-r/CRITTERstatistics/blob/main/statisticsReport.pdf). Find below information on related works and the location of the data and code.
 
 **Note that the report is still under construction!**
 
 ## License
 
-This report is published under a [**Creative Commons BY 4.0**](https://creativecommons.org/licenses/by/4.0/) license.
+This report is published under the [**Creative Commons BY 4.0**](https://creativecommons.org/licenses/by/4.0/) license. The underlying code is licensed under the [**GNU General Public License 3**](https://www.gnu.org/licenses/gpl-3.0.html).
 
 ## Authors
 
@@ -51,15 +51,15 @@ This report is published under a [**Creative Commons BY 4.0**](https://creativec
 
 -   [R-Code on GitHub](https://github.com/b-c-r/CRITTERdata)
 
--   [Statistical Report on GitHub](https://github.com/b-c-r/CRITTERstatistics)
-
 -   [Statistical Report on Zenodo](https://doi.org/10.5281/zenodo.14898819) [@RallEtAl2025ComplexityReducesFeedingStatistics]
 
--   Scientific Preprint Paper (link tba)
+-   [Statistical Report on GitHub](https://github.com/b-c-r/CRITTERstatistics)
+
+-   [Scientific Preprint Article](https://doi.org/10.1101/2025.02.22.639633) [@AranbarriEtAl2025ComplexityReducesFeeding]
 
 ## Code and Data
 
-We wrote our report in R Markdown. The R Markdown script imports the data and the required functions directly from our GitHub repositories [CRITTERdata](https://github.com/b-c-r/CRITTERdata) and [CRITTERcode](https://github.com/b-c-r/CRITTERcode), respectively [@FloresEtAl2025ComplexityReducesFeedingData;@RallEtAl2025ComplexityReducesFeedingCode]. You will find also an in-depth code description [CRITTERcode](https://github.com/b-c-r/CRITTERcode). You will find laboratory methods in the upcoming journal article (Aranbarri et al. unpublished); we link to it when it is published on a preprint server.
+We wrote our report in R Markdown. The R Markdown script imports the data and the required functions directly from our GitHub repositories [CRITTERdata](https://github.com/b-c-r/CRITTERdata) and [CRITTERcode](https://github.com/b-c-r/CRITTERcode), respectively [@FloresEtAl2025ComplexityReducesFeedingData;@RallEtAl2025ComplexityReducesFeedingCode]. You will find also an in-depth code description in the REAMDE of our [CRITTERcode](https://github.com/b-c-r/CRITTERcode) repository or in the [full statistical report](https://github.com/b-c-r/CRITTERstatistics/blob/main/statisticsReport.pdf). You will find laboratory methods in our preprint article [@AranbarriEtAl2025ComplexityReducesFeeding].
 
 ## Funding Information
 
