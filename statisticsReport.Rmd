@@ -65,7 +65,7 @@ This report is published under the [**Creative Commons BY 4.0**](https://creativ
 
 If you want to refer to our report, please cite:
 
-Rall, B.C., Aranbarri, M., Flores, L., Guzmán, I. de, Larrañaga, A., & Reiss, J.(2025): Habitat complexity reduces the feeding strength of freshwater predators (CRITTER)- Supplemental Statistics Report. Zenodo. https://doi.org/10.5281/zenodo.14894598.
+Rall, B.C., Aranbarri, M., Flores, L., Guzmán, I. de, Larrañaga, A., & Reiss, J.(2025): Habitat complexity reduces the feeding strength of freshwater predators (CRITTER) - Supplemental Statistics Report. Zenodo. https://doi.org/10.5281/zenodo.14894598.
 
 
 ## Related Works
@@ -370,7 +370,7 @@ The remaining models (5, 7, 9, 10, 13, 14, 15) will deliver different results.
 
 We will compare all models using common information criteria, the AIC, and the BIC [@Akaike1974NewLookStatistical; @Schwarz1978EstimatingDimensionModela]. The AIC selects models with more parameters, whereas the BIC tends to select models with a lower number of parameters [@Schwarz1978EstimatingDimensionModela]. Please find the results of all fits saved as `*.rds` files in the folders `results_hab_ie` and `results_hab_ng` online (<https://github.com/b-c-r/CRITTERstatistics>).
 
-```{r run_h_tests, eval=evaluate_selected_chunks}
+```{r run_h_tests, eval=evaluate_selected_chunks, message=FALSE, warning=FALSE}
 ## receiving source file names
 source_files <- list.files(here::here("scripts"))
 
@@ -995,7 +995,7 @@ dplyr::data_frame(
     desc(pattached)
   ) %>%
   knitr::kable(
-    escape = FALSE,
+    escape = TRUE,
     format = "latex",
     caption = "All loaded R packages that we used in this report, including base packages.",
     booktabs = TRUE,
@@ -1008,6 +1008,7 @@ dplyr::data_frame(
     ),
     align = "c"
   ) %>%
+  kableExtra::kable_styling() %>%
   kableExtra::row_spec(
     row = 0,
     bold = TRUE
