@@ -1,7 +1,7 @@
 Habitat *c*omplexity *r*educes feed*i*ng s*t*reng*t*h of fr*e*shwater
 p*r*edators (CRITTER, Supplemental Statistics Report)
 ================
-2025-03-17
+2025-03-18
 
 ## Summary
 
@@ -21,6 +21,15 @@ This report is published under the [**Creative Commons BY
 4.0**](https://creativecommons.org/licenses/by/4.0/) license. The
 underlying code is licensed under the [**GNU General Public License
 3**](https://www.gnu.org/licenses/gpl-3.0.html).
+
+## How to cite this report
+
+If you want to refer to our report, please cite:
+
+Rall, B.C., Aranbarri, M., Flores, L., Guzmán, I. de, Larrañaga, A., &
+Reiss, J.(2025): Habitat complexity reduces the feeding strength of
+freshwater predators (CRITTER)- Supplemental Statistics Report. Zenodo.
+<https://doi.org/10.5281/zenodo.14894598>.
 
 ## Authors
 
