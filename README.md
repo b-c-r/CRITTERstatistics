@@ -28,7 +28,7 @@ If you want to refer to our report, please cite:
 
 Rall, B.C., Aranbarri, M., Flores, L., Guzmán, I. de, Larrañaga, A., &
 Reiss, J.(2025): Habitat complexity reduces the feeding strength of
-freshwater predators (CRITTER)- Supplemental Statistics Report. Zenodo.
+freshwater predators (CRITTER) - Supplemental Statistics Report. Zenodo.
 <https://doi.org/10.5281/zenodo.14894598>.
 
 ## Authors
