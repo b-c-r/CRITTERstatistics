@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Summary
 
-This repository hosts the statistics report that is supplementing our preprint article by @AranbarriEtAl2025ComplexityReducesFeeding investigating the effect of habitat complexity on the feeding functional response of two freshwater invertebrate predators. Find the full report as PDF [here](https://github.com/b-c-r/CRITTERstatistics/blob/main/statisticsReport.pdf). Find below information on related works and the location of the data and code.
+This repository hosts the statistics report that is supplementing our [scientific preprint article](https://doi.org/10.1101/2025.02.22.639633) by @AranbarriEtAl2025ComplexityReducesFeeding investigating the effect of habitat complexity on the feeding functional response of two freshwater invertebrate predators. Find the full report as PDF [here](https://github.com/b-c-r/CRITTERstatistics/blob/main/statisticsReport.pdf). Find below information on related works and the location of the data and code.
 
 **Note that the report is still under construction!**
 
@@ -67,6 +67,36 @@ Rall, B.C., Aranbarri, M., Flores, L., Guzmán, I. de, Larrañaga, A., & Reiss, 
 ## Code and Data
 
 We wrote our report in R Markdown. The R Markdown script imports the data and the required functions directly from our GitHub repositories [CRITTERdata](https://github.com/b-c-r/CRITTERdata) and [CRITTERcode](https://github.com/b-c-r/CRITTERcode), respectively [@FloresEtAl2025ComplexityReducesFeedingData;@RallEtAl2025ComplexityReducesFeedingCode]. You will find also an in-depth code description in the REAMDE of our [CRITTERcode](https://github.com/b-c-r/CRITTERcode) repository or in the [full statistical report](https://github.com/b-c-r/CRITTERstatistics/blob/main/statisticsReport.pdf). You will find laboratory methods in our preprint article [@AranbarriEtAl2025ComplexityReducesFeeding].
+
+
+## Required Packages
+
+If you want to knit this report for yourself, you need to install:
+
+- `bbmle` [@BolkerEtAl2023BbmleToolsGeneral]
+- `bookdown` [@Xie2025BookdownAuthoringBooks]
+- `doParallel` [@MicrosoftWeston2022DoParallelForeachParallel]
+- `dplyr` [@WickhamEtAl2023DplyrGrammarData]
+- `emdbook` [@Bolker2023EmdbookSupportFunctions]
+- `foreach` [@MicrosoftWeston2022ForeachProvidesForeach]
+- `frair` [@PritchardEtAl2017FrairToolsFunctional]
+- `here` [@MullerBryan2020HereSimplerWay]
+- `kableExtra` [@Zhu2024KableExtraConstructComplex]
+- `knitr` [@Xie2024KnitrGeneralpurposePackage]
+- `lhs` [@Carnell2024LhsLatinHypercubea]
+- `MASS` [@RipleyEtAl2025MASSSupportFunctions]
+- `odin` [@FitzJohn2024OdinODEGeneration]
+- `png` [@Urbanek2022PngReadWrite]
+- `purrr` [@WickhamHenry2025PurrrFunctionalProgramming]
+- `RCurl` [@CRANTeamTempleLang2024RCurlGeneralNetwork]
+- `sessioninfo` [@CsardiEtAl2025SessioninfoSessionInformation]
+- `supportR` [@Lyon2024SupportRSupportFunctions]
+- `tinytex` [@XiePositSoftwarePBC2025TinytexHelperFunctions]
+
+We used TinyTex [@XiePositSoftwarePBC2025TinytexHelperFunctions] to create the pdf report. Please follow their installation guidelines using on [their homepage](https://yihui.org/tinytex/). You can, of course, use another LaTeX distribution, but we only tested if the RMarkdown script works using TinyTex.
+
+**Please let us know if we forgot required packages.**
+
 
 ## Funding Information
 
