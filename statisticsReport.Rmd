@@ -47,15 +47,15 @@ knitr::opts_chunk$set(
 library("dplyr")
 library("foreach")
 
-evaluate_selected_chunks <- TRUE
-ci_runs <- 10000 # choose 10000 for publication output
+evaluate_selected_chunks <- TRUE                                                # set to TRUE for a version to publish
+ci_runs <- 10000                                                                # choose 10000 for publication output
 ```
 
 # Overview
 
 ## Summary
 
-This statistics report is a supplement of our preprint article by @AranbarriEtAl2025ComplexityReducesFeeding in which we investigate how habitat affects the strength of the feeding functional response of two freshwater invertebrate predators. Find below information on related works and the location of the data and code.
+This repository hosts the statistics report that is supplementing our [scientific preprint article](https://doi.org/10.1101/2025.02.22.639633) by @AranbarriEtAl2025ComplexityReducesFeeding investigating the effect of habitat complexity on the feeding functional response of two freshwater invertebrate predators. Find below information on related works and the location of the data and code.
 
 ## License
 
@@ -85,6 +85,34 @@ Rall, B.C., Aranbarri, M., Flores, L., Guzmán, I. de, Larrañaga, A., & Reiss, 
 -   [Scientific Preprint Article](https://doi.org/10.1101/2025.02.22.639633) [@AranbarriEtAl2025ComplexityReducesFeeding]
 
 # Methods
+
+## Required Packages
+
+If you want to knit this report for yourself, you need to install:
+
+- `bbmle` [@BolkerEtAl2023BbmleToolsGeneral]
+- `bookdown` [@Xie2025BookdownAuthoringBooks]
+- `doParallel` [@MicrosoftWeston2022DoParallelForeachParallel]
+- `dplyr` [@WickhamEtAl2023DplyrGrammarData]
+- `emdbook` [@Bolker2023EmdbookSupportFunctions]
+- `foreach` [@MicrosoftWeston2022ForeachProvidesForeach]
+- `frair` [@PritchardEtAl2017FrairToolsFunctional]
+- `here` [@MullerBryan2020HereSimplerWay]
+- `kableExtra` [@Zhu2024KableExtraConstructComplex]
+- `knitr` [@Xie2024KnitrGeneralpurposePackage]
+- `lhs` [@Carnell2024LhsLatinHypercubea]
+- `MASS` [@RipleyEtAl2025MASSSupportFunctions]
+- `odin` [@FitzJohn2024OdinODEGeneration]
+- `png` [@Urbanek2022PngReadWrite]
+- `purrr` [@WickhamHenry2025PurrrFunctionalProgramming]
+- `RCurl` [@CRANTeamTempleLang2024RCurlGeneralNetwork]
+- `sessioninfo` [@CsardiEtAl2025SessioninfoSessionInformation]
+- `supportR` [@Lyon2024SupportRSupportFunctions]
+- `tinytex` [@XiePositSoftwarePBC2025TinytexHelperFunctions]
+
+We used TinyTex [@XiePositSoftwarePBC2025TinytexHelperFunctions] to create the pdf report. Please follow their installation guidelines using on [their homepage](https://yihui.org/tinytex/). You can, of course, use another LaTeX distribution, but we only tested if the RMarkdown script works using TinyTex.
+
+**Please let us know if we forgot required packages.**
 
 ## Theoretical Background
 
@@ -288,12 +316,12 @@ phen_tests <- phen_type_test(
   name_eaten = "n_eaten",
   name_treatments = "treatment"
 )
-saveRDS(phen_tests, file = "results_type/phen_tests.rds")
+saveRDS(phen_tests, file = "results/phen_tests.rds")
 ```
 
 ```{r phenTable}
 phen_type_table(
-  phen_test_results = readRDS(here::here("results_type", "phen_tests.rds")),
+  phen_test_results = readRDS(here::here("results", "phen_tests.rds")),
   caption_text = "The results of testing for the functional response type by using the phenomenological test (Juliano 2001, Pritchard et al. 2017). We found for all unique treatments (complexity times predator identity) that a type II functional response explains the data best."
   )
 ```
@@ -304,23 +332,24 @@ We analyzed our data using the so-called the phenomenological test by fitting th
 
 ```{r genFRfits, eval=evaluate_selected_chunks}
 gen_fr_results <- gen_fr_fit_all(
- data = fr_data,
- name_initial = "n_initial",
- name_eaten = "n_eaten",
- name_treatments = "treatment"
+  data = fr_data,
+  name_initial = "n_initial",
+  name_eaten = "n_eaten",
+  name_treatments = "treatment"
 )
-saveRDS(gen_fr_results, file = "results_type/gen_fr_results.rds")
+saveRDS(gen_fr_results, file = "results/gen_fr_results.rds")
 ```
 
 ```{r genFRtable}
 gen_fr_table(
-  gen_fr_results = readRDS(here::here("results_type", "gen_fr_results.rds")),
+  gen_fr_results = readRDS(here::here("results", "gen_fr_results.rds")),
   caption_text = "The significance of the shape parameter $q$ of all ten separately fitted generalized functional response models.",
   output_style = "pdf"
 )
 ```
 
 We analyzed our data using the generalized functional response model by fitting this model to all ten treatments separately, i.e., two predators with five complexity levels each [@WilliamsMartinez2004StabilizationChaoticNonpermanent; @RallEtAl2008FoodwebConnectancePredator; @Vucic-PesticEtAl2010AllometricFunctionalResponse; @RosenbaumRall2018FittingFunctionalResponses]. The shape parameter $q$ is not significantly different from zero (see table \ref{tab:genFRtable}). This means that in all cases, a simpler type II functional response can be used to describe the data properly. This is in line with the phenomenological test shown above, and we will subsequently use the Roger's Random Predator Equation.
+
 
 ## Habitat presence, amount, and complexity results
 
@@ -370,39 +399,23 @@ The remaining models (5, 7, 9, 10, 13, 14, 15) will deliver different results.
 
 We will compare all models using common information criteria, the AIC, and the BIC [@Akaike1974NewLookStatistical; @Schwarz1978EstimatingDimensionModela]. The AIC selects models with more parameters, whereas the BIC tends to select models with a lower number of parameters [@Schwarz1978EstimatingDimensionModela]. Please find the results of all fits saved as `*.rds` files in the folders `results_hab_ie` and `results_hab_ng` online (<https://github.com/b-c-r/CRITTERstatistics>).
 
-```{r run_h_tests, eval=evaluate_selected_chunks, message=FALSE, warning=FALSE}
-## receiving source file names
-source_files <- list.files(here::here("scripts"))
-
-## setup the cluster for parallel computing on the local machine
-cl <- parallel::makeCluster(8)
-doParallel::registerDoParallel(cl)
-
-## run all the different model fits in parallel 
-foreach::foreach(
-  i = 1:length(source_files)
-) %dopar% {
-  source(here::here("scripts", source_files[i]))
-}
-
-## stop the cluster
-parallel::stopCluster(cl)
+```{r habFRfits, eval=evaluate_selected_chunks}
+hab_fr_results <- run_all_hab_fits(
+  x = fr_data
+)
+saveRDS(hab_fr_results, file = "results/hab_fr_results.rds")
 ```
 
 ### *Ischnura elegans* results
 
 ```{r IeAicBicTable}
-result_ie_files <- list.files(here::here("results_hab_ie"))
-results_hab_ie <- foreach::foreach(i = 1:length(result_ie_files)) %do%{
-  readRDS(here::here("results_hab_ie", result_ie_files[i]))
-}
+results_hab_ie <- readRDS(here::here("results", "hab_fr_results.rds"))[1:32]
 
 create_h_table(
   h_test_results = results_hab_ie,
   cut_after = 6,
   caption_text = "AIC / BIC table of the six most parsimonious out of 32 possible models for \\textit{Ischnura elegans}. Find all results below in table  ."
-  ) %>%
-  kableExtra::kable_styling(latex_options = "HOLD_position")
+  )
 ```
 
 The most parsimonious model according to AIC and BIC is model 5r (table \ref{tab:IeAicBicTable}). The maximum feeding rate in the case of no habitat is `r round(10^results_hab_ie[[10]]@coef[[1]], 2)` [$\frac{items_{prey}}{day}$] and in the case of habitat present `r round(10^results_hab_ie[[10]]@coef[[2]], 2)` [$\frac{items_{prey}}{day}$], which is a drop of about half (table \ref{tab:SumTabIeMod05r}). Expressed as handling time, $T_h$, *I. elegans* predators need `r round(1 / 10^results_hab_ie[[10]]@coef[[1]], 2)` [$days$] if no habitat is present and `r round(1 / 10^results_hab_ie[[10]]@coef[[2]], 2)` [$\frac{days}{items_{prey}}$] if habitat is present to subdue and feed on a prey item. The half saturation density, $N_{half}$ is not affected by habitat at all ($N_{half}$ = `r round(10^results_hab_ie[[10]]@coef[[3]], 2)` $\frac{items_{prey}}{volume_{arena}}$, table \ref{tab:SumTabIeMod05r}). As the attack rate $a$ depends on both, the maximum feeding rate $F_{max}$ and the half saturation density $N_{half}$, we can calculate two attack rates for (1) no habitat ($a$ = `r round(10^results_hab_ie[[10]]@coef[[1]] / 10^results_hab_ie[[10]]@coef[[3]], 2)` [$\frac{volume_{arena}}{days}$]) and (2) for the case that habitat is present ($a$ = `r round(10^results_hab_ie[[10]]@coef[[2]] / 10^results_hab_ie[[10]]@coef[[3]], 2)` [$\frac{volume_{arena}}{days}$]). Note that the change in attack rate matches the change in maximum feeding rate, resulting in the fact that the strength of feeding is influenced equally across the whole range of prey densities (as $N_{half}$ is constant).
@@ -420,8 +433,7 @@ create_summary_table(
   ),
   unlog = c(TRUE, TRUE, TRUE),
   caption_text = "Results of model 5 (Real style) fitted to the data of \\textit{Ischnura elegans}."
-) %>%
-  kableExtra::kable_styling(latex_options = "HOLD_position")
+)
 ```
 
 
@@ -453,8 +465,7 @@ create_summary_table(
   ),
   unlog = c(TRUE, TRUE, TRUE, FALSE),
   caption_text = "Results of model 7 (Real style) fitted to the data of \\textit{Ischnura elegans}."
-) %>%
-  kableExtra::kable_styling(latex_options = "HOLD_position")
+)
 ```
 
 **Model 6h** (table \ref{tab:SumTabIeMod06h}) is more complex than model 5r by one degree of freedom. Model 6h is interchangeable with model 6r below. Not only $T_{h}$ depends on the presence of the habitat but also $a$. If habitat is present, the attack rate is reduced from `r round(10^results_hab_ie[[11]]@coef[[3]], 2)` $\frac{items_{prey}}{volume_{arena}}$ to `r round(10^results_hab_ie[[11]]@coef[[4]], 2)`. A likelihood ratio test reveals, that adding this model parameter doesn't make the fit significantly better compared to model 5r (p = `r round(bbmle::anova(results_hab_ie[[10]], results_hab_ie[[11]])[10], 3)`).
@@ -471,8 +482,7 @@ create_summary_table(
   ),
   unlog = c(TRUE, TRUE, TRUE, TRUE),
   caption_text = "Results of model 6 (Holling style) fitted to the data of \\textit{Ischnura elegans}."
-) %>%
-  kableExtra::kable_styling(latex_options = "HOLD_position")
+)
 ```
 
 **Model 6r** (table \ref{tab:SumTabIeMod06r}) is more complex than model 5r by one degree of freedom. Model 6r is interchangeable with model 6h above. Not only $F_{max}$ depends on the presence of the habitat but also $N_{half}$. If habitat is present, the half saturation density drops from `r round(10^results_hab_ie[[12]]@coef[[3]], 2)` $\frac{items_{prey}}{volume_{arena}}$ to `r round(10^results_hab_ie[[12]]@coef[[4]], 2)`. A likelihood ratio test reveals, that adding this model parameter doesn't make the fit significantly better compared to model 5r (p = `r round(bbmle::anova(results_hab_ie[[10]], results_hab_ie[[12]])[10], 3)`).
@@ -489,8 +499,7 @@ create_summary_table(
   ),
   unlog = c(TRUE, TRUE, TRUE, TRUE),
   caption_text = "Results of model 6 (Real style) fitted to the data of \\textit{Ischnura elegans}."
-) %>%
-  kableExtra::kable_styling(latex_options = "HOLD_position")
+)
 ```
 
 **Model 5h** (table \ref{tab:SumTabIeMod05h}) is as complex as model 5r, and both have three model parameters. $T_{h}$ depends on the presence of the habitat, and $a$ is not affected by habitat at all (`r round(10^results_hab_ie[[9]]@coef[[3]], 2)` $\frac{items_{prey}}{volume_{arena}}$). The respective half saturation densities are for the case without habitat: $N_{half}$ = `r round(1 / (10^results_hab_ie[[9]]@coef[[1]] * 10^results_hab_ie[[9]]@coef[[3]]), 3)`; and with habitat: $N_{half}$ = `r round(1 / (10^results_hab_ie[[9]]@coef[[2]] * 10^results_hab_ie[[9]]@coef[[3]]), 3)`. Especially the half saturation density for the case without habitat seems highly unlikely as it is above the tested range of prey densities. We did not apply a likelihood ratio test, as both models share the same number of parameters.
@@ -506,8 +515,7 @@ create_summary_table(
   ),
   unlog = c(TRUE, TRUE, TRUE),
   caption_text = "Results of model 5 (Holling style) fitted to the data of \\textit{Ischnura elegans}."
-) %>%
-  kableExtra::kable_styling(latex_options = "HOLD_position")
+)
 ```
 
 In summary, all models in the range of 2 delta AIC units suggest that (1) the maximum feeding rate drops dramatically by up to 50% when adding habitat structure. The half saturation density is likely to be habitat-independent, according to the most likely model 5r. Eventually, the half saturation density may also decrease by adding habitat (model 6r), or may even decrease as a function of habitat amount (model 7r), which leads to a decrease in attack rates that is less pronounced as the drop of maximum feeding rates (model 6h) or the attack rate may be constant (model 5h). This result would indicate that the effect of habitat is predominantly acting at high prey densities. However, the alternative models are not contributing significantly to the explanation of the data (see above), leaving this phenomenon open for discussion. The results, however, show, that the higher-order complexity of the habitat structure does not influence the feeding rate of *Ischnura elegans*.
@@ -515,17 +523,13 @@ In summary, all models in the range of 2 delta AIC units suggest that (1) the ma
 ### *Notonecta glauca* results
 
 ```{r NgAicBicTable}
-result_ng_files <- list.files(here::here("results_hab_ng"))
-results_hab_ng <- foreach::foreach(i = 1:length(result_ng_files)) %do%{
-  readRDS(here::here("results_hab_ng", result_ng_files[i]))
-}
+results_hab_ng <- readRDS(here::here("results", "hab_fr_results.rds"))[33:64]
 
 create_h_table(
   h_test_results = results_hab_ng,
   cut_after = 7,
   caption_text = "AIC / BIC table of the seven most parsimonious out of 32 possible models for \\textit{Notonecta glauca}."
-  ) %>%
-  kableExtra::kable_styling(latex_options = "HOLD_position")
+)
 ```
 
 Both, AIC and BIC select for model 15h as the most parsimonious choice (table \ref{tab:NgAicBicTable}). Within two delta AIC units, models 16h, 16r, and 15r were selected. These models have 7 or more parameters, and in all cases either $F_{max}$ or $T_h$ are affected by habitat complexity. We found the models 9r, 11h, 11r, 13r, and 15r within two delta BIC units, all of them have equal or fewer parameters compared to model 15h (table \ref{tab:NgAicBicTable}, but see also the full table \ref{tab:NgAicBicTableAll} in the [Appendix]). These selections highlight the quality of model 15h, as BIC is known to rather select models with fewer parameters [@Schwarz1978EstimatingDimensionModela].
@@ -545,8 +549,7 @@ create_summary_table(
     ),
     unlog = c(TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE),
     caption_text = "Results of model 15 (Holling style) fitted to the data of \\textit{Notonecta glauca}."
-) %>%
-  kableExtra::kable_styling(latex_options = "HOLD_position")
+)
 ```
 
 
@@ -593,8 +596,7 @@ create_summary_table(
     ),
     unlog = c(TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE),
     caption_text = "Results of model 16 (Holling style) fitted to the data of \\textit{Notonecta glauca}."
-) %>%
-  kableExtra::kable_styling(latex_options = "HOLD_position")
+)
 ```
 
 ```{r SumTabNgMod16r}
@@ -615,8 +617,7 @@ create_summary_table(
     ),
     unlog = c(TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE),
     caption_text = "Results of model 16 (Real style) fitted to the data of \\textit{Notonecta glauca}."
-) %>%
-  kableExtra::kable_styling(latex_options = "HOLD_position")
+)
 ```
 
 
@@ -638,8 +639,7 @@ create_summary_table(
     ),
     unlog = c(TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE),
     caption_text = "Results of model 15 (Real style) fitted to the data of \\textit{Notonecta glauca}."
-) %>%
-  kableExtra::kable_styling(latex_options = "HOLD_position")
+)
 ```
 
 **Model 9r** (table \ref{tab:SumTabNgMod09r}) is the by far the simplest model and chosen by the AIC, and not by the BIC selection. It comprises a decreasing maximum feeding rate with an increasing amount of habitat and a constant half saturation density. The generally decreasing trend of maximum feeding rate with increasing amount of habitat is in line with the models above, only ignoring the up-and-down with complexity levels. We also already saw above (e.g., models 15r and 16r) that the effect of habitat on half saturation is rather weak.
@@ -655,8 +655,7 @@ create_summary_table(
     ),
     unlog = c(TRUE,FALSE,TRUE),
     caption_text = "Results of model 9 (Real style) fitted to the data of \\textit{Notonecta glauca}."
-) %>%
-  kableExtra::kable_styling(latex_options = "HOLD_position")
+)
 ```
 
 **Model 11h and model 11r** are interchangeable, and the functional response parameters both depend on the amount of habitat present (tables \ref{tab:SumTabNgMod11h} and \ref{tab:SumTabNgMod11r}). Handling time increases, and, of course, maximum feeding rate increases with the same strength. Attack rates decrease, while half saturation densities increase slightly. These results are in line with the above-mentioned models, only missing the up-and-down with complexity levels as in the more complex models.
@@ -673,8 +672,7 @@ create_summary_table(
     ),
     unlog = c(TRUE,FALSE,TRUE,FALSE),
     caption_text = "Results of model 11 (Holling style) fitted to the data of \\textit{Notonecta glauca}."
-) %>%
-  kableExtra::kable_styling(latex_options = "HOLD_position")
+)
 ```
 
 
@@ -690,8 +688,7 @@ create_summary_table(
     ),
     unlog = c(TRUE,FALSE,TRUE,FALSE),
     caption_text = "Results of model 11 (Real style) fitted to the data of \\textit{Notonecta glauca}."
-) %>%
-  kableExtra::kable_styling(latex_options = "HOLD_position")
+)
 ```
 
 **Model 13r** (table \ref{tab:SumTabNgMod13r}) shows the well-known up-and-down pattern of maximum feeding, including a general increase with increasing complexity level. The half saturation density is constant, in line with the rather weak (but significant) positive effect of habitat amount in the models above.
@@ -710,8 +707,7 @@ create_summary_table(
     ),
     unlog = c(TRUE,TRUE,TRUE,TRUE,TRUE,TRUE),
     caption_text = "Results of model 13 (Real style) fitted to the data of \\textit{Notonecta glauca}."
-) %>%
-  kableExtra::kable_styling(latex_options = "HOLD_position")
+)
 ```
 
 In summary, all models in the range of 2 delta AIC and BIC units suggest that (1) the handling times increase with increasing amount of habitat available, altered by complexity levels. This leads to a decrease in maximum feeding rates, with the mirrored up-and-down effect of habitat complexity. We compared models 15h (the most parsimonious model) with model 11h (the next simple model nested in model 15h) and found that if the amount of habitat is medium (2 rings), the results for complexity levels 2 and 3 differ from the prediction of the simpler model (figure \ref{fig:figNgMod11vsMod15}). The attack rates decrease with increasing amounts of habitat, and this effect is slightly stronger than the effect on handling time, leading to a slightly increasing half saturation density. An even more complex effect of habitat complexity is given as models 16h and 16r are also within 2 delta AIC units, but as the AIC rather selects models that overfit data, we consider this effect as rather irrelevant.
@@ -762,8 +758,7 @@ create_h_table(
   h_test_results = results_hab_ie,
   cut_after = 32,
   caption_text = "AIC / BIC table of all 32 possible models for \\textit{Ischnura elegans}."
-  ) %>%
-  kableExtra::kable_styling(latex_options = "HOLD_position")
+  )
 ```
 
 ### *Notonecta glauca*
@@ -773,8 +768,7 @@ create_h_table(
   h_test_results = results_hab_ng,
   cut_after = 32,
   caption_text = "AIC / BIC table of all 32 possible models for \\textit{Notonecta glauca}."
-  ) %>%
-  kableExtra::kable_styling(latex_options = "HOLD_position")
+  )
 ```
 
 
@@ -787,96 +781,11 @@ The tables below are build using the function `bbmle::summary` from the `bbmle` 
 ### *Ischnura elegans*
 
 ```{r AllIeSummaries}
-out <- foreach::foreach(i = 1:32, .combine = "rbind") %do% {
-  
-  ci_samples <- MASS::mvrnorm(10000, mu = results_hab_ie[[i]]@coef, Sigma = bbmle::vcov(results_hab_ie[[i]]))
-  
-  par_exp = 10^bbmle::summary(results_hab_ie[[i]])@coef[,1]
-  par_value_low <- foreach::foreach(j = 1:ncol(ci_samples), .combine = "c") %do% {10^as.numeric(quantile(ci_samples[,j], 0.025))}
-  par_value_up  <- foreach::foreach(j = 1:ncol(ci_samples), .combine = "c") %do% {10^as.numeric(quantile(ci_samples[,j], 0.975))}
-  
-  data.frame(
-    Parameter = rownames(bbmle::summary(results_hab_ie[[i]])@coef),
-    PointEstimate = round(bbmle::summary(results_hab_ie[[i]])@coef[,1],3),
-    SE = round(bbmle::summary(results_hab_ie[[i]])@coef[,2],3),
-    z = round(bbmle::summary(results_hab_ie[[i]])@coef[,3],3),
-    p = round(bbmle::summary(results_hab_ie[[i]])@coef[,4],4),
-    ParameterExp = round(par_exp,3),
-    par_value_low = round(par_value_low,3),
-    par_value_up = round(par_value_up,3),
-    row.names = NULL
-  )
-}
-
-#non_exp <- c( 8,25,34,37,41,43,45,70,88,105,114,117,121,123,125,150)
-non_exp <- c(13,16,46,50,66,69,72,76,80,82 ,84 , 86, 88, 95,133,140)
-
-for(i in 1:nrow(out)){
-  if(any(non_exp==i)){
-    out[i,6] <- round(log10(out[i,6]),3)
-    out[i,7] <- round(log10(out[i,7]),3)
-    out[i,8] <- round(log10(out[i,8]),3)
-  }
-}
-
-# https://stackoverflow.com/questions/46251023/kableextra-continued-on-next-page-for-longtable
-out %>%
-  knitr::kable(
-    escape = TRUE,
-    format = "latex",
-    caption = "All 32 summary tables from \\textit{Ischnura elegans} model fits.",
-    booktabs = TRUE,
-    longtable = TRUE,
-    col.names = c(
-      "Name",
-      "Orig. Est.",
-      "SE",
-      "z",
-      "p",
-      "Estimate",
-      "CI low",
-      "CI up"
-      ),
-    align = "c"
-    ) %>%
-  kableExtra::kable_styling() %>%
-  kableExtra::pack_rows( "Model 1h",   1,   2) %>%
-  kableExtra::pack_rows( "Model 1r",   3,   4) %>%
-  kableExtra::pack_rows( "Model 2h",   5,   7) %>%
-  kableExtra::pack_rows( "Model 2r",   8,  10) %>%
-  kableExtra::pack_rows( "Model 3h",  11,  13) %>%
-  kableExtra::pack_rows( "Model 3r",  14,  16) %>%
-  kableExtra::pack_rows( "Model 4h",  17,  22) %>%
-  kableExtra::pack_rows( "Model 4r",  23,  28) %>%
-  kableExtra::pack_rows( "Model 5h",  29,  31) %>%
-  kableExtra::pack_rows( "Model 5r",  32,  34) %>%
-  kableExtra::pack_rows( "Model 6h",  35,  38) %>%
-  kableExtra::pack_rows( "Model 6r",  39,  42) %>%
-  kableExtra::pack_rows( "Model 7h",  43,  46) %>%
-  kableExtra::pack_rows( "Model 7r",  47,  50) %>%
-  kableExtra::pack_rows( "Model 8h",  51,  57) %>%
-  kableExtra::pack_rows( "Model 8r",  58,  64) %>%
-  kableExtra::pack_rows( "Model 9h",  65,  67) %>%
-  kableExtra::pack_rows( "Model 9r",  68,  70) %>%
-  kableExtra::pack_rows("Model 10h",  71,  74) %>%
-  kableExtra::pack_rows("Model 10r",  75,  78) %>%
-  kableExtra::pack_rows("Model 11h",  79,  82) %>%
-  kableExtra::pack_rows("Model 11r",  83,  86) %>%
-  kableExtra::pack_rows("Model 12h",  87,  93) %>%
-  kableExtra::pack_rows("Model 12r",  94, 100) %>%
-  kableExtra::pack_rows("Model 13h", 101, 106) %>%
-  kableExtra::pack_rows("Model 13r", 107, 112) %>%
-  kableExtra::pack_rows("Model 14h", 113, 119) %>%
-  kableExtra::pack_rows("Model 14r", 120, 126) %>%
-  kableExtra::pack_rows("Model 15h", 127, 133) %>%
-  kableExtra::pack_rows("Model 15r", 134, 140) %>%
-  kableExtra::pack_rows("Model 16h", 141, 150) %>%
-  kableExtra::pack_rows("Model 16r", 151, 160) %>%
-  kableExtra::kable_styling(
-    latex_options = c("HOLD_position", "repeat_header"),
-    repeat_header_continued = "\\textit{(continued on next page...)}"
-  ) #%>%
-#  kableExtra::landscape()
+create_all_summary_tables(
+  fit_results = results_hab_ie,
+  ci_reps = ci_runs,
+  caption_text = "All 32 summary tables from \\textit{Ischnura elegans} model fits."
+)
 ```
 
 \newpage
@@ -884,96 +793,11 @@ out %>%
 ### *Notonecta glauca*
 
 ```{r AllNgSummaries}
-out <- foreach::foreach(i = 1:32, .combine = "rbind") %do% {
-  
-  ci_samples <- MASS::mvrnorm(10000, mu = results_hab_ng[[i]]@coef, Sigma = bbmle::vcov(results_hab_ng[[i]]))
-  
-  par_exp = 10^bbmle::summary(results_hab_ng[[i]])@coef[,1]
-  par_value_low <- foreach::foreach(j = 1:ncol(ci_samples), .combine = "c") %do% {10^as.numeric(quantile(ci_samples[,j], 0.025))}
-  par_value_up  <- foreach::foreach(j = 1:ncol(ci_samples), .combine = "c") %do% {10^as.numeric(quantile(ci_samples[,j], 0.975))}
-  
-  data.frame(
-    Parameter = rownames(bbmle::summary(results_hab_ng[[i]])@coef),
-    PointEstimate = round(bbmle::summary(results_hab_ng[[i]])@coef[,1],3),
-    SE = round(bbmle::summary(results_hab_ng[[i]])@coef[,2],3),
-    z = round(bbmle::summary(results_hab_ng[[i]])@coef[,3],3),
-    p = round(bbmle::summary(results_hab_ng[[i]])@coef[,4],4),
-    ParameterExp = round(par_exp,3),
-    par_value_low = round(par_value_low,3),
-    par_value_up = round(par_value_up,3),
-    row.names = NULL
-  )
-}
-
-#non_exp <- c( 8,25,34,37,41,43,45,70,88,105,114,117,121,123,125,150)
-non_exp <- c(13,16,46,50,66,69,72,76,80,82 ,84 , 86, 88, 95,133,140)
-
-for(i in 1:nrow(out)){
-  if(any(non_exp==i)){
-    out[i,6] <- round(log10(out[i,6]),3)
-    out[i,7] <- round(log10(out[i,7]),3)
-    out[i,8] <- round(log10(out[i,8]),3)
-  }
-}
-
-# https://stackoverflow.com/questions/46251023/kableextra-continued-on-next-page-for-longtable
-out %>%
-  knitr::kable(
-    escape = TRUE,
-    format = "latex",
-    caption = "All 32 summary tables from \\textit{Ischnura elegans} model fits.",
-    booktabs = TRUE,
-    longtable = TRUE,
-    col.names = c(
-      "Name",
-      "Orig. Est.",
-      "SE",
-      "z",
-      "p",
-      "Estimate",
-      "CI low",
-      "CI up"
-      ),
-    align = "c"
-    ) %>%
-  kableExtra::kable_styling() %>%
-  kableExtra::pack_rows( "Model 1h",   1,   2) %>%
-  kableExtra::pack_rows( "Model 1r",   3,   4) %>%
-  kableExtra::pack_rows( "Model 2h",   5,   7) %>%
-  kableExtra::pack_rows( "Model 2r",   8,  10) %>%
-  kableExtra::pack_rows( "Model 3h",  11,  13) %>%
-  kableExtra::pack_rows( "Model 3r",  14,  16) %>%
-  kableExtra::pack_rows( "Model 4h",  17,  22) %>%
-  kableExtra::pack_rows( "Model 4r",  23,  28) %>%
-  kableExtra::pack_rows( "Model 5h",  29,  31) %>%
-  kableExtra::pack_rows( "Model 5r",  32,  34) %>%
-  kableExtra::pack_rows( "Model 6h",  35,  38) %>%
-  kableExtra::pack_rows( "Model 6r",  39,  42) %>%
-  kableExtra::pack_rows( "Model 7h",  43,  46) %>%
-  kableExtra::pack_rows( "Model 7r",  47,  50) %>%
-  kableExtra::pack_rows( "Model 8h",  51,  57) %>%
-  kableExtra::pack_rows( "Model 8r",  58,  64) %>%
-  kableExtra::pack_rows( "Model 9h",  65,  67) %>%
-  kableExtra::pack_rows( "Model 9r",  68,  70) %>%
-  kableExtra::pack_rows("Model 10h",  71,  74) %>%
-  kableExtra::pack_rows("Model 10r",  75,  78) %>%
-  kableExtra::pack_rows("Model 11h",  79,  82) %>%
-  kableExtra::pack_rows("Model 11r",  83,  86) %>%
-  kableExtra::pack_rows("Model 12h",  87,  93) %>%
-  kableExtra::pack_rows("Model 12r",  94, 100) %>%
-  kableExtra::pack_rows("Model 13h", 101, 106) %>%
-  kableExtra::pack_rows("Model 13r", 107, 112) %>%
-  kableExtra::pack_rows("Model 14h", 113, 119) %>%
-  kableExtra::pack_rows("Model 14r", 120, 126) %>%
-  kableExtra::pack_rows("Model 15h", 127, 133) %>%
-  kableExtra::pack_rows("Model 15r", 134, 140) %>%
-  kableExtra::pack_rows("Model 16h", 141, 150) %>%
-  kableExtra::pack_rows("Model 16r", 151, 160) %>%
-  kableExtra::kable_styling(
-    latex_options = c("HOLD_position", "repeat_header"),
-    repeat_header_continued = "\\textit{(continued on next page...)}"
-  ) #%>%
-#  kableExtra::landscape()
+create_all_summary_tables(
+  fit_results = results_hab_ng,
+  ci_reps = ci_runs,
+  caption_text = "All 32 summary tables from \\textit{Notonecta glauca} model fits."
+)
 ```
 
 
@@ -984,39 +808,7 @@ out %>%
 We created the statistics in this report and the report itself using `r sessionInfo()$R.version$version.string` - `r sessionInfo()$R.version$nickname` on a `r sessionInfo()$R.version$arch` computer with `r sessionInfo()$running` as operating system. Find the loaded and attached packages that we used in table \ref{tab:packageInfo}.
 
 ```{r packageInfo}
-dplyr::data_frame(
-  pname = sessioninfo::package_info(pkgs = "loaded", include_base = TRUE, dependencies = TRUE)[,1],
-  pver = sessioninfo::package_info(pkgs = "loaded", include_base = TRUE, dependencies = TRUE)[,3],
-  pattached = sessioninfo::package_info(pkgs = "loaded", include_base = TRUE, dependencies = TRUE)[,6],
-  pbase = sessioninfo::package_info(pkgs = "loaded", include_base = TRUE, dependencies = TRUE)[,7]
-) %>%
-  dplyr::arrange(
-    desc(pbase),
-    desc(pattached)
-  ) %>%
-  knitr::kable(
-    escape = TRUE,
-    format = "latex",
-    caption = "All loaded R packages that we used in this report, including base packages.",
-    booktabs = TRUE,
-    longtable = TRUE,
-    col.names = c(
-      "Package Name",
-      "Version",
-      "Is Package Attached?",
-      "Is a Base Package?"
-    ),
-    align = "c"
-  ) %>%
-  kableExtra::kable_styling() %>%
-  kableExtra::row_spec(
-    row = 0,
-    bold = TRUE
-  ) %>%
-  kableExtra::kable_styling(
-    latex_options = "HOLD_position",
-    repeat_header_continued = "\\textit{(continued on next page...)}"
-  )
+create_package_info()
 ```
 
 
