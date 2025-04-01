@@ -47,8 +47,8 @@ knitr::opts_chunk$set(
 library("dplyr")
 library("foreach")
 
-evaluate_selected_chunks <- TRUE                                                # set to TRUE for a version to publish
-ci_runs <- 10000                                                                # choose 10000 for publication output
+evaluate_selected_chunks <- FALSE                                                # set to TRUE for a version to publish
+ci_runs <- 1000                                                                # choose 10000 for publication output
 ```
 
 # Overview
@@ -106,6 +106,7 @@ If you want to knit this report for yourself, you need to install:
 - `png` [@Urbanek2022PngReadWrite]
 - `purrr` [@WickhamHenry2025PurrrFunctionalProgramming]
 - `RCurl` [@CRANTeamTempleLang2024RCurlGeneralNetwork]
+- `rmarkdown` (TBA)
 - `sessioninfo` [@CsardiEtAl2025SessioninfoSessionInformation]
 - `supportR` [@Lyon2024SupportRSupportFunctions]
 - `tinytex` [@XiePositSoftwarePBC2025TinytexHelperFunctions]
