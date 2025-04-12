@@ -1,5 +1,5 @@
 ---
-title: "Habitat **c**omplexity **r**educes the feed**i**ng s**t**reng**t**h of fr**e**shwater p**r**edators (CRITTER)"
+title: "**C**omplexity **r**educes the feed**i**ng s**t**reng**t**h of fr**e**shwater p**r**edators (CRITTER)"
 subtitle: "Supplemental Statistics Report"
 author:
   - Björn C. Rall^[Aquatic Ecology and Evolution Group | Limnological Institute | University of Konstanz | Mainaustraße 252, 78464 Konstanz/Egg, Germany | bjoern.rall@uni-konstanz.de | https://orcid.org/0000-0002-3191-8389]
@@ -106,7 +106,6 @@ If you want to knit this report for yourself, you need to install:
 - `png` [@Urbanek2022PngReadWrite]
 - `purrr` [@WickhamHenry2025PurrrFunctionalProgramming]
 - `RCurl` [@CRANTeamTempleLang2024RCurlGeneralNetwork]
-- `rmarkdown` (TBA)
 - `sessioninfo` [@CsardiEtAl2025SessioninfoSessionInformation]
 - `supportR` [@Lyon2024SupportRSupportFunctions]
 - `tinytex` [@XiePositSoftwarePBC2025TinytexHelperFunctions]
