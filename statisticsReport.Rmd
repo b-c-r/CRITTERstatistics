@@ -448,6 +448,27 @@ plot_mod05r(
   )
 ```
 
+```{r saveFigIeFuncResp, message=FALSE, warning=FALSE, include=FALSE}
+## output for manuscript figure 2
+jpeg(
+  filename = here::here("figures","figure02.jpeg"),
+  units = "cm",
+  width = "20",
+  height = "10",
+  res = 300
+)
+plot_mod05r(
+  results_hab_ie[[10]],
+  ci_reps = ci_runs,
+  pic_x1 = c( 50.0,  80.0,  50.0,  80.0),
+  pic_x2 = c( 80.0, 120.0,  80.0, 120.0),
+  pic_y1 = c( 21.0,  21.0,  15.5,  15.5),
+  pic_y2 = c( 26.5,  26.5,  21.0,  21.0),
+  journal_style = TRUE
+  )
+dev.off()
+```
+
 
 **The models within 2 delta AIC/BIC units**
 
@@ -564,6 +585,28 @@ plot_mod15h(
   ci_reps = ci_runs
   )
 ```
+
+```{r savefigNgFuncResp, message=FALSE, warning=FALSE, include=FALSE}
+## output for manuscript figure 3
+jpeg(
+  filename = here::here("figures","figure03.jpeg"),
+  units = "cm",
+  width = "20",
+  height = "15",
+  res = 300
+)
+plot_mod15h(
+  results_hab_ng[[29]],
+  ci_reps = ci_runs,
+  pic_x1 = rep(110.0, 4),
+  pic_x2 = rep(190.0, 4),
+  pic_y1 = rep( 25.0, 4),
+  pic_y2 = rep( 40.0, 4),
+  journal_style = TRUE
+  )
+dev.off()
+```
+
 
 In model 15h, complexity affects the handling time (one measure of handling time per complexity level, table \ref{tab:SumTabNgMod15h}). The corresponding maximum feeding rates are `r round(1/10^results_hab_ng[[29]]@coef[[1]], 2)` [$\frac{items_{prey}}{day}$] (C0), `r round(1/10^results_hab_ng[[29]]@coef[[2]], 2)` [$\frac{items_{prey}}{day}$] (C1), `r round(1/10^results_hab_ng[[29]]@coef[[3]], 2)` [$\frac{items_{prey}}{day}$] (C2), `r round(1/10^results_hab_ng[[29]]@coef[[4]], 2)` [$\frac{items_{prey}}{day}$] (C3), `r round(1/10^results_hab_ng[[29]]@coef[[5]], 2)` [$\frac{items_{prey}}{day}$] (C4). The maximum feeding rates are generally lower if habitat is present (complexity levels 1-4), but especially at level 2, the value is rather comparable to the case without habitat.
 
@@ -722,6 +765,30 @@ plot_mod15h_vs_mod11h(
   model_fit_11h = results_hab_ng[[21]],
   ci_reps = ci_runs
 )
+```
+
+```{r savefigNgMod11vsMod15, message=FALSE, warning=FALSE, include=FALSE}
+## output for manuscript figure 4
+jpeg(
+  filename = here::here("figures","figure04.jpeg"),
+  units = "cm",
+  width = "20",
+  height = "10",
+  res = 300
+)
+plot_mod15h_vs_mod11h(
+  model_fit_15h = results_hab_ng[[29]],
+  model_fit_11h = results_hab_ng[[21]],
+  ci_reps = ci_runs,
+  pic_x1 =  c( 1.300,  1.300,  2.300,  2.300),
+  pic_x2 =  c( 2.200,  2.200,  3.200,  3.200),
+  pic_y1a = c(15.000, 27.000, 25.500, 14.000),
+  pic_y2a = c(19.500, 31.500, 30.000, 18.500),  
+  pic_y1b = c( 0.055,  0.030,  0.035,  0.055),
+  pic_y2b = c( 0.065,  0.040,  0.045,  0.065), 
+  journal_style = TRUE
+  )
+dev.off()
 ```
 
 # Funding Information
