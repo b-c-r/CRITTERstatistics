@@ -1,7 +1,7 @@
 ---
-title: "*C*omplexity *r*educes feed*i*ng s*t*reng*t*h of fr*e*shwater p*r*edators (CRITTER) — Supplemental Statistics Report"
+title: "Habitat *c*omplexity *r*educes feed*i*ng s*t*reng*t*h of fr*e*shwater p*r*edators (CRITTER) — Supplemental Statistics Report"
 bibliography: references/CRITTERstatistics.bib
-csl: references/methods-in-ecology-and-evolution.csl
+csl: "https://raw.githubusercontent.com/citation-style-language/styles/refs/heads/master/dependent/journal-of-animal-ecology.csl"
 date: "`r Sys.Date()`"
 output: github_document
 ---
@@ -14,8 +14,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 This repository hosts the statistics report that is supplementing our [scientific preprint article](https://doi.org/10.1101/2025.02.22.639633) by @AranbarriEtAl2025ComplexityReducesFeeding investigating the effect of habitat complexity on the feeding functional response of two freshwater invertebrate predators. Find the full report as PDF [here](https://github.com/b-c-r/CRITTERstatistics/blob/main/statisticsReport.pdf). Find below information on related works and the location of the data and code.
 
-**Note that the report is still under construction!**
-
 ## License
 
 This report is published under the [**Creative Commons BY 4.0**](https://creativecommons.org/licenses/by/4.0/) license. The underlying code is licensed under the [**GNU General Public License 3**](https://www.gnu.org/licenses/gpl-3.0.html).
@@ -24,7 +22,15 @@ This report is published under the [**Creative Commons BY 4.0**](https://creativ
 
 If you want to refer to our report, please cite:
 
-Rall, B.C., Aranbarri, M., Flores, L., Guzmán, I. de, Larrañaga, A., & Reiss, J.(2025): Habitat complexity reduces the feeding strength of freshwater predators (CRITTER) - Supplemental Statistics Report. Zenodo. https://doi.org/10.5281/zenodo.14894598.
+Rall, B.C., Aranbarri, M., Flores, L., Guzmán, I. de, Larrañaga, A., & Reiss, J.(2025): Habitat complexity reduces the feeding strength of freshwater predators (CRITTER) — Supplemental Statistics Report. Zenodo. https://doi.org/10.5281/zenodo.14898819
+
+Specific version(s):
+
+Rall, B.C., Aranbarri, M., Flores, L., de Guzmán, I., Larrañaga, A., and Reiss, J. (2025): Habitat complexity reduces feeding strength of freshwater predators (CRITTER) — Supplemental Statistics Report (v0.1.2). Zenodo. https://doi.org/10.5281/zenodo.15348995
+
+Rall, B.C., Aranbarri, M., Flores, L., de Guzmán, I., Larrañaga, A., and Reiss, J. (2025): Complexity reduces feeding strength of freshwater predators (CRITTER) - Supplemental Statistics Report (v0.1.1). Zenodo. https://doi.org/10.5281/zenodo.14907885
+
+Rall, B.C., Aranbarri, M., Flores, L., de Guzmán, I., Larrañaga, A., and Reiss, J. (2025): Complexity reduces feeding strength of freshwater predators (CRITTER) - Supplemental Statistics Report (v0.1.0). Zenodo. https://doi.org/10.5281/zenodo.14898820
 
 
 ## Authors
@@ -41,6 +47,7 @@ Rall, B.C., Aranbarri, M., Flores, L., Guzmán, I. de, Larrañaga, A., & Reiss, 
 -   Ioar de Guzmán ([0000-0001-8894-8477](https://orcid.org/0000-0001-8894-8477))
     -   [mirenioar.deguzman@ehu.eus](mailto:mirenioar.deguzman@ehu.eus)
     -   Laboratory of Stream Ecology, Department of Plant Biology and Ecology, Faculty of Science and Technology, University of the Basque Country, UPV/EHU PO Box 644, 48080 Bilbao, Spain
+    -   INRAE, UMR 1224, Ecologie Comportementale et Biologie des Populations de Poissons, Aquapôle, quartier Ibarron, 64310 Saint-Pée sur Nivelle, France.
 -   Aitor Larrañaga ([0000-0002-0185-9154](https://orcid.org/0000-0002-0185-9154))
     -   [aitor.larranagaa@ehu.eus](mailto:aitor.larranagaa@ehu.eus)
     -   Laboratory of Stream Ecology, Department of Plant Biology and Ecology, Faculty of Science and Technology, University of the Basque Country, UPV/EHU PO Box 644, 48080 Bilbao, Spain
@@ -56,17 +63,17 @@ Rall, B.C., Aranbarri, M., Flores, L., Guzmán, I. de, Larrañaga, A., & Reiss, 
 
 -   [R-Code on Zenodo](https://doi.org/10.5281/zenodo.14894598) [@RallEtAl2025ComplexityReducesFeedingCode]
 
--   [R-Code on GitHub](https://github.com/b-c-r/CRITTERdata)
+-   [R-Code on GitHub](https://github.com/b-c-r/CRITTERcode)
 
--   [Statistical Report on Zenodo](https://doi.org/10.5281/zenodo.14898819) [@RallEtAl2025ComplexityReducesFeedingStatistics]
+-   [Supplemental Statistics Report on Zenodo](https://doi.org/10.5281/zenodo.14898819) [@RallEtAl2025ComplexityReducesFeedingStatistics]
 
--   [Statistical Report on GitHub](https://github.com/b-c-r/CRITTERstatistics)
+-   [Supplemental Statistics Report on GitHub](https://github.com/b-c-r/CRITTERstatistics)
 
 -   [Scientific Preprint Article](https://doi.org/10.1101/2025.02.22.639633) [@AranbarriEtAl2025ComplexityReducesFeeding]
 
 ## Code and Data
 
-We wrote our report in R Markdown. The R Markdown script imports the data and the required functions directly from our GitHub repositories [CRITTERdata](https://github.com/b-c-r/CRITTERdata) and [CRITTERcode](https://github.com/b-c-r/CRITTERcode), respectively [@FloresEtAl2025ComplexityReducesFeedingData;@RallEtAl2025ComplexityReducesFeedingCode]. You will find also an in-depth code description in the REAMDE of our [CRITTERcode](https://github.com/b-c-r/CRITTERcode) repository or in the [full statistical report](https://github.com/b-c-r/CRITTERstatistics/blob/main/statisticsReport.pdf). You will find laboratory methods in our preprint article [@AranbarriEtAl2025ComplexityReducesFeeding].
+We wrote our report in R Markdown and bookdown. The R Markdown script imports the data and the required functions directly from our GitHub repositories [CRITTERdata](https://github.com/b-c-r/CRITTERdata) and [CRITTERcode](https://github.com/b-c-r/CRITTERcode), respectively [@FloresEtAl2025ComplexityReducesFeedingData;@RallEtAl2025ComplexityReducesFeedingCode]. You will find also an in-depth code description in the REAMDE of our [CRITTERcode](https://github.com/b-c-r/CRITTERcode) repository or in the [full statistical report](https://github.com/b-c-r/CRITTERstatistics/blob/main/statisticsReport.pdf). You will find laboratory methods in our [scientific preprint article](https://doi.org/10.1101/2025.02.22.639633) [@AranbarriEtAl2025ComplexityReducesFeeding].
 
 
 ## Required Packages
