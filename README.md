@@ -1,7 +1,8 @@
-*C*omplexity *r*educes feed*i*ng s*t*reng*t*h of fr*e*shwater
+Habitat *c*omplexity *r*educes feed*i*ng s*t*reng*t*h of fr*e*shwater
 p*r*edators (CRITTER) — Supplemental Statistics Report
 ================
-2025-04-12
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15348995.svg)](https://doi.org/10.5281/zenodo.15348995)
 
 ## Summary
 
@@ -9,12 +10,10 @@ This repository hosts the statistics report that is supplementing our
 [scientific preprint article](https://doi.org/10.1101/2025.02.22.639633)
 by Aranbarri et al. (2025) investigating the effect of habitat
 complexity on the feeding functional response of two freshwater
-invertebrate predators. Find the full report as PDF
-[here](https://github.com/b-c-r/CRITTERstatistics/blob/main/statisticsReport.pdf).
-Find below information on related works and the location of the data and
-code.
-
-**Note that the report is still under construction!**
+invertebrate predators. Find the latest version of our supplemental
+statistical report as PDF on
+[Zenodo](https://doi.org/10.5281/zenodo.14898819). Find below
+information on related works and the location of the data and code.
 
 ## License
 
@@ -29,8 +28,25 @@ If you want to refer to our report, please cite:
 
 Rall, B.C., Aranbarri, M., Flores, L., Guzmán, I. de, Larrañaga, A., &
 Reiss, J.(2025): Habitat complexity reduces the feeding strength of
-freshwater predators (CRITTER) - Supplemental Statistics Report. Zenodo.
-<https://doi.org/10.5281/zenodo.14894598>.
+freshwater predators (CRITTER) — Supplemental Statistics Report. Zenodo.
+<https://doi.org/10.5281/zenodo.14898819>
+
+Specific version(s):
+
+Rall, B.C., Aranbarri, M., Flores, L., de Guzmán, I., Larrañaga, A., and
+Reiss, J. (2025): Habitat complexity reduces feeding strength of
+freshwater predators (CRITTER) — Supplemental Statistics Report
+(v0.1.2). Zenodo. <https://doi.org/10.5281/zenodo.15348995>
+
+Rall, B.C., Aranbarri, M., Flores, L., de Guzmán, I., Larrañaga, A., and
+Reiss, J. (2025): Complexity reduces feeding strength of freshwater
+predators (CRITTER) - Supplemental Statistics Report (v0.1.1). Zenodo.
+<https://doi.org/10.5281/zenodo.14907885>
+
+Rall, B.C., Aranbarri, M., Flores, L., de Guzmán, I., Larrañaga, A., and
+Reiss, J. (2025): Complexity reduces feeding strength of freshwater
+predators (CRITTER) - Supplemental Statistics Report (v0.1.0). Zenodo.
+<https://doi.org/10.5281/zenodo.14898820>
 
 ## Authors
 
@@ -58,6 +74,9 @@ freshwater predators (CRITTER) - Supplemental Statistics Report. Zenodo.
   - Laboratory of Stream Ecology, Department of Plant Biology and
     Ecology, Faculty of Science and Technology, University of the Basque
     Country, UPV/EHU PO Box 644, 48080 Bilbao, Spain
+  - INRAE, UMR 1224, Ecologie Comportementale et Biologie des
+    Populations de Poissons, Aquapôle, quartier Ibarron, 64310 Saint-Pée
+    sur Nivelle, France.
 - Aitor Larrañaga
   ([0000-0002-0185-9154](https://orcid.org/0000-0002-0185-9154))
   - <aitor.larranagaa@ehu.eus>
@@ -78,14 +97,14 @@ freshwater predators (CRITTER) - Supplemental Statistics Report. Zenodo.
 - [Data on GitHub](https://github.com/b-c-r/CRITTERdata)
 
 - [R-Code on Zenodo](https://doi.org/10.5281/zenodo.14894598) (Rall et
-  al., 2025b)
+  al., 2025a)
 
-- [R-Code on GitHub](https://github.com/b-c-r/CRITTERdata)
+- [R-Code on GitHub](https://github.com/b-c-r/CRITTERcode)
 
-- [Statistical Report on
-  Zenodo](https://doi.org/10.5281/zenodo.14898819) (Rall et al., 2025a)
+- [Supplemental Statistics Report on
+  Zenodo](https://doi.org/10.5281/zenodo.14898819) (Rall et al., 2025b)
 
-- [Statistical Report on
+- [Supplemental Statistics Report on
   GitHub](https://github.com/b-c-r/CRITTERstatistics)
 
 - [Scientific Preprint
@@ -94,38 +113,39 @@ freshwater predators (CRITTER) - Supplemental Statistics Report. Zenodo.
 
 ## Code and Data
 
-We wrote our report in R Markdown. The R Markdown script imports the
-data and the required functions directly from our GitHub repositories
-[CRITTERdata](https://github.com/b-c-r/CRITTERdata) and
+We wrote our report in R Markdown and bookdown. The R Markdown script
+imports the data and the required functions directly from our GitHub
+repositories [CRITTERdata](https://github.com/b-c-r/CRITTERdata) and
 [CRITTERcode](https://github.com/b-c-r/CRITTERcode), respectively
-(Flores et al., 2025; Rall et al., 2025b). You will find also an
+(Flores et al., 2025; Rall et al., 2025a). You will find also an
 in-depth code description in the REAMDE of our
 [CRITTERcode](https://github.com/b-c-r/CRITTERcode) repository or in the
 [full statistical
 report](https://github.com/b-c-r/CRITTERstatistics/blob/main/statisticsReport.pdf).
-You will find laboratory methods in our preprint article (Aranbarri et
-al., 2025).
+You will find laboratory methods in our [scientific preprint
+article](https://doi.org/10.1101/2025.02.22.639633) (Aranbarri et al.,
+2025).
 
 ## Required Packages
 
 If you want to knit this report for yourself, you need to install:
 
 - `bbmle` (Bolker et al., 2023)
-- `bookdown` (Xie, 2025)
+- `bookdown` (Xie, 2025a)
 - `doParallel` (Microsoft & Weston, 2022a)
 - `dplyr` (Wickham et al., 2023)
 - `emdbook` (Bolker, 2023)
 - `foreach` (Microsoft & Weston, 2022b)
-- `frair` (Pritchard et al., 2017)
+- `frair` (Pritchard et al., 2017; Pritchard, 2025)
 - `here` (Müller & Bryan, 2020)
 - `kableExtra` (Zhu, 2024)
-- `knitr` (Xie, 2024)
+- `knitr` (Xie, 2025b)
 - `lhs` (Carnell, 2024)
-- `MASS` (Ripley et al., 2025)
-- `odin` (FitzJohn, 2024)
+- `MASS` (Ripley & Venables, 2025)
+- `odin` (FitzJohn, 2025)
 - `png` (Urbanek, 2022)
 - `purrr` (Wickham & Henry, 2025)
-- `RCurl` (CRAN Team & Temple Lang, 2024)
+- `RCurl` (Temple Lang, 2025)
 - `sessioninfo` (Csárdi et al., 2025)
 - `supportR` (Lyon, 2024)
 - `tinytex` (Xie & Posit Software, PBC, 2025)
@@ -159,42 +179,33 @@ entry-spacing="0" line-spacing="2">
 <div id="ref-AranbarriEtAl2025ComplexityReducesFeeding"
 class="csl-entry">
 
-Aranbarri, M., Flores, L., Guzmán, I. de, Larrañaga, A., Elosegi, A.,
+Aranbarri, M., Flores, L., de Guzmán, I., Larrañaga, A., Elosegi, A.,
 Rall, B. C., & Reiss, J. (2025). *Habitat complexity reduces feeding
-strength of freshwater predators*. bioRxiv.
+strength of freshwater predators* (2025.02.22.639633). bioRxiv.
 <https://doi.org/10.1101/2025.02.22.639633>
 
 </div>
 
 <div id="ref-Bolker2023EmdbookSupportFunctions" class="csl-entry">
 
-Bolker, B. M. (2023). *Emdbook: Support functions and data for
-"Ecological models and data"*.
-<https://CRAN.R-project.org/package=emdbook>
+Bolker, B. M. (2023). *<span class="nocase">emdbook</span>: Support
+functions and data for "Ecological models and data"*. CRAN.
+<https://doi.org/10.32614/CRAN.package.emdbook>
 
 </div>
 
 <div id="ref-BolkerEtAl2023BbmleToolsGeneral" class="csl-entry">
 
 Bolker, B. M., R. Development Core Team, & Giné-Vázquez, I. (2023).
-*Bbmle: Tools for General Maximum Likelihood Estimation*.
-<https://doi.org/10.32614/CRAN.package.bbmle>
+*<span class="nocase">bbmle</span>: Tools for general maximum likelihood
+estimation*. CRAN. <https://doi.org/10.32614/CRAN.package.bbmle>
 
 </div>
 
 <div id="ref-Carnell2024LhsLatinHypercubea" class="csl-entry">
 
-Carnell, R. (2024). *Lhs: Latin Hypercube Samples*.
-<https://doi.org/10.32614/CRAN.package.lhs>
-
-</div>
-
-<div id="ref-CRANTeamTempleLang2024RCurlGeneralNetwork"
-class="csl-entry">
-
-CRAN Team, & Temple Lang, D. (2024). *RCurl: General Network
-(HTTP/FTP/...) Client Interface for R*.
-<https://doi.org/10.32614/CRAN.package.RCurl>
+Carnell, R. (2024). *<span class="nocase">lhs</span>: Latin hypercube
+samples*. CRAN. <https://doi.org/10.32614/CRAN.package.lhs>
 
 </div>
 
@@ -202,25 +213,25 @@ CRAN Team, & Temple Lang, D. (2024). *RCurl: General Network
 class="csl-entry">
 
 Csárdi, G., Wickham, H., Chang, W., Flight, R., Müller, K., & Hester, J.
-(2025). *Sessioninfo: R session information*.
-<https://doi.org/10.32614/CRAN.package.sessioninfo>
+(2025). *<span class="nocase">sessioninfo</span>: R session
+information*. <https://doi.org/10.32614/CRAN.package.sessioninfo>
 
 </div>
 
-<div id="ref-FitzJohn2024OdinODEGeneration" class="csl-entry">
+<div id="ref-FitzJohn2025OdinODEGeneration" class="csl-entry">
 
-FitzJohn, R. (2024). *Odin: ODE generation and integration*.
-<https://doi.org/10.32614/CRAN.package.odin>
+FitzJohn, R. (2025). *<span class="nocase">odin</span>: ODE generation
+and integration*. CRAN. <https://doi.org/10.32614/CRAN.package.odin>
 
 </div>
 
 <div id="ref-FloresEtAl2025ComplexityReducesFeedingData"
 class="csl-entry">
 
-Flores, L., Reiss, J., Larrañaga, A., Rall, B. C., Aranbarri, M., &
-Guzmán, I. de. (2025). *Habitat complexity reduces feeding strength of
-freshwater predators (CRITTER) - Data*. Zenodo.
-<https://doi.org/10.5281/zenodo.14891980>
+Flores, L., Reiss, J., Larrañaga, A., Rall, B. C., Aranbarri, M., & de
+Guzmán, I. (2025). *Habitat complexity reduces feeding strength of
+freshwater predators (CRITTER) — Data (v0.1.2)*. Zenodo.
+<https://doi.org/10.5281/zenodo.15348769>
 
 </div>
 
@@ -244,88 +255,109 @@ the ’parallel’ package*. <https://CRAN.R-project.org/package=doParallel>
 <div id="ref-MicrosoftWeston2022ForeachProvidesForeach"
 class="csl-entry">
 
-Microsoft, & Weston, S. (2022b). *Foreach: Provides foreach looping
-construct*. <https://doi.org/10.32614/CRAN.package.foreach>
+Microsoft, & Weston, S. (2022b). *<span class="nocase">foreach</span>:
+Provides foreach looping construct*. CRAN.
+<https://doi.org/10.32614/CRAN.package.foreach>
 
 </div>
 
 <div id="ref-MullerBryan2020HereSimplerWay" class="csl-entry">
 
-Müller, K., & Bryan, J. (2020). *Here: A simpler way to find your
-files*. <https://doi.org/10.32614/CRAN.package.here>
+Müller, K., & Bryan, J. (2020). *<span class="nocase">here</span>: A
+simpler way to find your files*.
+<https://doi.org/10.32614/CRAN.package.here>
 
 </div>
 
-<div id="ref-PritchardEtAl2017FrairToolsFunctional" class="csl-entry">
+<div id="ref-Pritchard2025FrairToolsFunctional" class="csl-entry">
 
-Pritchard, D. W., Barrios-O’Neill, D., Bovy, H. C., & Paterson, R. A.
-(2017). *Frair: Tools for Functional Response Analysis*.
-<https://cran.r-project.org/web/packages/frair/>
+Pritchard, D. W. (2025). *<span class="nocase">frair</span>: Tools for
+functional response analysis*. CRAN.
+<https://doi.org/10.32614/CRAN.package.frair>
 
 </div>
 
-<div id="ref-RallEtAl2025ComplexityReducesFeedingStatistics"
-class="csl-entry">
+<div id="ref-PritchardEtAl2017FrairPackageFitting" class="csl-entry">
 
-Rall, B. C., Aranbarri, M., Flores, L., Guzmán, I. de, Larrañaga, A., &
-Reiss, J. (2025a). *Habitat complexity reduces feeding strength of
-freshwater predators (CRITTER) - Supplemental Statistics Report*.
-Zenodo. <https://doi.org/10.5281/zenodo.14898820>
+Pritchard, D. W., Paterson, R. A., Bovy, H. C., & Barrios-O’Neill, D.
+(2017). <span class="nocase">frair</span>: An R package for fitting and
+comparing consumer functional responses. *Methods in Ecology and
+Evolution*, *8*(11), 1528–1534.
+<https://doi.org/10.1111/2041-210X.12784>
 
 </div>
 
 <div id="ref-RallEtAl2025ComplexityReducesFeedingCode"
 class="csl-entry">
 
-Rall, B. C., Aranbarri, M., Flores, L., Guzmán, I. de, Larrañaga, A., &
+Rall, B. C., Aranbarri, M., Flores, L., de Guzmán, I., Larrañaga, A., &
+Reiss, J. (2025a). *Habitat complexity reduces feeding strength of
+freshwater predators (CRITTER) — Code (v0.1.2)*. Zenodo.
+<https://doi.org/10.5281/zenodo.15346225>
+
+</div>
+
+<div id="ref-RallEtAl2025ComplexityReducesFeedingStatistics"
+class="csl-entry">
+
+Rall, B. C., Aranbarri, M., Flores, L., de Guzmán, I., Larrañaga, A., &
 Reiss, J. (2025b). *Habitat complexity reduces feeding strength of
-freshwater predators (CRITTER) - Code*. Zenodo.
-<https://doi.org/10.5281/zenodo.14894598>
+freshwater predators (CRITTER) — Supplemental Statistics Report
+(v.0.1.2)*. Zenodo. <https://doi.org/10.5281/zenodo.15348995>
 
 </div>
 
 <div id="ref-RipleyEtAl2025MASSSupportFunctions" class="csl-entry">
 
-Ripley, B., Venables, B., Bates, D. M., Hornik, K., Gebhardt, A., &
-Firth, D. (2025). *MASS: Support Functions and Datasets for Venables and
-Ripley’s MASS*. <https://doi.org/10.32614/CRAN.package.MASS>
+Ripley, B., & Venables, B. (2025). *MASS: Support functions and datasets
+for Venables and Ripley’s MASS*. CRAN.
+<https://doi.org/10.32614/CRAN.package.MASS>
+
+</div>
+
+<div id="ref-TempleLang2025RCurlGeneralNetwork" class="csl-entry">
+
+Temple Lang, D. (2025). *RCurl: General network (HTTP/FTP/...) client
+interface for R*. CRAN. <https://doi.org/10.32614/CRAN.package.RCurl>
 
 </div>
 
 <div id="ref-Urbanek2022PngReadWrite" class="csl-entry">
 
-Urbanek, S. (2022). *Png: Read and write PNG images*.
-<https://doi.org/10.32614/CRAN.package.png>
+Urbanek, S. (2022). *<span class="nocase">png</span>: Read and write PNG
+images*. CRAN. <https://doi.org/10.32614/CRAN.package.png>
 
 </div>
 
 <div id="ref-WickhamEtAl2023DplyrGrammarData" class="csl-entry">
 
 Wickham, H., François, R., Henry, L., Müller, K., & Vaughan, D. (2023).
-*Dplyr: A grammar of data manipulation*.
-<https://doi.org/10.32614/CRAN.package.dplyr>
+*<span class="nocase">dplyr</span>: A grammar of data manipulation*.
+CRAN. <https://doi.org/10.32614/CRAN.package.dplyr>
 
 </div>
 
 <div id="ref-WickhamHenry2025PurrrFunctionalProgramming"
 class="csl-entry">
 
-Wickham, H., & Henry, L. (2025). *Purrr: Functional programming tools*.
+Wickham, H., & Henry, L. (2025). *<span class="nocase">purrr</span>:
+Functional programming tools*. CRAN.
 <https://doi.org/10.32614/CRAN.package.purrr>
-
-</div>
-
-<div id="ref-Xie2024KnitrGeneralpurposePackage" class="csl-entry">
-
-Xie, Y. (2024). *Knitr: A general-purpose package for dynamic report
-generation in R*. <https://yihui.org/knitr/>
 
 </div>
 
 <div id="ref-Xie2025BookdownAuthoringBooks" class="csl-entry">
 
-Xie, Y. (2025). *Bookdown: Authoring books and technical documents with
+Xie, Y. (2025a). *Bookdown: Authoring books and technical documents with
 R markdown*. <https://doi.org/10.32614/CRAN.package.bookdown>
+
+</div>
+
+<div id="ref-Xie2025KnitrGeneralPurposePackage" class="csl-entry">
+
+Xie, Y. (2025b). *<span class="nocase">knitr</span>: A general-purpose
+package for dynamic report generation in R*. CRAN.
+<https://doi.org/10.32614/CRAN.package.knitr>
 
 </div>
 
@@ -341,7 +373,7 @@ Install and Maintain TeX Live, and Compile LaTeX Documents*.
 <div id="ref-Zhu2024KableExtraConstructComplex" class="csl-entry">
 
 Zhu, H. (2024). *<span class="nocase">kableExtra</span>: Construct
-complex table with ’kable’ and pipe syntax*.
+complex table with ’kable’ and pipe syntax*. CRAN.
 <https://doi.org/10.32614/CRAN.package.kableExtra>
 
 </div>

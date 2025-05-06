@@ -9,7 +9,7 @@ author:
   - Aitor Larrañaga^[Laboratory of Stream Ecology | Department of Plant Biology and Ecology | Faculty of Science and Technology | University of the Basque Country | UPV/EHU PO Box 644, 48080 Bilbao, Spain | aitor.larranagaa@ehu.eus | https://orcid.org/0000-0002-0185-9154]
   - Julia Reiss^[Centre for Pollution Research and Policy, Brunel University of London | Uxbridge, UB8 3PH, UK | julia.reiss@brunel.ac.uk | https://orcid.org/0000-0002-3740-0046]
 bibliography: references/CRITTERstatistics.bib
-csl: references/methods-in-ecology-and-evolution.csl
+csl: "https://raw.githubusercontent.com/citation-style-language/styles/refs/heads/master/dependent/journal-of-animal-ecology.csl"
 documentclass: article
 site: bookdown::bookdown_site
 output:
