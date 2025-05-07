@@ -51,4 +51,8 @@ rsconnect/
 # Custom
 *.Rproj
 *.log
+*.tex
+*.pdf
+*.jpeg
 /output
+/statisticsReport_files
