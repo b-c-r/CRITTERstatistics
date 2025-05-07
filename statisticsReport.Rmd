@@ -23,6 +23,7 @@ linkcolor: gray
 classoption: a4paper
 ---
 
+
 \newpage
 \thispagestyle{plain}
 
@@ -48,14 +49,14 @@ library("dplyr")
 library("foreach")
 
 evaluate_selected_chunks <- FALSE                                                # set to TRUE for a version to publish
-ci_runs <- 10000                                                                # choose 10000 for publication output
+ci_runs <- 100                                                                # choose 10000 for publication output
 ```
 
 # Overview
 
 ## Summary
 
-This repository hosts the statistics report that is supplementing our [scientific preprint article](https://doi.org/10.1101/2025.02.22.639633) by @AranbarriEtAl2025ComplexityReducesFeeding investigating the effect of habitat complexity on the feeding functional response of two freshwater invertebrate predators. Find below information on related works and the location of the data and code.
+This statistical report is supplementing our [scientific preprint article](https://doi.org/10.1101/2025.02.22.639633) by @AranbarriEtAl2025ComplexityReducesFeeding in which we investigate the effect of habitat complexity on the feeding functional response of two freshwater invertebrate predators. Find below information on related works and the location of the data and code.
 
 ## License
 
@@ -65,7 +66,7 @@ This report is published under the [**Creative Commons BY 4.0**](https://creativ
 
 If you want to refer to our report, please cite:
 
-Rall, B.C., Aranbarri, M., Flores, L., Guzmán, I. de, Larrañaga, A., & Reiss, J.(2025): Habitat complexity reduces the feeding strength of freshwater predators (CRITTER) - Supplemental Statistics Report. Zenodo. https://doi.org/10.5281/zenodo.14894598.
+Rall, B.C., Aranbarri, M., Flores, L., de Guzmán, I., Larrañaga, A., and Reiss, J. (2025): Habitat complexity reduces feeding strength of freshwater predators (CRITTER) — Supplemental Statistics Report (v0.1.2). Zenodo. https://doi.org/10.5281/zenodo.15348995
 
 
 ## Related Works
@@ -76,11 +77,11 @@ Rall, B.C., Aranbarri, M., Flores, L., Guzmán, I. de, Larrañaga, A., & Reiss, 
 
 -   [R-Code on Zenodo](https://doi.org/10.5281/zenodo.14894598) [@RallEtAl2025ComplexityReducesFeedingCode]
 
--   [R-Code on GitHub](https://github.com/b-c-r/CRITTERdata)
+-   [R-Code on GitHub](https://github.com/b-c-r/CRITTERcode)
 
--   [Statistical Report on Zenodo](https://doi.org/10.5281/zenodo.14898819) [@RallEtAl2025ComplexityReducesFeedingStatistics]
+-   [Supplemental Statistics Report on Zenodo](https://doi.org/10.5281/zenodo.14898819) [@RallEtAl2025ComplexityReducesFeedingStatistics]
 
--   [Statistical Report on GitHub](https://github.com/b-c-r/CRITTERstatistics)
+-   [Supplemental Statistics Report on GitHub](https://github.com/b-c-r/CRITTERstatistics)
 
 -   [Scientific Preprint Article](https://doi.org/10.1101/2025.02.22.639633) [@AranbarriEtAl2025ComplexityReducesFeeding]
 
@@ -99,13 +100,13 @@ If you want to knit this report for yourself, you need to install:
 - `frair` [@Pritchard2025FrairToolsFunctional]
 - `here` [@MullerBryan2020HereSimplerWay]
 - `kableExtra` [@Zhu2024KableExtraConstructComplex]
-- `knitr` [@Xie2024KnitrGeneralpurposePackage]
+- `knitr` [@Xie2025KnitrGeneralPurposePackage]
 - `lhs` [@Carnell2024LhsLatinHypercubea]
 - `MASS` [@RipleyEtAl2025MASSSupportFunctions]
 - `odin` [@FitzJohn2025OdinODEGeneration]
 - `png` [@Urbanek2022PngReadWrite]
 - `purrr` [@WickhamHenry2025PurrrFunctionalProgramming]
-- `RCurl` [@CRANTeamTempleLang2024RCurlGeneralNetwork]
+- `RCurl` [@TempleLang2025RCurlGeneralNetwork]
 - `sessioninfo` [@CsardiEtAl2025SessioninfoSessionInformation]
 - `supportR` [@Lyon2024SupportRSupportFunctions]
 - `tinytex` [@XiePositSoftwarePBC2025TinytexHelperFunctions]
@@ -397,7 +398,7 @@ The maximum feeding rate, $F_{max}$, and the handling time, $T_h$ are always int
 
 The remaining models (5, 7, 9, 10, 13, 14, 15) will deliver different results.
 
-We will compare all models using common information criteria, the AIC, and the BIC [@Akaike1974NewLookStatistical; @Schwarz1978EstimatingDimensionModela]. The AIC selects models with more parameters, whereas the BIC tends to select models with a lower number of parameters [@Schwarz1978EstimatingDimensionModela]. Please find the results of all fits saved as `*.rds` files in the folders `results_hab_ie` and `results_hab_ng` online (<https://github.com/b-c-r/CRITTERstatistics>).
+We will compare all models using common information criteria, the AIC, and the BIC [@Akaike1974NewLookStatistical; @Schwarz1978EstimatingDimensionModel]. The AIC selects models with more parameters, whereas the BIC tends to select models with a lower number of parameters [@Schwarz1978EstimatingDimensionModel]. Please find the results of all fits saved as `*.rds` files in the folders `results_hab_ie` and `results_hab_ng` online (<https://github.com/b-c-r/CRITTERstatistics>).
 
 ```{r habFRfits, eval=evaluate_selected_chunks}
 hab_fr_results <- run_all_hab_fits(
@@ -532,7 +533,7 @@ create_h_table(
 )
 ```
 
-Both, AIC and BIC select for model 15h as the most parsimonious choice (table \ref{tab:NgAicBicTable}). Within two delta AIC units, models 16h, 16r, and 15r were selected. These models have 7 or more parameters, and in all cases either $F_{max}$ or $T_h$ are affected by habitat complexity. We found the models 9r, 11h, 11r, 13r, and 15r within two delta BIC units, all of them have equal or fewer parameters compared to model 15h (table \ref{tab:NgAicBicTable}, but see also the full table \ref{tab:NgAicBicTableAll} in the [Appendix]). These selections highlight the quality of model 15h, as BIC is known to rather select models with fewer parameters [@Schwarz1978EstimatingDimensionModela].
+Both, AIC and BIC select for model 15h as the most parsimonious choice (table \ref{tab:NgAicBicTable}). Within two delta AIC units, models 16h, 16r, and 15r were selected. These models have 7 or more parameters, and in all cases either $F_{max}$ or $T_h$ are affected by habitat complexity. We found the models 9r, 11h, 11r, 13r, and 15r within two delta BIC units, all of them have equal or fewer parameters compared to model 15h (table \ref{tab:NgAicBicTable}, but see also the full table \ref{tab:NgAicBicTableAll} in the [Appendix]). These selections highlight the quality of model 15h, as BIC is known to rather select models with fewer parameters [@Schwarz1978EstimatingDimensionModel].
 
 ```{r SumTabNgMod15h}
 create_summary_table(

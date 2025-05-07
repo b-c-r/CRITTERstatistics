@@ -137,7 +137,7 @@ If you want to knit this report for yourself, you need to install:
 - `frair` (Pritchard et al., 2017; Pritchard, 2025)
 - `here` (Müller & Bryan, 2020)
 - `kableExtra` (Zhu, 2024)
-- `knitr` (Xie, 2025b)
+- `knitr` (Xie, 2025c)
 - `lhs` (Carnell, 2024)
 - `MASS` (Ripley & Venables, 2025)
 - `odin` (FitzJohn, 2025)
@@ -146,7 +146,7 @@ If you want to knit this report for yourself, you need to install:
 - `RCurl` (Temple Lang, 2025)
 - `sessioninfo` (Csárdi et al., 2025)
 - `supportR` (Lyon, 2024)
-- `tinytex` (Xie & Posit Software, PBC, 2025)
+- `tinytex` (Xie, 2025b)
 
 We used TinyTex to create the pdf report. Please follow their
 installation guidelines on [their homepage](https://yihui.org/tinytex/).
@@ -348,20 +348,20 @@ R markdown*. <https://doi.org/10.32614/CRAN.package.bookdown>
 
 </div>
 
-<div id="ref-Xie2025KnitrGeneralPurposePackage" class="csl-entry">
-
-Xie, Y. (2025b). *<span class="nocase">knitr</span>: A general-purpose
-package for dynamic report generation in R*. CRAN.
-<https://doi.org/10.32614/CRAN.package.knitr>
-
-</div>
-
 <div id="ref-XiePositSoftwarePBC2025TinytexHelperFunctions"
 class="csl-entry">
 
-Xie, Y., & Posit Software, PBC. (2025). *Tinytex: Helper Functions to
-Install and Maintain TeX Live, and Compile LaTeX Documents*.
+Xie, Y. (2025b). *Tinytex: Helper functions to install and maintain TeX
+live, and compile LaTeX documents*. CRAN.
 <https://doi.org/10.32614/CRAN.package.tinytex>
+
+</div>
+
+<div id="ref-Xie2025KnitrGeneralPurposePackage" class="csl-entry">
+
+Xie, Y. (2025c). *<span class="nocase">knitr</span>: A general-purpose
+package for dynamic report generation in R*. CRAN.
+<https://doi.org/10.32614/CRAN.package.knitr>
 
 </div>
 
