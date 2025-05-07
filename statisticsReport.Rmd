@@ -753,8 +753,7 @@ fig_mod11_15_ng_cap <- "The functional feeding response parameters $F_{max}$ (a)
 plot_mod15h_vs_mod11h(
   model_fit_15h = results_hab_ng[[29]],
   model_fit_11h = results_hab_ng[[21]],
-  ci_reps = ci_runs,
-  no_threads = threads_plots
+  ci_reps = ci_runs
 )
 ```
 

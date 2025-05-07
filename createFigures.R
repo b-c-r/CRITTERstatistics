@@ -103,7 +103,6 @@ plot_mod15h_vs_mod11h(
   pic_y2a = c(19.500, 31.500, 30.000, 18.500),  
   pic_y1b = c( 0.055,  0.030,  0.035,  0.055),
   pic_y2b = c( 0.065,  0.040,  0.045,  0.065), 
-  journal_style = TRUE,
-  no_threads = no_threads
+  journal_style = TRUE
 )
 dev.off()
