@@ -16,6 +16,7 @@ output:
   bookdown::pdf_document2:
     toc: false
     number_sections: false
+    extra_dependencies: "float"
 date: "`r Sys.Date()`"
 geometry: margin=2cm
 urlcolor: blue
