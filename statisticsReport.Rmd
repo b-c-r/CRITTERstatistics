@@ -40,6 +40,27 @@ classoption: a4paper
 \mbox{}
 
 ```{r setup, include=FALSE}
+################################################################################
+#    Copyright statement for all code junks in this *.Rmd file                 #
+#    Please see code junks for details what the code does                      #
+#                                                                              #
+#    Copyright (C) 2025 Björn C. Rall (https://orcid.org/0000-0002-3191-8389)  #
+#                                                                              #
+#    This program is free software: you can redistribute it and/or modify      #
+#    it under the terms of the GNU General Public License as published by      #
+#    the Free Software Foundation, either version 3 of the License, or         #
+#    (at your option) any later version.                                       #
+#                                                                              #
+#    This program is distributed in the hope that it will be useful,           #
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of            #
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the             #
+#    GNU General Public License for more details.                              #
+#                                                                              #
+#    You should have received a copy of the GNU General Public License         #
+#    along with this program.  If not, see <https://www.gnu.org/licenses/>.    #
+################################################################################
+
+
 knitr::opts_chunk$set(
 	eval = TRUE,
 	echo = FALSE,
