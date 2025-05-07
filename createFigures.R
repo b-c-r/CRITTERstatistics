@@ -21,6 +21,8 @@
 ################################################################################
 ## Set number of confidence interval samples to be used
 ci_runs = 10000
+## number of threads that should be used
+no_threads = 20
 ## Import statistical results
 results_hab_ie <- readRDS(here::here("results", "hab_fr_results.rds"))[1:32]
 results_hab_ng <- readRDS(here::here("results", "hab_fr_results.rds"))[33:64]
@@ -56,7 +58,8 @@ plot_mod05r(
   pic_x2 = c( 80.0, 120.0,  80.0, 120.0),
   pic_y1 = c( 21.0,  21.0,  15.5,  15.5),
   pic_y2 = c( 26.5,  26.5,  21.0,  21.0),
-  journal_style = TRUE
+  journal_style = TRUE,
+  no_threads = no_threads
 )
 dev.off()
 
@@ -76,7 +79,8 @@ plot_mod15h(
   pic_x2 = rep(190.0, 4),
   pic_y1 = rep( 25.0, 4),
   pic_y2 = rep( 40.0, 4),
-  journal_style = TRUE
+  journal_style = TRUE,
+  no_threads = no_threads
 )
 dev.off()
 
@@ -99,6 +103,7 @@ plot_mod15h_vs_mod11h(
   pic_y2a = c(19.500, 31.500, 30.000, 18.500),  
   pic_y1b = c( 0.055,  0.030,  0.035,  0.055),
   pic_y2b = c( 0.065,  0.040,  0.045,  0.065), 
-  journal_style = TRUE
+  journal_style = TRUE,
+  no_threads = no_threads
 )
 dev.off()
