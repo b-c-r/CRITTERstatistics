@@ -36,10 +36,12 @@ file.rename(
 ################################################################################
 
 ## Render the report:
-rmarkdown::render(
-  "statisticsReport.Rmd",
-  output_format = "all"
+system.time({
+  rmarkdown::render(
+    "statisticsReport.Rmd",
+    output_format = "all"
   )
+})
 
 ## Move report to output folder:
 file.rename(
