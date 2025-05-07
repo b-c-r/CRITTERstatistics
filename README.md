@@ -112,7 +112,8 @@ predators (CRITTER) - Supplemental Statistics Report (v0.1.0). Zenodo.
 
 ## Code and Data
 
-We wrote our report in R Markdown and bookdown. The R Markdown script
+We wrote our report in R Markdown (Allaire et al., 2024; Xie et al.,
+2018, 2020) and bookdown (Xie, 2016, 2025a). The R Markdown script
 imports the data and the required functions directly from our GitHub
 repositories [CRITTERdata](https://github.com/b-c-r/CRITTERdata) and
 [CRITTERcode](https://github.com/b-c-r/CRITTERcode), respectively
@@ -169,6 +170,15 @@ if the R Markdown script works using TinyTex.
 
 <div id="refs" class="references csl-bib-body hanging-indent"
 entry-spacing="0" line-spacing="2">
+
+<div id="ref-allaireRmarkdownDynamicDocuments2024" class="csl-entry">
+
+Allaire, J., Xie, Y., Dervieux, C., McPherson, J., Luraschi, J., Ushey,
+K., Atkins, A., Wickham, H., Cheng, J., Chang, W., & Iannone, R. (2024).
+*<span class="nocase">rmarkdown</span>: Dynamic documents for R*
+\[Manual\]. <https://github.com/rstudio/rmarkdown>
+
+</div>
 
 <div id="ref-AranbarriEtAl2025ComplexityReducesFeeding"
 class="csl-entry">
@@ -242,7 +252,8 @@ class="csl-entry">
 
 Microsoft, & Weston, S. (2022a).
 *<span class="nocase">doParallel</span>: Foreach parallel adaptor for
-the ’parallel’ package*. <https://CRAN.R-project.org/package=doParallel>
+the ’parallel’ package*. CRAN.
+<https://CRAN.R-project.org/package=doParallel>
 
 </div>
 
@@ -258,7 +269,7 @@ Provides foreach looping construct*. CRAN.
 <div id="ref-MullerBryan2020HereSimplerWay" class="csl-entry">
 
 Müller, K., & Bryan, J. (2020). *<span class="nocase">here</span>: A
-simpler way to find your files*.
+simpler way to find your files*. CRAN.
 <https://doi.org/10.32614/CRAN.package.here>
 
 </div>
@@ -340,18 +351,27 @@ Functional programming tools*. CRAN.
 
 </div>
 
+<div id="ref-xieBookdownAuthoringBooks2016" class="csl-entry">
+
+Xie, Y. (2016). *<span class="nocase">bookdown</span>: Authoring books
+and technical documents with R markdown*. Chapman and Hall/CRC.
+<https://bookdown.org/yihui/bookdown>
+
+</div>
+
 <div id="ref-Xie2025BookdownAuthoringBooks" class="csl-entry">
 
-Xie, Y. (2025a). *Bookdown: Authoring books and technical documents with
-R markdown*. <https://doi.org/10.32614/CRAN.package.bookdown>
+Xie, Y. (2025a). *<span class="nocase">bookdown</span>: Authoring books
+and technical documents with R markdown*. CRAN.
+<https://doi.org/10.32614/CRAN.package.bookdown>
 
 </div>
 
 <div id="ref-XiePositSoftwarePBC2025TinytexHelperFunctions"
 class="csl-entry">
 
-Xie, Y. (2025b). *Tinytex: Helper functions to install and maintain TeX
-live, and compile LaTeX documents*. CRAN.
+Xie, Y. (2025b). *<span class="nocase">tinytex</span>: Helper functions
+to install and maintain TeX live, and compile LaTeX documents*. CRAN.
 <https://doi.org/10.32614/CRAN.package.tinytex>
 
 </div>
@@ -361,6 +381,21 @@ live, and compile LaTeX documents*. CRAN.
 Xie, Y. (2025c). *<span class="nocase">knitr</span>: A general-purpose
 package for dynamic report generation in R*. CRAN.
 <https://doi.org/10.32614/CRAN.package.knitr>
+
+</div>
+
+<div id="ref-xieMarkdownDefinitiveGuide2018" class="csl-entry">
+
+Xie, Y., Allaire, J. J., & Grolemund, G. (2018). *R markdown: The
+definitive guide*. Chapman and Hall/CRC.
+<https://bookdown.org/yihui/rmarkdown>
+
+</div>
+
+<div id="ref-xieMarkdownCookbook2020" class="csl-entry">
+
+Xie, Y., Dervieux, C., & Riederer, E. (2020). *R markdown cookbook*.
+Chapman and Hall/CRC. <https://bookdown.org/yihui/rmarkdown-cookbook>
 
 </div>
 
