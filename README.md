@@ -117,12 +117,10 @@ We wrote our report in R Markdown and bookdown. The R Markdown script
 imports the data and the required functions directly from our GitHub
 repositories [CRITTERdata](https://github.com/b-c-r/CRITTERdata) and
 [CRITTERcode](https://github.com/b-c-r/CRITTERcode), respectively
-(Flores et al., 2025; Rall et al., 2025a). You will find also an
-in-depth code description in the REAMDE of our
-[CRITTERcode](https://github.com/b-c-r/CRITTERcode) repository or in the
-[full statistical
-report](https://github.com/b-c-r/CRITTERstatistics/blob/main/statisticsReport.pdf).
-You will find laboratory methods in our [scientific preprint
+(Flores et al., 2025; Rall et al., 2025a). You will find an in-depth
+code description in the README of our
+[CRITTERcode](https://github.com/b-c-r/CRITTERcode) repository. You will
+find laboratory methods in our [scientific preprint
 article](https://doi.org/10.1101/2025.02.22.639633) (Aranbarri et al.,
 2025).
 
@@ -150,13 +148,10 @@ If you want to knit this report for yourself, you need to install:
 - `supportR` (Lyon, 2024)
 - `tinytex` (Xie & Posit Software, PBC, 2025)
 
-We used TinyTex (Xie & Posit Software, PBC, 2025) to create the pdf
-report. Please follow their installation guidelines using on [their
-homepage](https://yihui.org/tinytex/). You can, of course, use another
-LaTeX distribution, but we only tested if the RMarkdown script works
-using TinyTex.
-
-**Please let us know if we forgot required packages.**
+We used TinyTex to create the pdf report. Please follow their
+installation guidelines on [their homepage](https://yihui.org/tinytex/).
+You can, of course, use another LaTeX distribution, but we only tested
+if the R Markdown script works using TinyTex.
 
 ## Funding Information
 
