@@ -75,7 +75,7 @@ Rall, B.C., Aranbarri, M., Flores, L., de Guzmán, I., Larrañaga, A., and Reiss
 
 ## Code and Data
 
-We wrote our report in R Markdown and bookdown. The R Markdown script imports the data and the required functions directly from our GitHub repositories [CRITTERdata](https://github.com/b-c-r/CRITTERdata) and [CRITTERcode](https://github.com/b-c-r/CRITTERcode), respectively [@FloresEtAl2025ComplexityReducesFeedingData;@RallEtAl2025ComplexityReducesFeedingCode]. You will find an in-depth code description in the README of our [CRITTERcode](https://github.com/b-c-r/CRITTERcode) repository. You will find laboratory methods in our [scientific preprint article](https://doi.org/10.1101/2025.02.22.639633) [@AranbarriEtAl2025ComplexityReducesFeeding].
+We wrote our report in R Markdown [@xieMarkdownDefinitiveGuide2018; @allaireRmarkdownDynamicDocuments2024; @xieMarkdownCookbook2020] and bookdown [@Xie2025BookdownAuthoringBooks; @xieBookdownAuthoringBooks2016]. The R Markdown script imports the data and the required functions directly from our GitHub repositories [CRITTERdata](https://github.com/b-c-r/CRITTERdata) and [CRITTERcode](https://github.com/b-c-r/CRITTERcode), respectively [@FloresEtAl2025ComplexityReducesFeedingData;@RallEtAl2025ComplexityReducesFeedingCode]. You will find an in-depth code description in the README of our [CRITTERcode](https://github.com/b-c-r/CRITTERcode) repository. You will find laboratory methods in our [scientific preprint article](https://doi.org/10.1101/2025.02.22.639633) [@AranbarriEtAl2025ComplexityReducesFeeding].
 
 ## Required Packages
 
