@@ -17,12 +17,25 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.    #
 ################################################################################
 
+################################################################################
+## setup
+library("foreach")
+
+## importing functions for the report output (e.g. tables and figures)
+gh_path <- "https://raw.githubusercontent.com/b-c-r/CRITTERcode/refs/heads/main/"
+
+source(paste(gh_path, "functions_habitat_statistics/rrpe_sim.R", sep = ""))
+source(paste(gh_path, "functions_report/plot_introduction.R", sep = ""))
+source(paste(gh_path, "functions_report/plot_mod5r.R", sep = ""))
+source(paste(gh_path, "functions_report/plot_mod15h_vs_mod11h.R", sep = ""))
+source(paste(gh_path, "functions_report/plot_mod15h.R", sep = ""))
+
 
 ################################################################################
 ## Set number of confidence interval samples to be used
 ci_runs = 10000
 ## number of threads that should be used
-no_threads = 20
+no_threads = 25
 ## Import statistical results
 results_hab_ie <- readRDS(here::here("results", "hab_fr_results.rds"))[1:32]
 results_hab_ng <- readRDS(here::here("results", "hab_fr_results.rds"))[33:64]
@@ -36,20 +49,20 @@ jpeg(
   filename = here::here("output","figure01.jpeg"),
   units = "cm",
   width = "20",
-  height = "10",
-  res = 300
+  height = "20",
+  res = 600
 )
 plot_introduction()
 dev.off()
 
 ################################################################################
-## output for manuscript figure 2
+## output for manuscript figure 3
 jpeg(
-  filename = here::here("output","figure02.jpeg"),
+  filename = here::here("output","figure03.jpeg"),
   units = "cm",
   width = "20",
   height = "10",
-  res = 300
+  res = 600
 )
 plot_mod05r(
   results_hab_ie[[10]],
@@ -64,13 +77,13 @@ plot_mod05r(
 dev.off()
 
 ################################################################################
-## output for manuscript figure 3
+## output for manuscript figure 4
 jpeg(
-  filename = here::here("output","figure03.jpeg"),
+  filename = here::here("output","figure04.jpeg"),
   units = "cm",
   width = "20",
   height = "15",
-  res = 300
+  res = 600
 )
 plot_mod15h(
   results_hab_ng[[29]],
@@ -85,13 +98,13 @@ plot_mod15h(
 dev.off()
 
 ################################################################################
-## output for manuscript figure 4
+## output for manuscript figure 5
 jpeg(
-  filename = here::here("output","figure04.jpeg"),
+  filename = here::here("output","figure05.jpeg"),
   units = "cm",
   width = "20",
   height = "10",
-  res = 300
+  res = 600
 )
 plot_mod15h_vs_mod11h(
   model_fit_15h = results_hab_ng[[29]],
