@@ -75,8 +75,8 @@ library("foreach")
 evaluate_selected_chunks <- TRUE                                                # set to TRUE for a version to publish
 ci_runs <- 10000                                                                # choose 10000 for publication output
 threads_gen_fr <- 10                                                            # number of threads that should be used for generalized FR fitting
-threads_hab_stats <- 16                                                         # number of threads that should be used for habitat statistics fitting
-threads_plots <- 20                                                             # number of threads that should be used for plotting functions to create CI bands
+threads_hab_stats <- 8                                                          # number of threads that should be used for habitat statistics fitting
+threads_plots <- 10                                                             # number of threads that should be used for plotting functions to create CI bands
 ```
 
 # Overview
