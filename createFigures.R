@@ -35,7 +35,7 @@ source(paste(gh_path, "functions_report/plot_mod15h.R", sep = ""))
 ## Set number of confidence interval samples to be used
 ci_runs = 10000
 ## number of threads that should be used
-no_threads = 10
+no_threads = 25
 ## Import statistical results
 results_hab_ie <- readRDS(here::here("results", "hab_fr_results.rds"))[1:32]
 results_hab_ng <- readRDS(here::here("results", "hab_fr_results.rds"))[33:64]
