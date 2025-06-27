@@ -164,8 +164,9 @@ if the R Markdown script works using TinyTex.
   **University of the Basque Country (POSTUPV24/47)**.
 - Julia Reiss was supported by a **Royal Society of London Starting
   Grant**.
-- Björn C. Rall gratefully acknowledges the funding by the **German
-  Science Foundation (DFG) to the Research Unit DynaSym (FOR 5064)**.
+- Björn C. Rall gratefully acknowledges the funding by the [**German
+  Science Foundation (DFG) to the Research Unit DynaSym (FOR
+  5726)**](https://gepris.dfg.de/gepris/projekt/528028597).
 
 ## References
 
